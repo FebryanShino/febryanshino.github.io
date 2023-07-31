@@ -18,17 +18,6 @@
   
 </head>
 <body>
-  <section class="login-popup hidden">  
-    <form class="login-input" method="POST">
-      <h2>Hello!</h2>
-      <input name="name" id="name" class="input" value ="" placeholder="Nama" required/>
-      <textarea rows="5" id="message" name="message" class="input" value ="" placeholder="Pesan(opsional)"/></textarea>
-      <button class="submit">Submit</button>
-      <h4>DISCLAIMER</h6>
-      <h6>Everything here are <span>experimental</span> and <span>not</span> a final product</h6>
-    </form>
-  </section>
-  
   <nav class="navigation-bar">
     <button id="home" class="nav-btn active">
       <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M192 413.952V896h640V413.952L512 147.328 192 413.952zM139.52 374.4l352-293.312a32 32 0 0 1 40.96 0l352 293.312A32 32 0 0 1 896 398.976V928a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V398.976a32 32 0 0 1 11.52-24.576z"></path></g></svg>
@@ -65,14 +54,6 @@
     <div class="burger-menu">
     </div>
     <div class="intro">
-      <div class="opt">
-        <div>
-          <a href="">Test</a>
-          <a href="">Test</a>
-          <a href="">Test</a>
-          <a href="">Test</a>
-        </div>
-      </div>
       <div class="img">
         
       </div>
@@ -89,22 +70,38 @@
           <a href="https://github.com/FebryanShino" target="_blank">Github</a>
         </div>
       </div>  
-    </div>   
+    </div> 
+    <div class="philosophy-container">
+      <h2>Design Philosophies</h2>
+      <p>
+        Some deserts on this planet were oceans once
+      </p>
+      <div class="philosophies">
+      </div>
+      
+    </div>
     <div class="project-container">
-      <h2>Projects</h2>
+      <h2>Project<br/><span>GRID</span></h2>
       <div class="projects">
+        <div class="project"></div>
       </div>
     </div>
+    
     <div class="hover-container">
       <div class="hover-head">
         <h2>Veritas</h2>
-        <h5>Refresh</h5>
+        <p>
+          The life it's not for comparing things. So I hold both of light and shadow. The rays of starts will bring me to you. Throught the dark night skies. See the way to be shined.
+        </p>
+        
+        <a href="#">Refresh</a>
       </div>
       
-      <div class="hover-box">
-      </div>
+      <div class="hover-box" data-exist="false"></div>
+    </div>
     
   </section>
+  
 
 
 
@@ -234,35 +231,35 @@
 
   
   <section class="special-page hidden">
+    <div class="desc-back">
+      <h1>Image Search</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque congue volutpat.</p>
+    </div>
     <div class="first">
-      <div class="desc">
-        <div class="desc-back">
-          <h1>Image Search</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque congue volutpat.</p>
-        </div>
-        <div class="inputs">
-          <div class="search-bar">
-            <input type="text" value ="kamisato_ayaka dress" placeholder="Tags"/>
-            <div class="icon">
+      <div class="inputs">
+        <div class="search-bar">
+          <input type="text" value ="kamisato_ayaka dress" placeholder="Tags"/>
+          <div class="icon">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Search_Magnifying_Glass"> <path id="Vector" d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
               <svg class="hidden" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 3V9M3 9H9M3 9C5.32744 6.91141 7.48287 4.54676 10.7453 4.08779C12.6777 3.81593 14.6461 4.17941 16.3539 5.12343C18.0617 6.06746 19.4164 7.54091 20.2139 9.32177M21 21V15M21 15H15M21 15C18.6725 17.0886 16.5171 19.4532 13.2547 19.9122C11.3223 20.1841 9.35391 19.8206 7.6461 18.8766C5.93829 17.9325 4.58356 16.4591 3.78604 14.6782" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
             </div> 
-          </div>
-          <div class="pop">
-            <div class="orientation">
-              <h6>×</h6>
-              <h6>Portrait</h6>
-              <h6>Landscape</h6>
-            </div>
-            <button>Search</button> 
-          </div>
         </div>
-        <div class="img-container">
-          <!-- Childrens here -->
+        <div class="orientation">
+          <a href="#">Portrait</a>
+          <a href="#">Landscape</a>
         </div>
       </div>
-      <div class="img-search">
+      <div class="img-layout">
+        <div class="img-container">
+            <!-- Childrens here -->
+        </div>
         <div class="img-info">
+          <div class="link-string">
+            <a href="#" target="_blank"><img src="/static/pixiv.png" /></a>
+            <a href="#" target="_blank">
+              <svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#fff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>open-external</title> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="icon" fill="#fff" transform="translate(85.333333, 64.000000)"> <path d="M128,63.999444 L128,106.666444 L42.6666667,106.666667 L42.6666667,320 L256,320 L256,234.666444 L298.666,234.666444 L298.666667,362.666667 L4.26325641e-14,362.666667 L4.26325641e-14,64 L128,63.999444 Z M362.666667,1.42108547e-14 L362.666667,170.666667 L320,170.666667 L320,72.835 L143.084945,249.751611 L112.915055,219.581722 L289.83,42.666 L192,42.6666667 L192,1.42108547e-14 L362.666667,1.42108547e-14 Z" id="Combined-Shape"> </path> </g> </g> </g></svg>
+            </a>
+          </div>
           <div class="artist-string">  
             <h4>Artist</h4>
             <h6>-</h6>
@@ -271,16 +268,58 @@
             <h4>Tags</h4>
             <h6>-</h6>
           </div>
-          <a href="#" target="_blank">
-            Redirect
-            <svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>open-external</title> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="icon" fill="#000000" transform="translate(85.333333, 64.000000)"> <path d="M128,63.999444 L128,106.666444 L42.6666667,106.666667 L42.6666667,320 L256,320 L256,234.666444 L298.666,234.666444 L298.666667,362.666667 L4.26325641e-14,362.666667 L4.26325641e-14,64 L128,63.999444 Z M362.666667,1.42108547e-14 L362.666667,170.666667 L320,170.666667 L320,72.835 L143.084945,249.751611 L112.915055,219.581722 L289.83,42.666 L192,42.6666667 L192,1.42108547e-14 L362.666667,1.42108547e-14 Z" id="Combined-Shape"> </path> </g> </g> </g></svg>
-          </a>
-        </div> 
-        <img class="img-preview" src="https://cdn.donmai.us/sample/cd/6f/__shiina_mahiru_otonari_no_tenshi_sama_ni_itsu_no_mani_ka_dame_ningen_ni_sarete_ita_ken_drawn_by_hanekoto__sample-cd6f4f2f188060731e2e4e4bf6aebd6d.jpg"/>
+          
+        </div>
       </div>
     </div>
-    <div>
-      More!!!!!
+    <div class="second">
+      <div class="head">
+        <h2>Get Dominant Color</h2>
+        <p>
+          Insert your image
+        </p>
+        
+      </div>
+      <div class="container">
+        <label class="image">
+          <h1>→</h1>
+          <input type="file" class="hidden" accept="image/*"/>
+          <div class="hidden"></div>
+        </label>
+        <div class="color-palette">
+          <div>
+            <span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="submit">Get!</a>
+      <div class="percentage">
+        <h2 style="color: red">
+          <span>0</span><span>%</span>
+        </h2>
+        <h2 style="color: lime">
+          <span>0</span><span>%</span>
+        </h2>
+        <h2 style="color: blue" >
+          <span>0</span><span>%</span>
+        </h2>
+      </div>
+      
+      <div class="color">
+        <div class="red">
+          <h5>Red</h5>
+          <div></div>
+        </div>
+        <div class="green">
+          <h5>Green</h5>
+          <div></div>
+        </div>
+        <div class="blue">
+          <h5>Blue</h5>
+          <div></div>
+        </div>
+      </div>
+      
     </div>
     
   </section>
