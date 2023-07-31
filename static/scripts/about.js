@@ -6,6 +6,8 @@ burgerButton.addEventListener('click', () => {
   burgerContainer.classList.remove('hidden');
 });
 
+
+
 burgerContainer.addEventListener('click', (event) => {
   let isClicked = burgerList.contains(event.target);
   if(!isClicked) {

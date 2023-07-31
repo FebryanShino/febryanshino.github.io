@@ -39,6 +39,7 @@ const datetime = () => {
   minutes = leadZero(minutes);
 
   timeContainer.textContent = `${hours}:${minutes}`;
+  timeContainer.setAttribute('data-time', `${hours}:${minutes}`);
 
   
   dateContainer.lastElementChild.textContent = `${month} ${date}`;
@@ -77,7 +78,7 @@ timeContainer.addEventListener('click', () => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      time: timeContainer.textContent
+      time: timeContainer.getAttribute('data-time')
     })
   })
     .then(response => response.json())
@@ -144,6 +145,9 @@ let weatherIconContainer = document.querySelector('.weather');
 
 
 const weatherAPI = (city=null, callback) => {
+  let temp = weatherInfo.firstElementChild;
+  let status = weatherInfo.lastElementChild;
+  
   if(city === null) {
     city = 'Tokyo, Japan';
   }
@@ -156,8 +160,12 @@ const weatherAPI = (city=null, callback) => {
   })
     .then(response => response.json())
     .then(data => {
-      weatherInfo.firstElementChild.textContent = data.temp + '°C';
-      weatherInfo.lastElementChild.textContent = data.status;
+      temp.textContent = data.temp + '°C';
+      temp.setAttribute('data-temp', data.temp + '°C');
+      
+      status.textContent = data.status;
+      status.setAttribute('data-status', data.status);
+      
       weatherInfo.setAttribute('data-location', data.location);
       toggleWeather(data.status);
       callback();
@@ -183,8 +191,8 @@ weatherAPI(null, function() {});
 
 
 weatherIconContainer.addEventListener('click', () => {
-  let temp = weatherInfo.firstElementChild.textContent;
-  let status = weatherInfo.lastElementChild.textContent;
+  let temp = weatherInfo.firstElementChild.getAttribute('data-temp');
+  let status = weatherInfo.lastElementChild.getAttribute('data-status');
   let audio = document.querySelector('.weather > audio');
   let location = weatherInfo.getAttribute('data-location');
   

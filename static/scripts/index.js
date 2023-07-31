@@ -9,6 +9,7 @@ fetch(FebryanShino + '/api/database')
     let about = data.about;
 
     loadProjects(projects);
+    loadPhilosophies([1,2,3,4,5,6]);
     loadTracks(tracks);
     loadAboutPage(about);
   });
@@ -96,8 +97,8 @@ navCenter.addEventListener('click', () => {
   themeColor.setAttribute('content', 'black');
   navBar.style.background = 'black';
   navBar.style.border = '1px solid black';
-  svg[0].style.fill = '#B7BAC3';
-  svg[1].style.fill = '#7584A1';
+  svg[0].style.fill = 'var(--grad-3)';
+  svg[1].style.fill = 'var(--grad-2)';
 
   
   for(let i = 0; i < navColle.length; i++) {
