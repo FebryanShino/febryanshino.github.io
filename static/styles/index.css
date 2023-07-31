@@ -4,6 +4,7 @@
   --third: dodgerblue;
 
   --img: url("https://is5-ssl.mzstatic.com/image/thumb/Music125/v4/0a/86/f3/0a86f317-78d7-fe7e-f279-e835a0ac51c7/cover.jpg/632x632bb.webp");
+  --nav-height: 4rem;
 }
 
 * {
@@ -13,7 +14,7 @@
 }
 
 body {
-  max-height: 100vh;
+  min-height: 100vh;
   overflow-x: hidden;
   font-family: Arial, sans-serif;
 }
@@ -27,9 +28,12 @@ select:focus {
 
 section {
   width: 100%;
-  height: 100%;
+  height: calc(100dvh - var(--nav-height));
+  top: 0;
   position: absolute;
   display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 
@@ -42,7 +46,7 @@ section {
   width: 100%;
   background: var(--first);
   border: 1px solid hsl(0,0%,80%);
-  height: 4rem;
+  height: var(--nav-height);
   z-index: 9999;
   transition:
     background 300ms ease,
@@ -50,25 +54,20 @@ section {
 }
 
 .navigation-bar button {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  /* transform: translateY(-50%); */
-  color: var(--second);
-  font-weight: 500;
-  font-size: .7rem;
-  cursor: pointer;
+  
 }
 
 .navigation-bar .nav-btn {
-  flex-direction: column;
+  display: flex;
+  text-decoration: none;
+  color: var(--second);
+  font-weight: 700;
+  font-size: .7rem;
+  cursor: pointer;
   background: var(--first);
-  /* border: 1px solid var(--second); */
   border: none;
   border-radius: .5rem;
-  /* padding: .2rem .5rem; */
   height: 80%;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -117,13 +116,17 @@ svg path {
 
 
 @media (min-width: 40rem) {
+  :root {
+    --nav-size: 4rem;
+  }
   section {
-    width: 92%;
+    width: calc(100% - var(--nav-size));
+    height: 100%;
     right: 0;
   }
 
   .navigation-bar {
-    width: 8%;
+    width: var(--nav-size);
     height: 100%;
     left: 0;
     align-items: center;

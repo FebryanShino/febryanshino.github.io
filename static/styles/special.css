@@ -1,30 +1,10 @@
-.special-page {
-  display: flex;
-  flex-direction: column;
+
+
+
+.desc-back {
+  background-image: url("https://pbs.twimg.com/media/F2PGra1aEAAgXax?format=jpg&name=large");
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  padding-bottom: 10rem;
-}
-
-.special-page > .first {
-  background: black;
-  display: flex;
-  width: 100%;
-  height: auto;
-  justify-content: space-between;
-  flex-direction: column;
-  padding-bottom: 10rem;
-}
-
-.desc {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.desc > .desc-back {
-  background-image: url("https://pbs.twimg.com/media/FxHUDOlaAAAS98E?format=jpg&name=medium");
+  height: 20rem;
   background-size: cover;
   background-position: center 0%;
   color: white;
@@ -33,7 +13,8 @@
   justify-content: center;
   gap: 1rem;
   padding: 6.5rem 1rem 3rem;
-  transition: padding 300ms ease;
+  transition:
+    background-image 1000ms ease;
   position: relative;
 }
 
@@ -57,16 +38,17 @@
 
 .desc-back > h1 {
   z-index: 1;
-  background: linear-gradient(
+/*  background: linear-gradient(
     90deg,
     hsl(260, 100%, 60%),
     hsl(280, 100%, 70%),
     hsl(290, 100%, 90%),
     hsl(270, 100%, 70%),
     hsl(260, 100%, 60%)
-  );
+  );*/
+  background: var(--title);
   background-size: 200%;
-  background-position: 0% center;
+  background-position: -25% center;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: background-position 300ms ease;
@@ -83,32 +65,39 @@
   transition: opacity 300ms ease;
 }
 
-.desc-back:hover {
-  padding: 9rem 1rem;
-}
+
 
 .desc-back:hover > p {
   opacity: 1;
 }
 
-.desc > .inputs {
-  z-index: 999;
-  position: sticky;
-  display: flex;
-  width: 100%;
-  height: 3rem;
+
+.special-page > .first {
   background: black;
-  top: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
 }
 
-.inputs::before {
-  content: "";
-  position: absolute;
+.desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.first > .inputs {
+  --search-bar: 7rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
   width: 100%;
-  height: 100%;
-  inset: 0;
-  margin: auto;
+  height: var(--search-bar);
   background: black;
+  padding: .3rem;
+  gap: .3rem;
 }
 
 .inputs > .search-bar {
@@ -116,7 +105,6 @@
   height: 100%;
   border-radius: 1rem;
   background: hsl(0,0%,5%);
-  margin: 0 1rem;
   z-index: 4;
   display: flex;
   align-items: center;
@@ -133,6 +121,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@keyframes rotateInfinite {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.search-bar > .icon > svg {
+  animation: none;
 }
 
 .search-bar > .icon > svg path {
@@ -153,36 +154,22 @@
   z-index: 3;
   transition: color 300ms ease;
 }
-.inputs > .pop {
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  background: hsl(0,0%,40%);
-  border-bottom-right-radius: .3rem;
-  border-bottom-left-radius: .3rem;
-  transition:
-    height 300ms ease,
-    transform 300ms ease;
-  overflow: hidden;
-}
+
+
 
 .orientation {
   width: 100%;
   height: 100%;
   background: black;
-  display: grid;
-  grid-template-areas:
-    "🔥 P P"
-    "🔥 L L";
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: space-between;
 }
 
-.orientation > h6 {
+.orientation > a {
+  text-decoration: none;
+  background: black;
+  height: 100%;
+  width: 100%;
   color: white;
   display: flex;
   justify-content: center;
@@ -190,80 +177,31 @@
   border-radius: .1rem;
 }
 
-.orientation > h6:nth-child(1) {
-  grid-row: span 2;
-  grid-area:"🔥";
-  background: hsl(0,0%, 60%);
-}
 
-.orientation > h6:nth-child(2) {
-  grid-area: P;
-}
-
-.orientation > h6:nth-child(3) {
-  grid-area: L;
-}
-
-.inputs > div > button {
-  display: flex;
+.img-layout {
   width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  background: hsl(0,0%,0%);
-  color: white;
-  font-weight: 700;
-  font-size: 1.15rem;
-  border: none;
-  text-decoration: none;
-}
-
-
-
-/* .desc > .text-input {
-  padding: 1rem;
+  height: auto;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: .2rem;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
 }
 
-.text-input > input {
-  width: 100%;
-  padding: .7rem;
-  border-radius: .5rem;
-  border: 1px solid #8BA2B4;
-  font-weight: 600;
-  transition: width 300ms ease;
-}
-
- */
-/* .text-input > button {
-  border: 1px solid #8BA2B4;
-  border-radius: .5rem;
-  background: #8BA2B4;
-  height: 100%;
-  font-weight: 700;
-  aspect-ratio: 1/1;
-  transition: background 300ms ease;
-}
- */
 .img-container {
   position: relative;
   display: grid;
-  margin-top: .5rem;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  width: 100%;
-  height: 30rem;
-  overflow-y: auto;
-  gap: .5rem;
-  padding: 1.5rem 1rem;
+  overflow-x: scroll;
+  height: auto;
+  width: auto;
+  grid-template-rows: repeat(4, 8rem);
+  grid-auto-columns: 8rem;
+  grid-auto-flow: column;
+  gap: .3rem;
+  background: black;
+  
 }
 
-.img-container > img {
-  width: 100%;
-  height: auto;
-  border-radius: .3rem;
+.img-container > div {
   transition:
     transform 300ms ease,
     filter 300ms ease,
@@ -276,92 +214,306 @@
 }
 
 
-.img-search {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  overflow-y: auto;
-}
 
 .img-info {
-  width: 95%;
+  width: 100%;
+  aspect-ratio: 3/4;
+  position: relative;
+  color: white;
   align-self: center;
-  background: #8BA2B4;
+  background: url("https://cdn.donmai.us/sample/cd/6f/__shiina_mahiru_otonari_no_tenshi_sama_ni_itsu_no_mani_ka_dame_ningen_ni_sarete_ita_ken_drawn_by_hanekoto__sample-cd6f4f2f188060731e2e4e4bf6aebd6d.jpg");
+  background-size: cover;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   gap: .8rem;
   padding: .5rem;
-  border-radius: .5rem;
   font-size: 1.05rem;
 }
 
-.img-info > a {
-  border: 1px solid black;
-  font-size: .8rem;
-  font-weight: 400;
-  border-radius: .5rem;
-  text-decoration: none;
-  color: black;
-  width: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: .2rem;
-  padding: .4rem;
-  font-weight: 600;
+
+.img-info::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  bac
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.5),
+    transparent,
+    rgba(0,0,0,.5)
+  );
 }
 
 
-.img-info div {
+
+
+.img-info > div {
   display: flex;
   flex-direction: column;
   gap: .2rem;
+  overflow: hidden;
+  z-index: 2;
 }
+
+
+.img-info > .link-string {
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 3rem;
+  margin-bottom: auto;
+}
+
+.img-info > .link-string > a:first-child {
+  width: auto;
+}
+
+.img-info > .link-string > a {
+  display: flex;
+  height: 100%;
+  aspect-ratio: 1/1;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  z-index: 2;
+}
+
+
+.link-string > a > img {width: 100%;}
+.link-string > a > svg {height: 100%;}
+
+.img-info > .tag-string {
+  height: 20%;
+}
+
+.img-info > .tag-string > h6 {
+  overflow-y: auto;
+}
+
 
 .img-preview {
   display: flex;
   position: relative;
-  width: 95%;
+  max-width: 50%;
+  max-height: 100%;
   align-self: center;
   border-radius: .5rem;
 }
+
+
+.second {
+  --dom-color-1: var(--grad-3);
+  --dom-color-2: var(--grad-2);
+  background: black;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 5rem var(--main-side-padding);
+}
+
+.second > .head {
+  color: var(--dom-color-1);
+}
+
+
+.second > .container {
+  display: flex;
+  gap: .5rem;
+}
+
+
+.second > .container > .image {
+  background: url("https://pbs.twimg.com/media/F2R1qHTb0AApJEz?format=png&name=small");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 1/1;
+  position: relative;
+  cursor: pointer;
+  z-index: 0;
+}
+
+.second > .container > .image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+  z-index: 1;
+  transition: background 300ms ease;
+}
+
+.second > .container > .image:hover::before {
+  background: rgba(0,0,0,.9);
+}
+
+
+.second > .container > .image > h1 {
+  text-align: center;
+  color: var(--grad-2);
+  z-index: 2;
+  font-size: 3rem;
+}
+.second > .container > .image > div {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+}
+
+.second > .container > .image > div::before {
+  content: "×";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.7);
+  color: var(--grad-2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.second > .container > .image > div:hover::before {
+  opacity: 1;
+}
+
+@keyframes cycleHue {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+
+.second > .container > .color-palette {
+  --cycle-hue: cycleHue 2000ms infinite linear;
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: var(--grad-3);
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.second > .container > .color-palette > div {
+  background: rgba(0,0,0,.7);
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: .5rem;
+  font-weight: 700;
+  transition: opacity 300ms ease;
+}
+
+.second > .container > .color-palette > div:hover {
+  opacity: 1;
+}
+
+
+.second >  a {
+  background: var(--dom-color-2);
+  align-self: center;
+  width: 9rem;
+  height: 3rem;
+  font-weight: 600;
+  color: black;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.second > .percentage {
+  display: flex;
+  justify-content: space-evenly;
+  color: white;
+}
+
+.second > .percentage span:last-child {
+  font-size: .8rem;
+}
+
+.second > .color {
+  color: var(--dom-color-2);
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.second > .color div { gap: .3rem; }
+.second > .color div div {
+  width: 0;
+  height: .1rem;
+  background: var(--color);
+  transition: width 1000ms ease;
+}
+
+.second > .color > .red {
+  --color: red;
+  
+}
+
+.second > .color > .green {
+  --color: lime;
+  
+}
+
+.second > .color > .blue {
+  --color: blue;
+  
+}
+
+
 
 
 
 
 @media (min-width: 40rem) {
-    .special-page {
-    width: 92%;
-    right: 0;
+  .first > .inputs {
+    height: calc(var(--search-bar) / 2);
+    flex-direction: row-reverse;
   }
 
-  .special-page > .first {
-    display: flex;
+  .inputs > .orientation {
+    width: 20%;
+  }
+
+  .img-layout {
     flex-direction: row;
-    gap: clamp(.5rem, 4vw, 2rem);
-    height: 60rem;
-    padding: 1rem;
   }
 
-  .desc {
+  .img-container {
+    width: 100%;
+  }
+
+  .img-info {
     height: 100%;
-    width: 50%;
-  }
-  .desc-back {
-    border-radius: .5rem;
-    overflow: hidden;
-  }
-  
-  .img-search {
-    height: 100%;
-    width: 50%;
-    overflow-y: scroll;
-  }
-  
-  .desc > .inputs {
-    position: relative !important;
+    width: 60%;
   }
 }
 

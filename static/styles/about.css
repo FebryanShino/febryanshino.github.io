@@ -8,12 +8,8 @@
 }
 
 
-
-
 .fourth-page {
-  height: 100%;
-  padding: 0 0 7rem;
-  overflow-y: auto;
+  padding: 1rem;
 }
 
 
@@ -21,7 +17,6 @@
 .fourth-page > .container {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
   gap: 1rem;
   width: 100%;
   background: var(--first);
@@ -175,10 +170,6 @@
 }
 
 @media (min-width: 40rem) {
-    .fourth-page {
-    padding: 0;
-  }
-
   .fourth-page > .container {
     flex-direction: row;
     justify-content: space-between;
