@@ -1,143 +1,340 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>FebryanShino's Portfolio</title>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="white"/>
+  <link rel="stylesheet" href="static/styles/about.css"/>
+  <link rel="stylesheet" href="static/styles/home.css"/>
+  <link rel="stylesheet" href="static/styles/index.css"/>
+  <link rel="stylesheet" href="static/styles/login.css"/>
+  <link rel="stylesheet" href="static/styles/more.css"/>
+  <link rel="stylesheet" href="static/styles/music.css"/>
+  <link rel="stylesheet" href="static/styles/special.css"/>
   
-  <title>MikaMikaMika</title>
-  <link href="style.css" rel="stylesheet"/>
-  <meta name="theme-color" content="black"/>
-  <link rel="icon" href="https://pbs.twimg.com/media/Fyp7jndaEAEwLMF?format=jpg&name=large"/>
-  
+  <link rel="icon" href="https://pbs.twimg.com/media/Fyp7jndaEAEwLMF?format=jpg&name=large">
+  <link rel="manifest" href="static/manifest.json" />
   
 </head>
 <body>
-  <h1>Sup Alk, Shino here</h1>
+  <nav class="navigation-bar">
+    <button id="home" class="nav-btn active">
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M192 413.952V896h640V413.952L512 147.328 192 413.952zM139.52 374.4l352-293.312a32 32 0 0 1 40.96 0l352 293.312A32 32 0 0 1 896 398.976V928a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V398.976a32 32 0 0 1 11.52-24.576z"></path></g></svg>
+      Home
+    </button>
+    <button id="more" class="nav-btn">
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M640 384v256H384V384h256zm64 0h192v256H704V384zm-64 512H384V704h256v192zm64 0V704h192v192H704zm-64-768v192H384V128h256zm64 0h192v192H704V128zM320 384v256H128V384h192zm0 512H128V704h192v192zm0-768v192H128V128h192z"></path></g></svg>
+      More
+    </button>
+    <button class="nav-center">
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M384 512a448 448 0 0 1 215.872-383.296A384 384 0 0 0 213.76 640h188.8A448.256 448.256 0 0 1 384 512zM171.136 704a448 448 0 0 1 636.992-575.296A384 384 0 0 0 499.328 704h-328.32z"></path><path fill="#000000" d="M32 640h960q32 0 32 32t-32 32H32q-32 0-32-32t32-32zm128 128h384a32 32 0 1 1 0 64H160a32 32 0 1 1 0-64zm160 127.68 224 .256a32 32 0 0 1 32 32V928a32 32 0 0 1-32 32l-224-.384a32 32 0 0 1-32-32v-.064a32 32 0 0 1 32-32z"></path></g></svg>
+    </button>
+    <button id="set" class="nav-btn">
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M896 529.152V512a384 384 0 1 0-768 0v17.152A128 128 0 0 1 320 640v128a128 128 0 1 1-256 0V512a448 448 0 1 1 896 0v256a128 128 0 1 1-256 0V640a128 128 0 0 1 192-110.848zM896 640a64 64 0 0 0-128 0v128a64 64 0 0 0 128 0V640zm-768 0v128a64 64 0 0 0 128 0V640a64 64 0 1 0-128 0z"></path></g></svg>
+      Music
+    </button>
+    <button id="about" class="nav-btn">
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z"></path></g></svg>
+      About
+    </button>
+  </nav>
 
-  <div class="api">
-    <h3>Enter your Prodia Key</h3>
-    <a target="_blank" href="https://app.prodia.com/api">Get it here</a>
-    <input class="api-input" name="" value ="" placeholder="API KEY" required/>
-  </div>
 
-  <div class="type-toggle" data-status="true">
-    <a href="#" data-img="false">Text to Image</a>
-    <a href="#" data-img="true">Image to Image</a>
-  </div>
+
   
-  
-  <div class="image-container hidden">
-    <div>
-      Image Preview
-      <div></div>
+  <section class="first-page">
+    <div class="header">
+      <h5>Hello, Human!</h5>
+      <div class="first-burger-container" data-active="false">
+        <div></div>
+        <div></div>
+      </div>
     </div>
-    <input class="image-url" value="" placeholder="Enter your image url"/>
-    <h6>Image Status</h6>
-  </div>
-  
-  <form>
-    <div class="main">
-      <h3>Main</h3>
-      
-      <div class="prompt">
-        <h5>Prompt</h5>
-        <input id="prompt" value ="((masterpiece, ultra detailed, best quality))"/>
-      </div>
-      <div class="negative-prompt">
-        <h5>Negative Prompt</h5>
-        <input id="negative-prompt" value ="bad anatomy, bad hands, realistic lips, realism, photorealistic"/>
-      </div>
-      <div class="models">
-        <h5>Models</h5>
+    <div class="burger-menu">
+    </div>
+    <div class="intro">
+      <div class="img">
         
-        <select id="models">
-          <option value="anythingv3_0-pruned.ckpt [2700c435]">Anything V3</option>
-          <option value="anything-v4.5-pruned.ckpt [65745d25]">Anything V4.5</option>
-          <option value="anythingV5_PrtRE.safetensors [893e49b9]">Anything V5</option>
-          <option value="AOM3A3_orangemixs.safetensors [9600da17]">AbyssOrangeMix3 A3</option>
-          <option value="meinamix_meinaV11.safetensors [b56ce717]">MeinaMix V11</option>
-        </select>
       </div>
-    </div>
-
-    <div class="settings">
-      <h3>Settings</h3>
-      <div class="controlnet hidden">
-        <h5>Controlnet</h5>
-        <select id="controlnet">
-          <option value="null">None</option>
-          <option value="control_v11p_sd15_softedge [a8575a2a]">Soft Edge</option>
-          <option value="control_v11p_sd15_scribble [d4ba51ff]">Scribble</option>
-        </select>
+      <div class="text">
+        <h1>
+          Hi, I am Febryan,<br/>
+          Tech Enthusiast
+        </h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque congue volutpat.
+        </p>
+        <div class="contact">
+          <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank">Contact Us</a>
+          <a href="https://github.com/FebryanShino" target="_blank">Github</a>
+        </div>
+      </div>  
+    </div> 
+    <div class="philosophy-container">
+      <h2>Design Philosophies</h2>
+      <p>
+        Some deserts on this planet were oceans once
+      </p>
+      <div class="philosophies">
       </div>
-      <div class="sampler">
-        <h5>Sampler</h5>
-        <select id="sampler">
-          <option value="Euler">Euler</option>
-          <option value="Euler a">Euler a</option>
-          <option value="Heun">Heun</option>
-          <option value="DPM++ 2M Karras">DPM++ 2M Karras</option>
-          <option value="DDIM">DDIM</option>
-        </select>
-      </div>
-      <div class="upscale" data-status="true">
-        <h6>Upscale</h6>
-        <h6>ON</h6>
-      </div>
-    </div>
-
-    <div class="advanced-btn" data-status="false">
-      <h3>Advanced</h3>
-      <h6>Show</h6>
       
     </div>
-    <div class="advanced">
-      <div class="step">
-        <h5>Steps <span>30</span></h5>
-        <input
-        type="range" id="step"
-        min="1" max="50" step="1"
-        value="30" />
-      </div>
-      <div class="cfg">
-        <h5>CFG <span>7</span></h5>
-        <input
-        type="range" id="cfg"
-        min="0" max="20" step="1"
-        value="7" />
-      </div>
-      <div class="denoising">
-        <h5>Denoising Strength <span>0.7</span></h5>
-        <input
-        type="range" id="denoising"
-        min="0" max="1" step=".1"
-        value=".7" />
-      </div>
-      <div class="seed">
-        <h5>Seed</h5>
-      <input id="seed" value="-1" />
+    <div class="project-container">
+      <h2>Project<br/><span>GRID</span></h2>
+      <div class="projects">
+        <div class="project"></div>
       </div>
     </div>
     
-    <button>Generate</button>
-  </form>
-
-  <div class="result">
-    <div class="result-img">
-      <a target="_blank" href="#">Download</a>
-      <a href="#">Copy Job ID</a>
+    <div class="hover-container">
+      <div class="hover-head">
+        <h2>Veritas</h2>
+        <p>
+          The life it's not for comparing things. So I hold both of light and shadow. The rays of starts will bring me to you. Throught the dark night skies. See the way to be shined.
+        </p>
+        
+        <a href="#">Refresh</a>
+      </div>
+      
+      <div class="hover-box" data-exist="false"></div>
     </div>
-    <div class="info" data-job="">
-      <h6>Job ID: <span>-</span></h6>
-      <h6>Date: <span>-</span></h6>
-      <button>Retrieve Image</button>
-    </div>
-  </div>
-  
+    
+  </section>
   
 
+
+
   
-  <script src="script.js"></script>
+  <section class="second-page hidden">
+    <div class="date-container">
+      <div class="datetime">
+        <div class="date">
+          <h3></h3>
+          <h3></h3>
+        </div>
+        <div class="weather">
+          <audio src=""></audio>
+          <div class="weather-icon">        
+            <svg class="clear hidden" fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="sunny_hazy_1_" d="M25,28.36H13v-0.72h12V28.36z M30,24.36H15v-0.72h15V24.36z M9,24.36H2v-0.72h7V24.36z M25,20.36H10 v-0.72h15V20.36z M30,16.36H15v-0.72h15V16.36z M12,16.36c-2.404,0-4.36-1.956-4.36-4.36S9.596,7.64,12,7.64s4.36,1.956,4.36,4.36 h-0.72c0-2.007-1.633-3.64-3.64-3.64S8.36,9.993,8.36,12s1.633,3.64,3.64,3.64V16.36z M20,12.36h-2c-0.199,0-0.36-0.161-0.36-0.36 s0.161-0.36,0.36-0.36h2c0.199,0,0.36,0.161,0.36,0.36S20.199,12.36,20,12.36z M6,12.36H4c-0.199,0-0.36-0.161-0.36-0.36 S3.801,11.64,4,11.64h2c0.199,0,0.36,0.161,0.36,0.36S6.199,12.36,6,12.36z M16.243,8.117c-0.092,0-0.184-0.035-0.254-0.105 c-0.141-0.141-0.141-0.369,0-0.509l1.414-1.414c0.141-0.141,0.369-0.141,0.51,0s0.141,0.369,0,0.509l-1.415,1.414 C16.427,8.082,16.335,8.117,16.243,8.117z M7.757,8.117c-0.092,0-0.184-0.035-0.254-0.105L6.089,6.598 c-0.141-0.141-0.141-0.368,0-0.509s0.368-0.141,0.509,0l1.414,1.414c0.141,0.141,0.141,0.368,0,0.509 C7.941,8.082,7.85,8.117,7.757,8.117z M12,6.36c-0.199,0-0.36-0.161-0.36-0.36V4c0-0.199,0.161-0.36,0.36-0.36S12.36,3.801,12.36,4 v2C12.36,6.199,12.199,6.36,12,6.36z"></path> <rect id="_Transparent_Rectangle" style="fill:none;" width="32" height="32"></rect> </g></svg>
+            <svg class="clouds hidden" fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="cloudy--partial_1_" d="M25.758,24.36H7.355c-2.601,0-4.716-2.128-4.716-4.742s2.115-4.741,4.716-4.741 c0.644,0,1.283,0.133,1.874,0.388c0.609-3.812,3.88-6.625,7.81-6.625c3.176,0,5.982,1.84,7.241,4.717 c0.486-0.134,0.981-0.201,1.478-0.201c3.089,0,5.603,2.513,5.603,5.602S28.847,24.36,25.758,24.36z M7.355,15.597 c-2.204,0-3.996,1.804-3.996,4.021c0,2.218,1.792,4.021,3.996,4.021h18.402c2.692,0,4.882-2.189,4.882-4.882 c0-2.692-2.189-4.882-4.882-4.882c-0.527,0-1.056,0.088-1.568,0.263c-0.186,0.065-0.382-0.03-0.452-0.21 c-1.08-2.775-3.709-4.568-6.698-4.568c-3.731,0-6.809,2.789-7.159,6.487c-0.012,0.122-0.084,0.229-0.192,0.286 c-0.108,0.058-0.237,0.055-0.344-0.007C8.737,15.78,8.05,15.597,7.355,15.597z M4.421,14.03c-0.199,0-0.36-0.161-0.36-0.36 c0-3.093,2.516-5.609,5.609-5.609c0.635,0,1.214,0.021,1.878,0.273c0.186,0.07,0.279,0.278,0.208,0.464 c-0.07,0.185-0.279,0.279-0.464,0.208c-0.502-0.19-0.94-0.225-1.622-0.225c-2.696,0-4.89,2.193-4.89,4.89 C4.781,13.869,4.62,14.03,4.421,14.03z M2.545,14.03H1c-0.199,0-0.36-0.161-0.36-0.36S0.801,13.31,1,13.31h1.545 c0.199,0,0.36,0.161,0.36,0.36S2.744,14.03,2.545,14.03z M3.499,10.468c-0.061,0-0.123-0.015-0.18-0.048L1.981,9.647 C1.81,9.548,1.75,9.328,1.85,9.155c0.099-0.171,0.32-0.232,0.492-0.132L3.68,9.796c0.172,0.1,0.231,0.32,0.132,0.492 C3.745,10.403,3.624,10.468,3.499,10.468z M13.233,7.859c-0.061,0-0.123-0.015-0.18-0.048c-0.172-0.1-0.231-0.32-0.132-0.492 l0.772-1.338c0.1-0.172,0.32-0.231,0.492-0.132c0.172,0.1,0.231,0.32,0.132,0.492L13.545,7.68 C13.479,7.795,13.357,7.859,13.233,7.859z M6.108,7.859c-0.125,0-0.246-0.064-0.312-0.18L5.023,6.342 C4.924,6.169,4.983,5.949,5.155,5.85c0.171-0.1,0.393-0.04,0.492,0.132L6.42,7.319c0.099,0.172,0.04,0.393-0.132,0.492 C6.231,7.844,6.169,7.859,6.108,7.859z M9.67,6.905c-0.199,0-0.36-0.161-0.36-0.36V5c0-0.199,0.161-0.36,0.36-0.36 S10.03,4.801,10.03,5v1.545C10.03,6.744,9.869,6.905,9.67,6.905z"></path> <rect id="_Transparent_Rectangle" style="fill:none;" width="32" height="32"></rect> </g></svg>
+            <svg class="rain hidden" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width=".5"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17.93 15.745H6.87C4.45 15.745 2.5 13.725 2.5 11.215C2.5 8.72503 4.45 6.68503 6.87 6.68503C7.4 6.68503 7.89999 6.77503 8.35999 6.95503C8.60999 7.04503 8.87001 6.95503 9.01001 6.73503C9.74001 5.49503 11.07 4.65503 12.59 4.65503C14.61 4.65503 16.28 6.11503 16.69 8.06503C16.75 8.33503 16.97 8.47504 17.24 8.41504C17.46 8.36504 17.69 8.34503 17.93 8.34503C19.91 8.34503 21.5 10.005 21.5 12.055C21.51 14.095 19.91 15.745 17.93 15.745Z" stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.51 20.345L12.01 17.745" stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14.51 20.345L16.01 17.745" stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6.51001 20.345L8.01001 17.745" stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <svg class="thunderstorm hidden" version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .open_een{fill:#0B1719;} </style> <g> <g> <path class="open_een" d="M22.469,7.085C21.05,4.556,18.414,3,15.5,3c-4.074,0-7.456,3.048-7.933,7.037 C7.373,10.012,7.185,10,7,10c-2.757,0-5,2.243-5,5s2.243,5,5,5h1.5C8.776,20,9,19.776,9,19.5S8.776,19,8.5,19H7 c-2.206,0-4-1.794-4-4s1.794-4,4-4c0.282,0,0.578,0.037,0.906,0.113c0.145,0.035,0.296,0.001,0.414-0.088 c0.118-0.09,0.191-0.227,0.198-0.375C8.703,6.921,11.769,4,15.5,4c2.66,0,5.056,1.482,6.254,3.869 c0.102,0.203,0.328,0.311,0.554,0.264C25.851,7.356,29,10.079,29,13.5c0,3.032-2.467,5.5-5.5,5.5h-6.929l0.924-6.934 c0.032-0.239-0.111-0.466-0.339-0.541c-0.229-0.079-0.479,0.022-0.594,0.233l-5.5,10c-0.085,0.155-0.083,0.344,0.008,0.496 c0.09,0.151,0.253,0.245,0.43,0.245h1.965l-0.464,6.967c-0.015,0.23,0.129,0.441,0.35,0.511C13.4,29.992,13.45,30,13.5,30 c0.172,0,0.336-0.089,0.429-0.243l4.5-7.5c0.142-0.236,0.065-0.544-0.171-0.686c-0.238-0.144-0.544-0.064-0.686,0.172 l-3.435,5.724l0.362-5.434c0.009-0.138-0.04-0.273-0.134-0.375C14.271,21.558,14.138,21.5,14,21.5h-1.654l3.806-6.92l-0.647,4.854 c-0.037,0.274,0.156,0.525,0.43,0.562c0.023,0.003,0.044-0.004,0.066-0.004V20h7.5c3.584,0,6.5-2.916,6.5-6.5 C30,9.578,26.496,6.43,22.469,7.085z"></path> </g> <g> <path class="open_een" d="M22.469,7.085C21.05,4.556,18.414,3,15.5,3c-4.074,0-7.456,3.048-7.933,7.037 C7.373,10.012,7.185,10,7,10c-2.757,0-5,2.243-5,5s2.243,5,5,5h1.5C8.776,20,9,19.776,9,19.5S8.776,19,8.5,19H7 c-2.206,0-4-1.794-4-4s1.794-4,4-4c0.282,0,0.578,0.037,0.906,0.113c0.145,0.035,0.296,0.001,0.414-0.088 c0.118-0.09,0.191-0.227,0.198-0.375C8.703,6.921,11.769,4,15.5,4c2.66,0,5.056,1.482,6.254,3.869 c0.102,0.203,0.328,0.311,0.554,0.264C25.851,7.356,29,10.079,29,13.5c0,3.032-2.467,5.5-5.5,5.5h-6.929l0.924-6.934 c0.032-0.239-0.111-0.466-0.339-0.541c-0.229-0.079-0.479,0.022-0.594,0.233l-5.5,10c-0.085,0.155-0.083,0.344,0.008,0.496 c0.09,0.151,0.253,0.245,0.43,0.245h1.965l-0.464,6.967c-0.015,0.23,0.129,0.441,0.35,0.511C13.4,29.992,13.45,30,13.5,30 c0.172,0,0.336-0.089,0.429-0.243l4.5-7.5c0.142-0.236,0.065-0.544-0.171-0.686c-0.238-0.144-0.544-0.064-0.686,0.172 l-3.435,5.724l0.362-5.434c0.009-0.138-0.04-0.273-0.134-0.375C14.271,21.558,14.138,21.5,14,21.5h-1.654l3.806-6.92l-0.647,4.854 c-0.037,0.274,0.156,0.525,0.43,0.562c0.023,0.003,0.044-0.004,0.066-0.004V20h7.5c3.584,0,6.5-2.916,6.5-6.5 C30,9.578,26.496,6.43,22.469,7.085z"></path> </g> </g> </g></svg>
+            <svg class="snow hidden" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M19.335 15.268l2.485 1.405-.492.871-2.467-1.395-.267 2.492-.994-.108.313-2.92L13 12.836v6.04l2.602 1.033-.369.93L13 19.952V22h-1v-2.048l-2.233.887-.369-.93L12 18.876v-6.04l-4.913 2.777.313 2.92-.994.108-.267-2.492-2.467 1.395-.492-.871 2.485-1.405-1.962-1.581.628-.78 2.271 1.832 4.882-2.76-4.881-2.758-2.272 1.832-.628-.78 1.963-1.582L3.18 7.286l.492-.871L6.139 7.81l.267-2.491.994.108-.312 2.919L12 11.123V5.124L9.398 4.091l.369-.93L12 4.048V2h1v2.048l2.233-.887.369.93L13 5.124v5.999l5.195-2.937-.296-2.759.995-.108.249 2.331 2.185-1.235.492.871-2.185 1.235 1.869 1.417-.605.796-2.212-1.677-5.171 2.922 4.882 2.76 2.271-1.832.628.78-1.962 1.581z"></path><path fill="none" d="M0 0h24v24H0z"></path></g></svg>
+            <svg class="atmosphere hidden" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M256 32A224 224 0 0 0 99.596 95.68l11.12-2.66 38.24-13.41 44.198-8.44 17.383 17.38 27.81-15.892 32.778.498 5.96 7.946 48.17-10.43 73.005 22.35-33.77 13.904 8.442 34.763-16.885 10.925-10.43-52.144-22.844 1.987-3.476 25.824-23.838 9.933 2.48 33.77-14.897 2.484-10.926-19.37-5.463 15.397 12.416 22.844-39.73 40.725-3.973 12.414 6.457 17.878s-15.892 23.343-18.375 22.846c-2.484-.495-44.698-37.743-44.698-37.743l-26.32 15.395-20.86-31.288-18.375 1.49-24.83 69.032-17.88 4.967-38.454-52.088A224 224 0 0 0 256 480a224 224 0 0 0 224-224A224 224 0 0 0 256 32zm75.217 112.67l9.93 15.394-14.897 22.348-2.484 15.893-7.946-4.967h1.49l4.47-42.213 9.437-6.455zm-18.873 56.117l11.422 1.49-.993 11.422-29.796 5.462-.995-7.945 20.362-10.43zm-39.233 26.818l14.9 4.47-2.483 21.355-17.382-12.416 4.966-13.41zm-9.434 45.69l2.482 18.87H245.3l-.993-13.407 19.37-5.463zm39.728 3.476l33.772 8.94 16.885 20.858-45.193-11.918-11.918 4.965-19.866-21.85 26.32-.994zM198.12 289.685l27.316 8.443 33.77 17.38s-20.86 4.47-23.84 3.477c-2.98-.993-43.702-19.37-43.702-19.37l6.457-9.93zm116.21 10.43l10.43 24.83 22.347 13.906-4.966 34.763-25.326 23.342-26.322-21.355-27.314 8.94-19.367 13.903L230.9 369.64s8.442-26.82 10.428-27.812l19.37-5.96 8.443-19.366 7.448 12.912 25.326-6.457 12.416-22.844zm86.91 49.66l4.965 2.484-10.926 15.396-3.475-8.94 9.435-8.94zm-11.422 19.867s6.456 4.47 4.47 5.96c-1.987 1.49-27.81 19.367-27.81 19.367l-10.927-5.463 23.343-17.38 10.925-2.483zm-82.44 32.28l12.415.498-10.428 9.932-1.988-10.43z"></path></g></svg>
+          </div>
+          <div class="info">
+            <h4>18°C</h4>
+            <h4>Rain</h4>
+          </div>
+        </div>
+        <div class="time">
+          <audio src=""></audio>
+          <div>
+            <h2></h2>
+            <h6>Time to work!</h6>
+          </div>
+          <input value="Tokyo, Japan" placeholder="Enter The City Name" required>
+        </div>
+      </div>
+      <button>Refresh</button>
+      <h5>Hello World</h5>
+    </div>
+  </section>
+
+
+
+
+
+
+
+  <section class="third-page hidden">
+    <div class="song-list">
+    </div>
+
+    <div class="container">
+      <form class="music-search">
+        <input name="url" value ="https://youtu.be/qbXCM06FWHk" placeholder="YouTube URL"/>
+        <button>Search</button>
+      </form>
+
+      <div class="player-back">
+        <div class="player">
+          <h4>The Wind Catcher from a Foreign Land</h4>
+          <h6>Yu-Peng Chen & HOYO-MiX</h6>
+          <div class="stamp-container">
+            <div class="timestamp"></div>
+          </div>
+          <audio src=""></audio>
+        
+          <div class="player-btn">
+            <button class="download">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="download"> <g> <path d="M3,12.3v7a2,2,0,0,0,2,2H19a2,2,0,0,0,2-2v-7" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <g> <polyline data-name="Right" fill="none" id="Right-2" points="7.9 12.3 12 16.3 16.1 12.3" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline> <line fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="2.7" y2="14.2"></line> </g> </g> </g> </g> </g></svg>
+            </button>
+            
+            <button class="play">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M8.286 3.407A1.5 1.5 0 0 0 6 4.684v14.632a1.5 1.5 0 0 0 2.286 1.277l11.888-7.316a1.5 1.5 0 0 0 0-2.555L8.286 3.407z" fill="#000000"></path></g></svg>
+              <svg class="hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.163 3.819C5 4.139 5 4.559 5 5.4v13.2c0 .84 0 1.26.163 1.581a1.5 1.5 0 0 0 .656.655c.32.164.74.164 1.581.164h.2c.84 0 1.26 0 1.581-.163a1.5 1.5 0 0 0 .656-.656c.163-.32.163-.74.163-1.581V5.4c0-.84 0-1.26-.163-1.581a1.5 1.5 0 0 0-.656-.656C8.861 3 8.441 3 7.6 3h-.2c-.84 0-1.26 0-1.581.163a1.5 1.5 0 0 0-.656.656zm9 0C14 4.139 14 4.559 14 5.4v13.2c0 .84 0 1.26.164 1.581a1.5 1.5 0 0 0 .655.655c.32.164.74.164 1.581.164h.2c.84 0 1.26 0 1.581-.163a1.5 1.5 0 0 0 .655-.656c.164-.32.164-.74.164-1.581V5.4c0-.84 0-1.26-.163-1.581a1.5 1.5 0 0 0-.656-.656C17.861 3 17.441 3 16.6 3h-.2c-.84 0-1.26 0-1.581.163a1.5 1.5 0 0 0-.655.656z" fill="#000000"></path></g></svg>
+              <svg class="hidden" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 29.963 29.963" xml:space="preserve" fill="#000000" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path fill="#000000" d="M29.133,9.215c-0.775-0.428-1.751-0.146-2.178,0.63l-0.518,0.937 c-1.772-5.424-6.874-9.356-12.882-9.356C6.081,1.426,0,7.507,0,14.981s6.081,13.555,13.555,13.555 c0.886,0,1.604-0.718,1.604-1.603c0-0.885-0.718-1.603-1.604-1.603c-5.706,0-10.349-4.643-10.349-10.35S7.849,4.632,13.555,4.632 c4.525,0,8.372,2.924,9.775,6.978l-0.876-0.483c-0.775-0.428-1.751-0.147-2.178,0.629c-0.428,0.776-0.147,1.751,0.629,2.178 l3.169,1.748c0.261,0.531,0.801,0.901,1.434,0.901c0.16,0,0.311-0.031,0.456-0.074c0.009,0,0.016,0.003,0.025,0.003 c0.565,0,1.112-0.298,1.406-0.829l2.368-4.292C30.191,10.618,29.909,9.643,29.133,9.215z"></path> </g> </g> </g></svg>
+            </button>
+            <button class="rewind">
+              <svg height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 29.963 29.963" xml:space="preserve" fill="#000000" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path fill="#000000" d="M29.133,9.215c-0.775-0.428-1.751-0.146-2.178,0.63l-0.518,0.937 c-1.772-5.424-6.874-9.356-12.882-9.356C6.081,1.426,0,7.507,0,14.981s6.081,13.555,13.555,13.555 c0.886,0,1.604-0.718,1.604-1.603c0-0.885-0.718-1.603-1.604-1.603c-5.706,0-10.349-4.643-10.349-10.35S7.849,4.632,13.555,4.632 c4.525,0,8.372,2.924,9.775,6.978l-0.876-0.483c-0.775-0.428-1.751-0.147-2.178,0.629c-0.428,0.776-0.147,1.751,0.629,2.178 l3.169,1.748c0.261,0.531,0.801,0.901,1.434,0.901c0.16,0,0.311-0.031,0.456-0.074c0.009,0,0.016,0.003,0.025,0.003 c0.565,0,1.112-0.298,1.406-0.829l2.368-4.292C30.191,10.618,29.909,9.643,29.133,9.215z"></path> </g> </g> </g></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="fourth-page hidden">
+    <div class="container">
+      <div class="profile">
+        <h6>Add bunch of random numbers</h6>
+        <div class="profile-main">
+          <div class="profile-pic">
+            <img src="static/image.png"/>
+            <div class="author">
+              <h4>Febryan Shino</h4>
+              Put something here
+            </div>
+          </div>
+
+          <div class="burger">
+            <button class="burger-btn">•••</button>
+          </div>
+          
+        </div>
+        <div class="bio">
+          <h6>Kuru kuru~</h6>
+        </div>
+        <div class="level">
+          Levels
+          <div class="level-bar"></div>
+        </div>
+        
+      </div>
+      
+      <div class="social">
+      </div>
+    </div>
+    
+    <div class="burger-container hidden">
+      <div class="burger-list">
+        <a href="#">item 1</a>
+        <a href="#">item 2</a>
+        <a href="#">item 3</a>
+      </div>
+    </div>
+    
+  </section>
+
+  
+  <section class="special-page hidden">
+    <div class="desc-back">
+      <h1>Image Search</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque congue volutpat.</p>
+    </div>
+    <div class="first">
+      <div class="inputs">
+        <div class="search-bar">
+          <input type="text" value ="kamisato_ayaka dress" placeholder="Tags"/>
+          <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Search_Magnifying_Glass"> <path id="Vector" d="M15 15L21 21M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+              <svg class="hidden" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 3V9M3 9H9M3 9C5.32744 6.91141 7.48287 4.54676 10.7453 4.08779C12.6777 3.81593 14.6461 4.17941 16.3539 5.12343C18.0617 6.06746 19.4164 7.54091 20.2139 9.32177M21 21V15M21 15H15M21 15C18.6725 17.0886 16.5171 19.4532 13.2547 19.9122C11.3223 20.1841 9.35391 19.8206 7.6461 18.8766C5.93829 17.9325 4.58356 16.4591 3.78604 14.6782" stroke="#000000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            </div> 
+        </div>
+        <div class="orientation">
+          <a href="#">Portrait</a>
+          <a href="#">Landscape</a>
+        </div>
+      </div>
+      <div class="img-layout">
+        <div class="img-container">
+            <!-- Childrens here -->
+        </div>
+        <div class="img-info">
+          <div class="link-string">
+            <a href="#" target="_blank"><img src="/static/pixiv.png" /></a>
+            <a href="#" target="_blank">
+              <svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#fff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>open-external</title> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="icon" fill="#fff" transform="translate(85.333333, 64.000000)"> <path d="M128,63.999444 L128,106.666444 L42.6666667,106.666667 L42.6666667,320 L256,320 L256,234.666444 L298.666,234.666444 L298.666667,362.666667 L4.26325641e-14,362.666667 L4.26325641e-14,64 L128,63.999444 Z M362.666667,1.42108547e-14 L362.666667,170.666667 L320,170.666667 L320,72.835 L143.084945,249.751611 L112.915055,219.581722 L289.83,42.666 L192,42.6666667 L192,1.42108547e-14 L362.666667,1.42108547e-14 Z" id="Combined-Shape"> </path> </g> </g> </g></svg>
+            </a>
+          </div>
+          <div class="artist-string">  
+            <h4>Artist</h4>
+            <h6>-</h6>
+          </div>
+          <div class="tag-string">  
+            <h4>Tags</h4>
+            <h6>-</h6>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="second">
+      <div class="head">
+        <h2>Get Dominant Color</h2>
+        <p>
+          Insert your image
+        </p>
+        
+      </div>
+      <div class="container">
+        <label class="image">
+          <h1>→</h1>
+          <input type="file" class="hidden" accept="image/*"/>
+          <div class="hidden"></div>
+        </label>
+        <div class="color-palette">
+          <div>
+            <span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="submit">Get!</a>
+      <div class="percentage">
+        <h2 style="color: red">
+          <span>0</span><span>%</span>
+        </h2>
+        <h2 style="color: lime">
+          <span>0</span><span>%</span>
+        </h2>
+        <h2 style="color: blue" >
+          <span>0</span><span>%</span>
+        </h2>
+      </div>
+      
+      <div class="color">
+        <div class="red">
+          <h5>Red</h5>
+          <div></div>
+        </div>
+        <div class="green">
+          <h5>Green</h5>
+          <div></div>
+        </div>
+        <div class="blue">
+          <h5>Blue</h5>
+          <div></div>
+        </div>
+      </div>
+      
+    </div>
+    
+  </section>
+
+
+
+  <script>
+    let audioFileUrl = "static/audio.mp3";
+  </script>
+
+  <script src="static/scripts/about.js"></script>
+  <script src="static/scripts/home.js"></script><script src="static/scripts/index.js"></script>
+  <script src="static/scripts/login.js"></script>
+  <script src="static/scripts/more.js"></script><script src="static/scripts/music.js"></script>
+  <script src="static/scripts/special.js"></script>
   
 </body>
 </html>
