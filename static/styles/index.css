@@ -103,6 +103,7 @@ svg path {
   padding: .5rem;
   border-radius: 50%;
   background: var(--second);
+  aspect-ratio: 1/1;
   border: none;
 }
 

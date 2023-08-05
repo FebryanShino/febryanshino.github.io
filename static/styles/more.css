@@ -1,30 +1,26 @@
 .second-page {
-  display: flex;
-  flex-direction: column;
-  -webkit-tap-highlight-color: transparent;
+  /* -webkit-tap-highlight-color: transparent; */
+  background: black;
+  display: grid;
+  gap: 1rem;
 }
 
-.second-page > .date-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 30rem;
+.datetime-container {
   width: 100%;
-  padding: .3rem;
+  height: auto;
 }
-
-.date-container > .datetime {
-  background-image: var(--img);
+.datetime {
+  background-image: url("https://images.prodia.xyz/360b2524-c4a7-44e0-aa2a-d39db9ada5c0.png");
   background-size: cover;
   position: relative;
-  min-height: 100%;
-  border-radius: .5rem;
+  width: 100%;
+  height: 10rem;
   /* background: hsl(0,0%,90%); */
-  padding: 1rem;
   display: flex;
+  padding: 1rem;
   justify-content: space-between;
   flex-direction: column;
   z-index: 999;
-  overflow: hidden;
   color: white;
 }
 
@@ -42,33 +38,20 @@
   content: "";
   background: linear-gradient(
     180deg,
-    rgba(0,0,0,.5) 60%,
+    rgba(0,0,0,.5),
     rgba(0,0,0,1)
   );
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(5px);
   width: 100%;
   height: 100%;
-  left: 0;
-  top: 0;
-  margin: 0;
+  inset: 0;
+  margin: auto;
   z-index: -1;
 }
 
-.datetime::after {
-  position: absolute;
-  content: "";
-  background: hsl(0,0%,100%);
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  margin: 0;
-  transform-origin: top;
-  animation: open 1000ms ease forwards;
-}
-                        
 
-.datetime > .date {
+.datetime > div {
+  min-height: 50%;
   display: flex;
   justify-content: space-between;
 }
@@ -83,17 +66,25 @@
 }
 
 
-.datetime > .weather {
+.date {
+  height: 100%;
+  aspect-ratio: 8/6;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.weather {
+  height: 100%;
+  aspect-ratio: 3/4;
   position: relative;
-  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-self: center;
+  justify-content: space-between;
   cursor: pointer;
   transition: opacity 300ms ease;
 }
-
 
 
 .weather > .weather-icon svg {
@@ -108,56 +99,260 @@
 }
 
 
-.datetime > .weather > .info {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-}
 
-
-.datetime > .time {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.time > div {
-  cursor: pointer;
-}
-
-.time > input {
-  text-align: right;
+.datetime > input {
   border: none;
   background: none;
   font-weight: 800;
   color: white;
 }
 
-.date-container > button {
-  width: 99.9%;
-  align-self: center;
-  padding: 1.5rem 1rem 1rem;
+.datetime-container > button {
+  position: absolute;
+  height: 2rem;
   transform: translateY(-100%);
+  width: 100%;
   border: none;
-  border-bottom-left-radius: .5rem;
-  border-bottom-right-radius: .5rem;
   transition: transform 300ms ease;
   font-weight: 800;
   background: black;
   color: white;
+  z-index: 1;
 }
 
-.date-container > h5 {
-  width: 99.9%;
+.datetime-container > h5 {
+  position: absolute;
+  width: 100%;
+  height: 3rem;
   background: blue;
-  padding: 1.5rem 1rem 1rem;
-  transform: translateY(-200%);
-  border-bottom-left-radius: .5rem;
-  border-bottom-right-radius: .5rem;
+  padding: 1rem;
+  transform: translateY(-100%);
   background: black;
   color: white;
   transition: transform 300ms ease;
 }
+
+
+
+
+.second-page > .websites {
+  display: flex;
+  padding: .5rem;
+  width: 100%;
+  height: 10rem;
+  gap: .5rem;
+  overflow-x: auto;
+}
+
+
+.websites > div {
+  --background: var(--grad-2);
+  background-size: cover;
+  height: 100%;
+  padding: .5rem;
+  border-radius: .5rem;
+  background: var(--background);
+  aspect-ratio: 3/4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.websites > div > a {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  aspect-ratio: 3/2;
+  text-decoration: none;
+  color: var(--background);
+  font-weight: 1000;
+  background: rgba(0,0,0,1);
+  border-radius: 0.3rem;
+}
+
+.websites > .this-site {
+  background: var(--title);
+  background-size: 200%;
+  color: black;
+}
+
+.websites > .this-site > a {
+  display: flex;
+  justify-content: center;
+  padding-bottom: auto;
+}
+
+
+.renders {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+
+.renders > .head {
+  width: 100%;
+  aspect-ratio: 2/1;
+  padding: 1rem;
+  background: url("https://pbs.twimg.com/media/F2ug_tYasAAacz_?format=jpg&name=medium");
+  background-size: cover;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.renders > .head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    black
+  );
+  z-index: 1;
+}
+
+.renders > .head > h2 {
+  color: white;
+  z-index: 2;
+}
+
+
+.renders > .head > a {
+  display: flex;
+  width: 6.7rem;
+  text-decoration: none;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.render > .head > a svg {
+  height: 100%;
+}
+
+
+.renders > .body {
+  display: grid;
+  width: 100%;
+  height: auto;
+  grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+  /* padding: .35rem; */
+  grid-gap: .35rem;
+}
+
+.renders > .body > a {
+  grid-column: span 2;
+  aspect-ratio: 2/1;
+  background-size: cover;
+  position: relative;
+}
+
+
+.renders > .body > a::before {
+  content: "→";
+  color: var(--grad-2);
+  font-weight: 1000;
+  font-size: 2.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  opacity: 0;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(5px);
+  transition: opacity 300ms ease;
+}
+
+.renders > .body > a:hover::before {
+  opacity: 1;
+}
+
+
+.generated {
+  width: 100%;
+  height: auto;
+}
+
+.generated > .head {
+  background: url("https://images.prodia.xyz/bb3373e2-3bdc-433a-864f-1f357c550c2c.png");
+  background-size: cover;
+  background-position: center 0;
+  width: 100%;
+  aspect-ratio: 2/1;
+  padding: 2rem;
+  position: relative;
+}
+
+.generated > .head::before {
+  
+}
+
+.generated > .head > h2 {
+  text-align: right;
+}
+
+.generated > .body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+  width: 100%;
+  height: auto;
+  /* grid-auto-flow: dense; */
+}
+
+.generated > .body > div {
+  position: relative;
+}
+
+.generated > .body > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(0,0,0,.5),
+    rgba(0,0,0,.8)
+  );
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+.generated > .body > div:hover::before {
+  opacity: 0;
+}
+
+.generated-square {
+  grid-column: span 1;
+  grid-row: span 1;
+  aspect-ratio: 1/1;
+}
+
+.generated-portrait {
+  grid-column: span 1;
+  grid-row: span 2;
+  aspect-ratio: 1/2;
+}
+
+.generated-landscape {
+  grid-column: span 2;
+  grid-row: span 1;
+  aspect-ratio: 2/1;
+}
+
+
 
 .hidden {
   display: none;
