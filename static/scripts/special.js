@@ -167,10 +167,10 @@ let tagDesc = document.querySelector('.tag-string > h6');
 
 
 
-const toggleBlur = (element, value) => {
+const toggleDesaturate = (element, value) => {
   for(let i = 0; i < imgChildren.length; i++) {
     if (imgChildren[i] !== element) {
-      imgChildren[i].style.filter = `blur(${value}px)`;
+      imgChildren[i].style.filter = `saturate(${value}%)`;
     }
   }
 }
@@ -204,12 +204,16 @@ for(let i = 0; i < imgChildren.length; i++) {
   });
 
   image.addEventListener("mouseenter", () => {
-    toggleBlur(image, 5);
+    toggleDesaturate(image, 0);
   });
   image.addEventListener("mouseleave", ()=> {
-    toggleBlur(image, 0);
+    toggleDesaturate(image, 100);
   });
 }
+
+
+
+
 
 
 

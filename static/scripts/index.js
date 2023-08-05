@@ -10,6 +10,9 @@ fetch(FebryanShino + '/api/database')
 
     loadProjects(projects);
     loadPhilosophies([1,2,3,4,5,6]);
+    loadWebsites(data.websites);
+    loadRenders(data.renders);
+    loadGenerated(data.generated);
     loadTracks(tracks);
     loadAboutPage(about);
   });
