@@ -7,13 +7,14 @@ fetch(FebryanShino + '/api/database')
     let tracks = data.music;
     let projects = data.project;
     let about = data.about;
+    generatedImageArray = data.generated;
 
     loadProjects(projects);
     loadPhilosophies([1,2,3,4,5,6]);
     loadWebsites(data.websites);
     loadRenders(data.renders);
     loadGenerated(data.generated);
-    loadTracks(tracks);
+    // loadTracks(tracks);
     loadAboutPage(about);
   });
 

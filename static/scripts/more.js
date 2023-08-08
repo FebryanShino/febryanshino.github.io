@@ -25,7 +25,6 @@ const loadRenders = (renders) => {
 
   for(let i = 0; i < renders.length; i++) {
     let render = renders[i];
-    console.log(render)
 
     let item = document.createElement('a');
 
@@ -39,18 +38,30 @@ const loadRenders = (renders) => {
   }
 }
 
+let generatedImageArray;
+
+const getThreeRandomItems = (array) => {
+  let newArray = [];
+  for(let i = 0; i < 6; i++) {
+    let item = array[Math.floor(Math.random() * array.length)];
+
+    newArray.push(item);
+  }
+  return newArray;
+}
+
 
 const loadGenerated = (generated) => {
   const container = document.querySelector('.generated > .body');
+  container.innerHTML = '';
+  let array = getThreeRandomItems(generated);
 
-  for(let i = 0; i < generated.length; i++) {
-    let piece = generated[i];
+  for(let i = 0; i < array.length; i++) {
+    let piece = array[i];
 
     let item = document.createElement('div');
     let url = `https://images.prodia.xyz/${piece[0]}.png`;
-
     item.style.background = `url(${url})`;
-    console.log(piece[1] === 'landscape');
     
     if(piece[1] === 'landscape') {
       item.classList.add('generated-landscape');
@@ -66,6 +77,27 @@ const loadGenerated = (generated) => {
   }
 }
 
+
+fetch('https://api.github.com/users/FebryanShino/repos').then(res => res.json())
+  .then(data => {
+    const container = document.querySelector('.repositories > .body');
+
+    for(let i = 0; i < data.length; i++) {
+      let repo = data[i];
+
+      let item = document.createElement('a');
+      item.textContent = repo.name;
+      item.style.background = `hsl(${200 + 45*i}, 100%, 70%)`;
+      item.href = repo.html_url;
+      item.setAttribute('target', '_blank');
+
+      container.appendChild(item);
+    }
+  });
+
+const displayImage = (array, amount) => {
+  
+}
 
 
 
@@ -90,34 +122,49 @@ const ordinalNumber = (number) => {
 
 
 let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 let dateContainer = document.querySelector('.date > h6');
 let timeContainer = document.querySelector('.date > h1');
 
 const datetime = () => {
-  const currentTime = new Date();
-
-  let hours = currentTime.getHours();
-  let minutes = currentTime.getMinutes();
+  let currentTime = new Date();
 
   let date = ordinalNumber(currentTime.getDate());
   let day = days[currentTime.getDay()];
   let month = months[currentTime.getMonth()];
   
-  hours = leadZero(hours);
-  minutes = leadZero(minutes);
-
-  
-  timeContainer.textContent = `${hours}:${minutes}`;
   dateContainer.textContent = `${day}, ${month} ${date}`;
-  timeContainer.setAttribute('data-time', `${hours}:${minutes}`);
 }
 
-
-
 datetime();
-setInterval(datetime, 1000 * 60);
+setInterval(datetime, 60000);
+
+
+const analogClock = () => {
+  let date = new Date();
+  let second = date.getSeconds();
+  let minute = date.getMinutes();
+  let hour = date.getHours();
+  
+  const secContainer = document.querySelector('.clock > .seconds');
+  const minContainer = document.querySelector('.clock > .minutes');
+  const hourContainer = document.querySelector('.clock > .hours');
+  
+  secContainer.style.transform = `rotate(${second/60*360}deg)`;
+  minContainer.style.transform = `rotate(${minute/60*360}deg)`;
+  hourContainer.style.transform = `rotate(${hour/12*360}deg)`;
+
+  let hours = leadZero(hour);
+  let minutes = leadZero(minute);
+
+  timeContainer.textContent = `${hours}:${minutes}`;
+  timeContainer.dataset.time = `${hours}:${minutes}`;
+}
+analogClock();
+setInterval(analogClock, 1000);
+
+
 
 
 const textPopUp = (audio, text) => {
@@ -286,3 +333,11 @@ weatherIconContainer.addEventListener('click', () => {
 });
 
 
+const generateButton = document.querySelector('.generated > .head > div > button');
+let rotateValue = 0;
+
+generateButton.addEventListener('click', (e) => {
+  rotateValue += 360;
+  e.target.style.setProperty('--rotate', `rotate(${rotateValue}deg)`);
+  loadGenerated(generatedImageArray);
+});
