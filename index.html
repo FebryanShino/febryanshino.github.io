@@ -136,8 +136,24 @@
         <h4>This</h4>
         <a href="#">↓</a>
       </div>
-      
     </div>
+    <div class="repositories">
+      <div class="clock">
+        <div class="hours">
+          <div class="hour-point"></div>
+        </div>
+        <div class="minutes">
+          <div class="minute-point"></div>
+        </div>
+        <div class="seconds">
+          <div class="second-point"></div>
+        </div>
+        <div class="point"></div>
+      </div>
+      
+      <div class="body"></div>
+    </div>
+    
     <div class="renders">
       <div class="head">
         <h2>3D Renders</h2>
@@ -150,7 +166,11 @@
     </div>
     <div class="generated">
       <div class="head">
-        <h2>AI<br/>Generated</h2>
+        <div>
+          <h3>AI Images</h3>
+          <button>|</button>
+        </div>
+        
       </div>
       <div class="body">
       </div>
@@ -167,40 +187,82 @@
 
 
   <section class="third-page hidden">
-    <div class="song-list">
-    </div>
-
-    <div class="container">
-      <form class="music-search">
-        <input name="url" value ="https://youtu.be/qbXCM06FWHk" placeholder="YouTube URL"/>
-        <button>Search</button>
+    <div class="music-player">
+      <form>
+        <input value="https://youtu.be/kRd1cW0_VMA" required/>
+        <button>→</button>
       </form>
-
-      <div class="player-back">
-        <div class="player">
-          <h4>The Wind Catcher from a Foreign Land</h4>
-          <h6>Yu-Peng Chen & HOYO-MiX</h6>
-          <div class="stamp-container">
-            <div class="timestamp"></div>
+      
+      <div class="head">
+        <div class="image">
+          <video class="hidden">
+            <source src="/static/video.mp4"/>
+          </video>
+        </div>
+        <div class="info">
+          <h2>Illustrious</h2>
+          <h4>Shinomiya</h4>
+          <div class="timeline"></div>
+          <div class="time">
+            <span>0:00</span>
+            <span>0:00</span>
           </div>
-          <audio src=""></audio>
-        
-          <div class="player-btn">
-            <button class="download">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="download"> <g> <path d="M3,12.3v7a2,2,0,0,0,2,2H19a2,2,0,0,0,2-2v-7" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <g> <polyline data-name="Right" fill="none" id="Right-2" points="7.9 12.3 12 16.3 16.1 12.3" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polyline> <line fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="2.7" y2="14.2"></line> </g> </g> </g> </g> </g></svg>
-            </button>
-            
+          
+          <div class="player">
+            <button class="backward"><</button>
             <button class="play">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M8.286 3.407A1.5 1.5 0 0 0 6 4.684v14.632a1.5 1.5 0 0 0 2.286 1.277l11.888-7.316a1.5 1.5 0 0 0 0-2.555L8.286 3.407z" fill="#000000"></path></g></svg>
-              <svg class="hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.163 3.819C5 4.139 5 4.559 5 5.4v13.2c0 .84 0 1.26.163 1.581a1.5 1.5 0 0 0 .656.655c.32.164.74.164 1.581.164h.2c.84 0 1.26 0 1.581-.163a1.5 1.5 0 0 0 .656-.656c.163-.32.163-.74.163-1.581V5.4c0-.84 0-1.26-.163-1.581a1.5 1.5 0 0 0-.656-.656C8.861 3 8.441 3 7.6 3h-.2c-.84 0-1.26 0-1.581.163a1.5 1.5 0 0 0-.656.656zm9 0C14 4.139 14 4.559 14 5.4v13.2c0 .84 0 1.26.164 1.581a1.5 1.5 0 0 0 .655.655c.32.164.74.164 1.581.164h.2c.84 0 1.26 0 1.581-.163a1.5 1.5 0 0 0 .655-.656c.164-.32.164-.74.164-1.581V5.4c0-.84 0-1.26-.163-1.581a1.5 1.5 0 0 0-.656-.656C17.861 3 17.441 3 16.6 3h-.2c-.84 0-1.26 0-1.581.163a1.5 1.5 0 0 0-.655.656z" fill="#000000"></path></g></svg>
-              <svg class="hidden" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 29.963 29.963" xml:space="preserve" fill="#000000" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path fill="#000000" d="M29.133,9.215c-0.775-0.428-1.751-0.146-2.178,0.63l-0.518,0.937 c-1.772-5.424-6.874-9.356-12.882-9.356C6.081,1.426,0,7.507,0,14.981s6.081,13.555,13.555,13.555 c0.886,0,1.604-0.718,1.604-1.603c0-0.885-0.718-1.603-1.604-1.603c-5.706,0-10.349-4.643-10.349-10.35S7.849,4.632,13.555,4.632 c4.525,0,8.372,2.924,9.775,6.978l-0.876-0.483c-0.775-0.428-1.751-0.147-2.178,0.629c-0.428,0.776-0.147,1.751,0.629,2.178 l3.169,1.748c0.261,0.531,0.801,0.901,1.434,0.901c0.16,0,0.311-0.031,0.456-0.074c0.009,0,0.016,0.003,0.025,0.003 c0.565,0,1.112-0.298,1.406-0.829l2.368-4.292C30.191,10.618,29.909,9.643,29.133,9.215z"></path> </g> </g> </g></svg>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M8.286 3.407A1.5 1.5 0 0 0 6 4.684v14.632a1.5 1.5 0 0 0 2.286 1.277l11.888-7.316a1.5 1.5 0 0 0 0-2.555L8.286 3.407z" fill="#fff"></path></g></svg>
+              <svg class="hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.163 3.819C5 4.139 5 4.559 5 5.4v13.2c0 .84 0 1.26.163 1.581a1.5 1.5 0 0 0 .656.655c.32.164.74.164 1.581.164h.2c.84 0 1.26 0 1.581-.163a1.5 1.5 0 0 0 .656-.656c.163-.32.163-.74.163-1.581V5.4c0-.84 0-1.26-.163-1.581a1.5 1.5 0 0 0-.656-.656C8.861 3 8.441 3 7.6 3h-.2c-.84 0-1.26 0-1.581.163a1.5 1.5 0 0 0-.656.656zm9 0C14 4.139 14 4.559 14 5.4v13.2c0 .84 0 1.26.164 1.581a1.5 1.5 0 0 0 .655.655c.32.164.74.164 1.581.164h.2c.84 0 1.26 0 1.581-.163a1.5 1.5 0 0 0 .655-.656c.164-.32.164-.74.164-1.581V5.4c0-.84 0-1.26-.163-1.581a1.5 1.5 0 0 0-.656-.656C17.861 3 17.441 3 16.6 3h-.2c-.84 0-1.26 0-1.581.163a1.5 1.5 0 0 0-.655.656z" fill="#fff"></path></g></svg>
+              <svg class="hidden" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 29.963 29.963" xml:space="preserve" fill="#fff" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path fill="#fff" d="M29.133,9.215c-0.775-0.428-1.751-0.146-2.178,0.63l-0.518,0.937 c-1.772-5.424-6.874-9.356-12.882-9.356C6.081,1.426,0,7.507,0,14.981s6.081,13.555,13.555,13.555 c0.886,0,1.604-0.718,1.604-1.603c0-0.885-0.718-1.603-1.604-1.603c-5.706,0-10.349-4.643-10.349-10.35S7.849,4.632,13.555,4.632 c4.525,0,8.372,2.924,9.775,6.978l-0.876-0.483c-0.775-0.428-1.751-0.147-2.178,0.629c-0.428,0.776-0.147,1.751,0.629,2.178 l3.169,1.748c0.261,0.531,0.801,0.901,1.434,0.901c0.16,0,0.311-0.031,0.456-0.074c0.009,0,0.016,0.003,0.025,0.003 c0.565,0,1.112-0.298,1.406-0.829l2.368-4.292C30.191,10.618,29.909,9.643,29.133,9.215z"></path> </g> </g> </g></svg>
             </button>
-            <button class="rewind">
-              <svg height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 29.963 29.963" xml:space="preserve" fill="#000000" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path fill="#000000" d="M29.133,9.215c-0.775-0.428-1.751-0.146-2.178,0.63l-0.518,0.937 c-1.772-5.424-6.874-9.356-12.882-9.356C6.081,1.426,0,7.507,0,14.981s6.081,13.555,13.555,13.555 c0.886,0,1.604-0.718,1.604-1.603c0-0.885-0.718-1.603-1.604-1.603c-5.706,0-10.349-4.643-10.349-10.35S7.849,4.632,13.555,4.632 c4.525,0,8.372,2.924,9.775,6.978l-0.876-0.483c-0.775-0.428-1.751-0.147-2.178,0.629c-0.428,0.776-0.147,1.751,0.629,2.178 l3.169,1.748c0.261,0.531,0.801,0.901,1.434,0.901c0.16,0,0.311-0.031,0.456-0.074c0.009,0,0.016,0.003,0.025,0.003 c0.565,0,1.112-0.298,1.406-0.829l2.368-4.292C30.191,10.618,29.909,9.643,29.133,9.215z"></path> </g> </g> </g></svg>
-            </button>
+            <button class="forward">></button>
           </div>
         </div>
       </div>
+      <div class="footer">
+        <a href="#" class="download" download target="_blank">Download</a>
+        <a href="#" class="toggle-type" data-status="false">Video</a>
+      </div>
+    </div>
+    
+    <div class="youtube">
+      <div class="head">
+        <h2>YouTube</h2>
+        <form>
+          <input value="Usagi Flap"/>
+          <button>→</button>
+        </form>
+      </div>
+      <div class="body"></div>
+    </div>
+
+    <div class="itunes">
+      <div class="head">
+        <form>
+          <input value ="Moon Halo"/>
+          <button>→</button>
+        </form>
+        <h3>Title</h3>
+        <div class="track-info">
+          <div class="track-art"></div>
+          <div class="info">
+            <h4 id="artist">Artist</h4>
+            <h4 id="duration">Duration</h4>
+            <h4 id="genre">genre</h4>
+            <div>
+              <a href="https://images.prodia.xyz/953a74de-6409-4aaf-8e72-216f53b21afd.png" target="_blank" download>↓ Artwork</a>
+              <a href="">Preview</a>
+            </div>
+          </div>
+        </div>
+        <div class="album">
+          <div class="album-art"></div>
+          <h6>title</h6>
+        </div>
+      </div>
+      <div class="body">
+      </div>
+      
     </div>
   </section>
 
@@ -342,11 +404,6 @@
     
   </section>
 
-
-
-  <script>
-    let audioFileUrl = "static/audio.mp3";
-  </script>
 
   <script src="static/scripts/about.js"></script>
   <script src="static/scripts/home.js"></script><script src="static/scripts/index.js"></script>
