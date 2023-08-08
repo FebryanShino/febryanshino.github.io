@@ -1,3 +1,3 @@
-# febryanshino.github.io
+# FebryanShino
 
 ![img](/static/profile.png)
