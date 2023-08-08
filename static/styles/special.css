@@ -191,10 +191,10 @@
   position: relative;
   display: grid;
   overflow-x: scroll;
+  overflow-y: hidden;
   height: auto;
   width: auto;
   grid-template-rows: repeat(4, 8rem);
-  grid-auto-columns: 8rem;
   grid-auto-flow: column;
   gap: .3rem;
   background: black;

@@ -1,178 +1,469 @@
-.third-page {
+.music-player {
   width: 100%;
-  height: 100vh;
-  display: flex;
-  gap: .5rem;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  padding: 2rem 1rem 4rem;
-}
-
-.third-page > .song-list {
+  height: auto;
   display: flex;
   flex-direction: column;
-  background: none;
-  border-radius: 15px;
-  border: 1px solid black;
-  width: 100%;
-  height: 80%;
-  overflow-y: auto;
-}
-
-
-.song-list > div {
-  padding: .25rem 1rem;
-  transition: background 300ms ease;
-}
-
-.song-list > div:hover {
-  background: hsl(0, 0%, 50%);
-}
-
-
-.third-page > .container {
-  display: flex;
-  flex-direction: column;
-  height: 30%;
-  width: 100%;
-}
-
-.container > form {
-  display: flex;
-  width: 100%;
-}
-
-.container > form > input {
-  width: 70%;
-  padding: .3rem;
-  font-weight: 500;
-  border-top-left-radius: 1rem;
-  border: 1px solid black;
-}
-
-.container > form > button {
-  width: 30%;
-  background: black;
-  color: white;
-  font-weight: 700;
-  border: none;
-  border-top-right-radius: 1rem;
-  transition: background 300ms ease;
-}
-
-.container > .player-back {
-  height: 100%;
-  background-image: var(--img);
+  background: url("https://i3.ytimg.com/vi/kRd1cW0_VMA/maxresdefault.jpg");
   background-size: cover;
-  background-position: center 0%;
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  overflow: hidden;
-  transition: background-image 300ms ease;
+  position: relative;
+  isolation: isolate;
 }
 
+.music-player::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(20px);
+  background: rgba(0,0,0,.25);
+  z-index: -1;
+}
 
-.container > .player-back > .player {
-  background: linear-gradient(
-    0deg,
-    rgba(0,0,0,.7),
-    rgba(0,0,0,.3)
-  );
-  backdrop-filter: blur(5px);
+.music-player > form {
+  --height: 3rem;
+  margin: .5rem;
+  width: auto;
+  height: var(--height);
+  border-radius: calc(var(--height)/2);
+  background: rgba(255,255,255,.1);
+  display: flex;
+  padding: .3rem;
+}
+
+.music-player > form > input {
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 0 calc(var(--height)/2.5);
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+.music-player > form > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  color: white;
+  background: rgb(19, 49, 73);
+  border: none;
+  font-size: 1.35rem;
+  font-weight: 800;
+  transition: transform 300ms ease;
+}
+
+.music-player > .head {
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: .3rem;
+  
+}
+.music-player > .head > .image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: url("https://i3.ytimg.com/vi/kRd1cW0_VMA/maxresdefault.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.music-player > .head > .image > video {
+  z-index: 999;
+  position: absolute;
+  inset: 0;
+  margin: auto;
   width: 100%;
   height: 100%;
-  padding: (.5rem, 5vw, 4rem) .5rem;
 }
 
-.player > h4 {
-  width: 98%;
+
+.music-player > .head > .info {
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
   text-align: center;
+  align-items: center;
+  gap: .5rem;
   color: white;
 }
-.player > h6 {
-  color: hsl(0, 0%, 100%);
-  text-align: center;
-}
 
-.stamp-container {
-  background: rgba(0,0,0,.1);
-  width: 90%;
-  height: .1rem;
-  display: flex;
-  align-items: center;
-}
-
-.player > .stamp-container > .timestamp {
+.music-player > .head > .info > h2 {
+  overflow-x: auto;
+  overflow-y: hidden;
   width: 100%;
-  height: 150%;
+  height: 2rem;
+  white-space: nowrap;
+  opacity: .8;
+}
+
+.music-player > .head > .info > h2::-webkit-scrollbar {
+  display: none;
+}
+
+.music-player > .head > .info > h4 {
+  opacity: .5;
+  height: 1.5rem;
+}
+
+
+.music-player > .head > .info > .timeline {
+  width: 100%;
+  height: .15rem;
+  background: white;
   transform: scaleX(0);
   transform-origin: left;
-  background-color: #9a9f99;
-  transition: transform 50ms ease;
+  opacity: .7;
 }
-
-
-.player-btn {
+.music-player > .head > .info > .time {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: clamp(80%, 5vh, 100%);
+  width: 100%;
+  height: .7rem;
+  justify-content: space-between;
+  opacity: .7;
 }
 
 
-.player-btn > .download,
-.player-btn > .rewind {
-  height: 70%;
-  aspect-ratio: 1/1;
-  background-color: rgba(0,0,0,.1);
-  backdrop-filter: blur(2px);
-  border: none;
-  border-radius: 50%;
+
+.music-player > .head > .info > .player {
+  margin-top: auto;
+  width: 100%;
+  height: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1.5rem;
 }
 
-.player-btn > .play {
-  background-color: rgba(0,0,0,.5);
-  backdrop-filter: blur(5px);
+.music-player > .head > .info > .player > button {
+  height: 70%;
+  font-size: 3rem;
+  font-weight: 700;
+  aspect-ratio: 1/1;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  opacity: .7;
+}
+
+.music-player > .head > .info > .player > button:nth-child(2) {
+  height: 100%;
+  background: rgba(0,0,0,.2);
+  opacity: 1;
+}
+
+
+.music-player > .footer {
+  display: flex;
+  width: 100%;
+  height: auto;
+  gap: .5rem;
+  padding: 1rem .5rem;
+  justify-content: center;
+}
+
+.music-player > .footer > a {
+  font-weight: 600;
+  height: 2rem;
+  width: 100%;
+  text-decoration: none;
+  color: white;
+  background: rgba(255,255,255,.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+
+
+.youtube {
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  background: black;
+}
+
+.youtube > .head {
+  width: 100%;
+  aspect-ratio: 2/1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: .5rem;
+  background: url("https://images.prodia.xyz/0a10406f-6470-42c3-a5de-c225094adb3b.png");
+  background-size: 100%;
+  background-position: center;
+  isolation: isolate;
+  position: relative;
+}
+
+.youtube > .head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.85);
+  z-index: -1;
+}
+
+.youtube > .head > h2 {
+  color: red;
+}
+
+.youtube > .head > form {
+  display: flex;
+  gap: .5rem;
+  width: 100%;
+  height: 3rem;
+  background: rgba(255,255,255,.05);
+  border-radius: 1.5rem;
+  padding: .3rem;
+}
+
+.youtube > .head > form > input {
+  background: none;
+  width: 100%;
+  border: none;
+  padding: 0 1rem;
+  color: hsl(0,0%,90%);
+  font-weight: 600;
+}
+
+.youtube > .head > form > button {
+  background: red;
+  border: none;
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: inherit;
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.youtube > .body {
+  width: auto;
+  height: 0;
+  display: grid;
+  grid-template-rows: repeat(5, 7rem);
+  grid-auto-flow: column;
+  overflow-x: auto;
+  grid-gap: .1rem;
+}
+
+.youtube > .body > div {
+  background-position: center;
+  aspect-ratio: 16/9;
+  background-size: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.youtube > .body > div::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  margin: auto;
+  z-index: 2;
+  background: transparent;
+}
+
+.youtube > .body > div > h6 {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: .5rem;
+  background: rgba(0,0,0,.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  z-index: 1;
+}
+
+.youtube > .body > div:hover > h6 {
+  opacity: 1;
+}
+
+
+
+.itunes {
+  width: 100%;
+  height: auto;
+}
+
+.itunes > .head {
+  background: url("https://images.prodia.xyz/4848bbe7-f249-4c01-bd80-0ddfad80fa0b.png");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem .5rem;
+  gap: 1rem;
+  position: relative;
+  isolation: isolate;
+  color: white;
+}
+
+.itunes > .head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.9);
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
+.itunes > .head > form {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+}
+
+.itunes > .head > form > input {
+  background: none;
+  border: none;
+  height: 100%;
+  width: 100%;
+  padding: 0 .5rem;
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 600;
+  border-bottom: .1rem solid white;
+}
+
+.itunes > .head > form > button {
+  height: 100%;
+  aspect-ratio: 1/1;
+  background: white;
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 800;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.itunes > .head > h3 {
+  height: 3rem;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  display: flex;
+  align-items: center;
+  opacity: .7;
+}
+
+.itunes > .head > h3::-webkit-scrollbar {
+  display: none;
+}
+
+
+.track-info {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.track-info > .track-art {
+  height: 100%;
+  aspect-ratio: 1/1;
+  background: black;
+}
+
+
+.track-info > .info {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  opacity: .7;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.track-info > .info > div {
+  display: flex;
+  justify-content: space-evenly;
+  height: 2rem;
+  width: 100%;
+  gap: .5rem;
+}
+
+.track-info > .info > div > a {
+  opacity: 1;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,.7);
+  text-decoration: none;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+.itunes > .head > .album {
+  width: 100%;
   height: 4rem;
+  display: flex;
+  gap: .5rem;
+}
+
+.itunes > .head > .album > h6 {
+  opacity: .7;
+}
+
+.itunes > .head > .album > .album-art {
+  height: 100%;
   aspect-ratio: 1/1;
-  border: none;
-  border-radius: 50%;
+  background: black;
 }
 
 
-.player-btn > .play > svg path,
-.player-btn > .rewind > svg path {
-  fill: white;
+.itunes > .body {
+  width: auto;
+  height: auto;
+  display: grid;
+  grid-template-rows: repeat(4, 6rem);
+  grid-auto-columns: 6rem;
+  grid-auto-flow: column;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  grid-gap: .1rem;
+  background: black;
 }
 
-
-.player-btn > .rewind > svg {
-  height: 70%;
+.itunes > .body > div {
+  aspect-ratio: 1/1;
 }
 
 
 
 @media (min-width: 40rem) {
-  .third-page {
-    width: 90%;
-    flex-direction: row-reverse;
-    gap: 1rem;
-    padding: 1rem;
-  }
 
   .third-page > .song-list {
     width: 100%;

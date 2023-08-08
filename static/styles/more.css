@@ -10,7 +10,7 @@
   height: auto;
 }
 .datetime {
-  background-image: url("https://images.prodia.xyz/360b2524-c4a7-44e0-aa2a-d39db9ada5c0.png");
+  background: url("https://images.prodia.xyz/360b2524-c4a7-44e0-aa2a-d39db9ada5c0.png");
   background-size: cover;
   position: relative;
   width: 100%;
@@ -24,14 +24,6 @@
   color: white;
 }
 
-@keyframes open {
-  from {
-    transform: scaleY(1);
-  }
-  to {
-    transform: scaleY(0);
-  }
-}
 
 .datetime::before {
   position: absolute;
@@ -144,6 +136,10 @@
   overflow-x: auto;
 }
 
+.websites::-webkit-scrollbar {
+  display: none;
+}
+
 
 .websites > div {
   --background: var(--grad-2);
@@ -172,9 +168,10 @@
 }
 
 .websites > .this-site {
-  background: var(--title);
-  background-size: 200%;
-  color: black;
+  background: url("/static/profile.png");
+  background-size: cover;
+  background-position: right 0;
+  color: var(--grad-3);
 }
 
 .websites > .this-site > a {
@@ -182,6 +179,121 @@
   justify-content: center;
   padding-bottom: auto;
 }
+
+
+.repositories {
+  width: 100%;
+  height: 5.5rem;
+  display: flex;
+  overflow: hidden;
+}
+
+
+.repositories > .clock {
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: .3rem;
+  font-size: 1rem;
+  position: relative;
+  background: hsl(0,0%,6%);
+}
+
+
+.clock > div {
+  background: none;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.clock > div > div {
+  height: 60%;
+  transform-origin: bottom;
+}
+
+.clock > div .second-point {
+  background: red;
+  width: 1%;
+  transform: scaleY(.95);
+}
+
+.clock > div .minute-point {
+  background: white;
+  width: 2%;
+  transform: scaleY(.95);
+}
+
+.clock > div .hour-point {
+  background: white;
+  width: 2%;
+  transform: scaleY(.65);
+}
+
+.clock > .point {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 3.5%;
+  height: 3.5%;
+  background: white;
+  border-radius: 50%;
+}
+
+
+
+
+/*
+repositories > .head {
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: .3rem;
+  font-size: 1rem;
+  position: relative;
+  background: hsl(0,0%,7%);
+}
+
+
+.repositories > .head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  background: url("/static/github.svg");
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
+*/
+.repositories > .body {
+  overflow-x: auto;
+  width: auto;
+  display: flex;
+  gap: .5rem;
+  padding: .5rem;
+}
+
+.repositories > .body::-webkit-scrollbar {
+  display: none;
+}
+
+.repositories > .body > a {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 7/4;
+  border-radius: .3rem;
+  color: black;
+  text-decoration: none;
+  padding: .5rem;
+  font-weight: 600;
+  font-size: .8rem;
+}
+
 
 
 .renders {
@@ -290,16 +402,59 @@
   background-position: center 0;
   width: 100%;
   aspect-ratio: 2/1;
-  padding: 2rem;
   position: relative;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .generated > .head::before {
   
 }
 
-.generated > .head > h2 {
-  text-align: right;
+
+.generated > .head > div {
+  height: 100%;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  color: white;
+  aspect-ratio: 3/4;
+}
+
+.generated > .head > div > h3 {
+}
+
+.generated > .head > div > button {
+  --rotate: rotate(0deg);
+  height: 3rem;
+  aspect-ratio: 1/1;
+  background: black;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.7rem;
+  font-weight: 400;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.generated > .head > div > button::before {
+  content: "|";
+  color: white;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transform: var(--rotate);
+  justify-content: center;
+  transition: transform 1000ms ease;
 }
 
 .generated > .body {
