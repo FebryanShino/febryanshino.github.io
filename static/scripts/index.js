@@ -4,18 +4,15 @@ const FebryanShino = 'https://portfolio.febryanshino.repl.co';
 fetch(FebryanShino + '/api/database')
   .then(response => response.json())
   .then(data => {
-    let tracks = data.music;
-    let projects = data.project;
-    let about = data.about;
     generatedImageArray = data.generated;
 
-    loadProjects(projects);
-    loadPhilosophies([1,2,3,4,5,6]);
+    loadProjects(data.project);
+    loadPhilosophies(data.philosophies);
     loadWebsites(data.websites);
     loadRenders(data.renders);
     loadGenerated(data.generated);
     // loadTracks(tracks);
-    loadAboutPage(about);
+    loadAboutPage(data.about);
   });
 
 
@@ -46,23 +43,14 @@ const toggleNav = (elements, element) => {
 
   element.style.color = 'white';
   svgPath.style.fill = 'white';
-  themeColor.setAttribute('content', 'white');
-
-
-  navBar.style.background = 'white';
-  navBar.style.border = '1px solid hsl(0,0%,80%)';
-
-  let svg = document.querySelector('.nav-center > svg').querySelectorAll("path");
-  
-  svg[0].style.fill = "white";
-  svg[1].style.fill = "white";
+  toggleNavCenter(false);
   
   for(let i = 0; i < elements.length; i++) {
     
-    let svgs = elements[i].children[0].querySelector("path");
+    let svgs = elements[i].children[0].querySelector('path');
 
     if(elements[i] !== element) {
-      elements[i].classList.remove("active");
+      elements[i].classList.remove('active');
       elements[i].style.background = 'none';
     }
     if(svgs !== svgPath) {
@@ -74,11 +62,11 @@ const toggleNav = (elements, element) => {
 
 
 const togglePage = (pages, page) => {
-  page.classList.remove("hidden");
+  page.classList.remove('hidden');
 
   for(let i = 0; i < pages.length; i++) {
     if(pages[i] !== page) {
-      pages[i].classList.add("hidden");
+      pages[i].classList.add('hidden');
     }
   }
 }
@@ -93,25 +81,38 @@ for(let i = 0; i < navColle.length; i++) {
   });
 }
 
+const toggleNavCenter = (status) => {
+  if(status) {
+    themeColor.setAttribute('content', 'black');
+    navBar.style.background = 'black';
+    navBar.style.border = '1px solid black';
+
+    navCenter.style.setProperty('--orbit-color', 'var(--grad-3)');
+    navCenter.style.setProperty('--planet-color', 'var(--grad-2)');
+    navCenter.style.setProperty('--moon-color', 'var(--grad-2)');
+    
+    
+    for(let i = 0; i < navColle.length; i++) {
+      let btn = navColle[i];
+      btn.classList.remove('active');
+      
+      btn.style.color = 'white';  btn.children[0].querySelector('path').style.fill = 'white';
+      btn.style.background = 'none';
+    }
+    togglePage(pages, specialPage);
+  } else {
+    themeColor.setAttribute('content', 'white');
+    navBar.style.background = 'white';
+    navBar.style.border = '1px solid hsl(0,0%,80%)';
+
+    navCenter.style.setProperty('--orbit-color', 'white');
+    navCenter.style.setProperty('--planet-color', 'white');
+    navCenter.style.setProperty('--moon-color', 'white');
+  }
+}
 
 
 navCenter.addEventListener('click', () => {
-  let svg = document.querySelector(".nav-center > svg").querySelectorAll("path");
-
-  themeColor.setAttribute('content', 'black');
-  navBar.style.background = 'black';
-  navBar.style.border = '1px solid black';
-  svg[0].style.fill = 'var(--grad-3)';
-  svg[1].style.fill = 'var(--grad-2)';
-
-  
-  for(let i = 0; i < navColle.length; i++) {
-    let btn = navColle[i];
-    btn.classList.remove("active");
-    
-    btn.style.color = "white";  btn.children[0].querySelector("path").style.fill = "white";
-    btn.style.background = 'none';
-  }
-  togglePage(pages, specialPage);
+  toggleNavCenter(true);
 });
 

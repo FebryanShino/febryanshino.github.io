@@ -333,11 +333,9 @@ weatherIconContainer.addEventListener('click', () => {
 });
 
 
-const generateButton = document.querySelector('.generated > .head > div > button');
+const generateButton = document.querySelector('.generated > .head > .nn-button');
 let rotateValue = 0;
 
 generateButton.addEventListener('click', (e) => {
-  rotateValue += 360;
-  e.target.style.setProperty('--rotate', `rotate(${rotateValue}deg)`);
   loadGenerated(generatedImageArray);
 });

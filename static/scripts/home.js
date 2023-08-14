@@ -32,18 +32,21 @@ const loadPhilosophies = (philosophies) => {
   const philosophiesContainer = document.querySelector('.philosophies');
 
   for(let i = 0; i < philosophies.length; i++) {
+    let item = philosophies[i];
     const philosophy = document.createElement('div');
     const head = document.createElement('div');
     const title = document.createElement('h5');
-    title.textContent = 'Illustrious';
+    title.textContent = item[0];
     head.classList.add('head');
     head.appendChild(title);
   
     const body = document.createElement('div');
+    createRandomDots(body, 15, 1);
+    
     const desc = document.createElement('p');
     const link = document.createElement('a');
-    desc.textContent = '幾千の時空(じかん)を超えてゆく この想いあなたに届くまで 彷徨う迷子のようにずっと探すよ ねえ　傍にいて…！';
-    link.href = '#';
+    desc.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque congue volutpat.';
+    link.href = item[2];
     link.textContent = '...';
     body.appendChild(desc);
     body.appendChild(link);
@@ -84,7 +87,7 @@ const periodicSine = (radians) => {
 const homepageBurger = document.querySelector('.first-burger-container');
 
 homepageBurger.addEventListener('click', () => {
-  const active = homepageBurger.getAttribute('data-active') == 'false';
+  const active = homepageBurger.dataset.active === 'false';
   let burgerPart = homepageBurger.children;
   let burgerMenu = document.querySelector('.first-page > .burger-menu');
 
@@ -92,7 +95,7 @@ homepageBurger.addEventListener('click', () => {
     burgerPart[0].style.transform = 'rotate(45deg)';
     burgerPart[1].style.transform = 'rotate(-45deg)';
     burgerMenu.style.transform = 'translateY(0)';
-    homepageBurger.setAttribute('data-active', active);
+    homepageBurger.dataset.active = active;
   
   } else {
     burgerPart[0].style.transform = 'translateY(-150%)';
@@ -101,29 +104,106 @@ homepageBurger.addEventListener('click', () => {
     burgerMenu.style.transform = 'translateY(-100%)';
 
 
-    homepageBurger.setAttribute('data-active', active);
+    homepageBurger.dataset.active = active;
   }
 });
 
 
-// let switchCounter = 0;
+const profileImg = new Image();
+profileImg.src = '/static/profile.png';
+profileImg.addEventListener('load', () => {
+  const profileBack = document.querySelector('.first-page > .intro > .img');
+  profileBack.style.opacity = 1;
+});
 
-// const switchStyle = () => {
-//   const titleText = document.querySelectorAll('.text > h1 > span');
+
+
+
+
+const toggleSpecialPart = document.querySelector('.special-part > .planet-container');
+
+toggleSpecialPart.addEventListener('click', (e) => {
+  const animation = document.querySelector('.animations');
+  const planet = toggleSpecialPart.children[0];
+  const ring = toggleSpecialPart.children[1];
+  let status = toggleSpecialPart.dataset.status === 'false';
   
+  if(status) {
+    toggleSpecialPart.style.transform = 'rotate(135deg)';
+    toggleSpecialPart.style.setProperty('--planet-scale', 'scale(.8)');
+    
+    ring.style.border = '.1rem solid var(--grad-2)';
+    ring.style.height = 'var(--orbit-width)';
+    ring.style.transform = 'scale(1.25)';
 
-//   if(switchCounter === 0) {
-//     titleText[0].style.background = 'var(--title)';
-//     titleText[1].style.background = 'white';
-//     switchCounter = 1;
-//   } else {
-//     titleText[0].style.background = 'white';
-//     titleText[1].style.background = 'var(--title)';
-//     switchCounter = 0;
-//   }
-// }
+    toggleOrbits(true);
 
-// setInterval(switchStyle, 1000);
+    animation.classList.remove('hidden');
+    
+    toggleSpecialPart.dataset.status = status;
+  } else {
+    toggleSpecialPart.style.transform = 'rotate(-15deg)';
+    toggleSpecialPart.style.setProperty('--planet-scale', 'scale(1)');
+    
+    ring.style.border = '.1rem solid var(--grad-2)';
+    ring.style.height = 'calc(var(--orbit-width)/10)';
+    ring.style.transform = 'scale(1)';
+
+    toggleOrbits(false);
+
+    animation.classList.add('hidden');
+    
+    toggleSpecialPart.dataset.status = status;
+  }
+});
+
+
+const toggleOrbits = (status) => {
+  const orbits = document.querySelector('.special-part > .orbits').children;
+  for(let i = 0; i < orbits.length; i++) {
+    if(status) {
+      orbits[i].style.opacity = 1;
+    } else {
+      orbits[i].style.opacity = 0;
+    }
+  }
+}
+
+const orbits = () => {
+  const container = document.querySelector('.special-part > .orbits');
+  for(let i = 1; i <= 5; i++) {
+    let orbit = document.createElement('div');
+    orbit.classList.add('orbit');
+    orbit.style.width = i*20 + '%';
+    orbit.style.opacity = 0;
+    orbit.style.transition = `opacity 1000ms ease ${(5-i)*200}ms`;
+    container.appendChild(orbit);
+  }
+}
+
+const createRandomDots = (container, amount, height) => {
+  for(let i = 0; i < amount; i++) {
+    let dot = document.createElement('div');
+
+    let colorFromLeft = Math.random();
+    dot.style.top = `${Math.random()*100}%`;
+    dot.style.left = `${colorFromLeft*100}%`;
+    dot.style.position = 'absolute';
+    dot.style.height = `${Math.random()*height}%`;
+    dot.style.aspectRatio = '1/1';
+    dot.style.background = `hsl(${colorFromLeft*360}, 100%, 50%)`;
+    dot.style.borderRadius = '50%';
+    dot.style.animation = `blink ${Math.random()*9+1}s linear forwards infinite`;
+    dot.style.zIndex = 0;
+    container.appendChild(dot);
+  }
+}
+
+createRandomDots(document.querySelector('.special-part > .stars'), 35, 3.5);
+orbits();
+
+
+
 
 
 
@@ -160,7 +240,7 @@ const imageOrientation = (element, preview, imageUrl, width, height) => {
   element.style.backgroundImage = `url(${imageUrl})`;
     counter++
   });
-  
+  element.className = '';
   if(ratio > 1) {
     element.classList.add('landscape');
   } else if (ratio < 1) {

@@ -16,6 +16,8 @@ let video = document.querySelector('.music-player > .head > .image > video');
 
 
 const toggleIcon = (index) => {
+  // Used to toggle play, pause, and replay icons
+  
   icons[index].classList.remove('hidden');
 
   for(let i = 0; i < icons.length; i++) {
@@ -28,16 +30,15 @@ const toggleIcon = (index) => {
 
 
 
-
-
-
-
-
-toggleViewType = document.querySelector('.music-player > .footer > .toggle-type');
+const toggleViewType = document.querySelector('.music-player > .footer > .toggle-type');
 
 toggleViewType.addEventListener('click', (e) => {
+  // Used to toggle between video player and audio player. Default to audio player
+  
   e.preventDefault();
   let status = e.target.dataset.status === 'false';
+  
+  // Video = True, Audio = False
   if(status) {
     video.classList.remove('hidden');
     audio.pause();
@@ -62,6 +63,8 @@ toggleViewType.addEventListener('click', (e) => {
 
 
 const audioAction = () => {
+  // To control the player if the type is Video
+  
   if(audio.paused) {
     let loadAudio = false;
     if(audio.src.includes(audioFileUrl)) {
@@ -82,6 +85,8 @@ const audioAction = () => {
 
 
 const videoAction = () => {
+  // To control the player if the type is Video
+  
   if(video.paused) {
     let loadVideo = false;
     if(video.children[0].src.includes(videoFileUrl)) {
@@ -115,7 +120,10 @@ playButton.addEventListener('click', () => {
 
 
 const convertToMinute = (seconds) => {
+  // Convert from seconds to hh:mm:ss format
+  
   if(isNaN(seconds)) {
+    // check if the input is a number
     return 'Loading';
   }
   let minutes = Math.floor(seconds/60);
@@ -130,6 +138,8 @@ const convertToMinute = (seconds) => {
 }
 
 const timeUpdate = (type) => {
+  // A function to update some elements according to video/audio current duration
+  
   type.addEventListener('timeupdate', () => {
     let duration = type.duration;
     let current = type.currentTime;
@@ -149,10 +159,14 @@ const timeUpdate = (type) => {
     }
   });
 
+
+  
   backwardButton.addEventListener('click', () => {
+    // Skip backward by 10s
     type.currentTime -= 10;
   });
   forwardButton.addEventListener('click', () => {
+    // Skip forward by 10s
     type.currentTime += 10;
   });
 }
@@ -182,6 +196,10 @@ musicForm.children[0].addEventListener('input', (e) => {
 
 
 musicForm.addEventListener('submit', (e) => {
+  // Used to submit a form to update music player
+  // Input: YouTube video URL (Type: String)
+  // Outputs: Video information (Type: Object), video source (Type: String), audio source (Typr: String)
+  
   e.preventDefault();
 
   let videoUrl = e.target.children[0].value;
@@ -202,7 +220,13 @@ musicForm.addEventListener('submit', (e) => {
       url: videoUrl
     })
   })
-    .then(res => res.json())
+    .then(res => {
+      if(res.status === 500) {
+        alert('Yo pytube WTF');
+        return;
+      }
+      return res.json();
+    })
     .then(output => {
       audio.pause();
       video.pause();
@@ -228,6 +252,7 @@ musicForm.addEventListener('submit', (e) => {
       trackArt.style.backgroundPosition = 'center;'
         
       if('mediaSession' in navigator) {
+        // Update the notification bar according to the video information
         navigator.mediaSession.metadata = new MediaMetadata({
           title: data.title,
           artist: data.author,
@@ -248,6 +273,8 @@ musicForm.addEventListener('submit', (e) => {
 const youtubeForm = document.querySelector('.youtube > .head > form');
 
 youtubeForm.addEventListener('submit', (e) => {
+  // Submit a form that using YouTube Search API
+  //Input: Keywords (Type: String)
   e.preventDefault();
 
   let keyword = e.target.children[0].value;

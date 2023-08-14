@@ -1,3 +1,9 @@
+
+
+
+
+
+
 let tagInput = document.querySelector('.inputs > .search-bar > input');
 let options = document.querySelector('.inputs > .pop');
 
@@ -8,27 +14,7 @@ let searchButton = document.querySelector('.inputs > .search-bar > .icon');
 let imgContainer = document.querySelector('.img-container');
 
 
-const backgroundCollection = [
-  'https://pbs.twimg.com/media/F2PGra1aEAAgXax?format=jpg&name=large',
-  'https://pbs.twimg.com/media/FxI2dGgacAIVjce?format=jpg&name=medium'
-];
-
-let backgroundCounter = 0;
-const changeBackground = () => {
-  const backgroundContainer = document.querySelector('.desc-back');
-
-  let background = backgroundCollection[backgroundCounter];
-
-  backgroundContainer.style.backgroundImage = `url(${background})`;
-
-  backgroundCounter++;
-  
-  if(backgroundCounter >= backgroundCollection.length) {
-    backgroundCounter = 0;
-  }
-}
-
-// setInterval(changeBackground, 5000);
+createRandomDots(document.querySelector('.special-page > .header > .stars'), 35, 3.5);
 
 
 
@@ -78,13 +64,13 @@ const searchIcons = document.querySelectorAll('.search-bar > .icon > svg');
 const searchImage = () => {
   let myIcon = document.querySelectorAll('.search-bar > .icon > svg');
   let input = tagInput.value;
-  let attr = tagInput.getAttribute('data-orientation');
+  let attr = tagInput.dataset.orientation;
   
   myIcon[1].style.animation = 'rotateInfinite 1000ms linear infinite';
 
 
   
-  tagInput.setAttribute('data-input', input);
+  tagInput.dataset.input = input;
   searchIcons[0].classList.add('hidden');
     searchIcons[1].classList.remove('hidden');
 
@@ -106,15 +92,19 @@ const searchImage = () => {
   })
     .then(response => response.json())
     .then(data => {
+      imgContainer.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+      });
       for(let i = 0; i < imgChildren.length; i++) {
         let image = imgChildren[i];     
         let post = data.posts[i];
         image.src = post.large_file_url;
-        image.setAttribute('data-file', post.file_url);
-        image.setAttribute('data-source', post.source);
-        image.setAttribute('data-artist', post.tag_string_artist);
-        image.setAttribute('data-tags', post.tag_update);
-        image.setAttribute('data-sample', post.large_file_url);
+        image.dataset.file = post.file_url;
+        image.dataset.source = post.source;
+        image.dataset.artist = post.tag_string_artist;
+        image.dataset.tags = post.tag_update;
+        image.dataset.sample = post.large_file_url;
 
         imageOrientation(
           image,
@@ -342,4 +332,50 @@ getColorBtn.addEventListener('click', (e) => {
       });
   });
   reader.readAsDataURL(fileInput.files[0]);
+});
+
+
+
+const encryptText = (text, offset) => {
+  let encrypted = '';
+  for(let i = 0; i < text.length; i++) {
+    let ascii = text.charCodeAt(i);
+    if(text[i] === ' ') {
+      encrypted += text[i];
+    } else {
+      encrypted += String.fromCharCode(ascii + parseInt(offset));
+    }
+  }
+  return encrypted;
+}
+
+
+const offsetSlider = document.querySelector('.encrypt-text > .body > .outputs > input');
+
+offsetSlider.addEventListener('input', (e) => {
+  let offsetText = document.querySelector('.encrypt-text > .body > .outputs > .text > .offset');
+  let input = document.querySelector('.encrypt-text > .body > .inputs > textarea').value;
+  let output = document.querySelector('.encrypt-text > .body > .outputs > .text > span');
+
+  offsetText.textContent = `Offset: ${e.target.value}`;
+
+  output.textContent = encryptText(input, e.target.value);
+});
+
+const textArea = document.querySelector('.encrypt-text > .body > .inputs > textarea');
+
+textArea.addEventListener('input', (e) => {
+  let input = e.target.value;
+  let output = document.querySelector('.encrypt-text > .body > .outputs > .text > span');
+
+  output.textContent = encryptText(input, offsetSlider.value);
+});
+
+
+document.querySelector('.encrypt-text > .body > .inputs > a').addEventListener('click', (e) => {
+  e.preventDefault();
+  let output = document.querySelector('.encrypt-text > .body > .outputs > .text > span');
+
+  output.textContent = '';
+  textArea.value = '';
 });
