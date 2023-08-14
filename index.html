@@ -27,7 +27,13 @@
       More
     </button>
     <button class="nav-center">
-      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M384 512a448 448 0 0 1 215.872-383.296A384 384 0 0 0 213.76 640h188.8A448.256 448.256 0 0 1 384 512zM171.136 704a448 448 0 0 1 636.992-575.296A384 384 0 0 0 499.328 704h-328.32z"></path><path fill="#000000" d="M32 640h960q32 0 32 32t-32 32H32q-32 0-32-32t32-32zm128 128h384a32 32 0 1 1 0 64H160a32 32 0 1 1 0-64zm160 127.68 224 .256a32 32 0 0 1 32 32V928a32 32 0 0 1-32 32l-224-.384a32 32 0 0 1-32-32v-.064a32 32 0 0 1 32-32z"></path></g></svg>
+      <div class="orbit-out">
+        <div></div>
+      </div>
+      <div class="orbit-in">
+        <div></div>
+      </div>
+      <div class="planet"></div>
     </button>
     <button id="set" class="nav-btn">
       <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M896 529.152V512a384 384 0 1 0-768 0v17.152A128 128 0 0 1 320 640v128a128 128 0 1 1-256 0V512a448 448 0 1 1 896 0v256a128 128 0 1 1-256 0V640a128 128 0 0 1 192-110.848zM896 640a64 64 0 0 0-128 0v128a64 64 0 0 0 128 0V640zm-768 0v128a64 64 0 0 0 128 0V640a64 64 0 1 0-128 0z"></path></g></svg>
@@ -50,8 +56,7 @@
         <div></div>
       </div>
     </div>
-    <div class="burger-menu">
-    </div>
+    <div class="burger-menu"></div>
     <div class="intro">
       <div class="img">
         
@@ -69,7 +74,47 @@
           <a href="https://github.com/FebryanShino" target="_blank">GitHub</a>
         </div>
       </div>  
-    </div> 
+    </div>
+    <div class="special-part">
+      <div class="stars"></div>
+      <div class="orbits"></div>
+      <div class="planet-container" data-status="false">
+        <div class="planet"></div>
+        <div class="ring">
+          <div class="in">
+            <div class="moon"></div>
+          </div>
+          <div class="out">
+            <div class="moon"></div>
+          </div>
+        </div>
+        <div class="planet-top"></div>
+      </div>
+    </div>
+    <div class="animations hidden">
+      <div class="head">
+        <h2>Break the<br/><span>Boundary</span></h2>
+      </div>
+      <div class="body">
+        <div id="pacman">
+          <div class="main">
+            <div class="obj">
+              <div class="top"></div>
+              <div class="bottom"></div>
+              <div class="back"></div>
+              <div class="eye"></div>
+            </div>
+            <div class="food"></div>
+          </div>
+          
+          <div class="info">
+            <h4>Pacman</h4>
+            <a href="#">→</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <div class="philosophy-container">
       <h2>Design Philosophies</h2>
       <p>
@@ -134,7 +179,7 @@
     <div class="websites">
       <div class="this-site">
         <h4>This</h4>
-        <a href="#">↓</a>
+        <a href="#">→</a>
       </div>
     </div>
     <div class="repositories">
@@ -166,11 +211,12 @@
     </div>
     <div class="generated">
       <div class="head">
-        <div>
-          <h3>AI Images</h3>
-          <button>|</button>
+        <div class="title">
+          <h1>AI<span>Generated</span><br/>Illustrations</h1>
         </div>
-        
+        <div class="nn-button">
+          <div class="nn"></div>
+        </div>
       </div>
       <div class="body">
       </div>
@@ -225,7 +271,7 @@
       </div>
     </div>
     
-    <div class="youtube hidden">
+    <div class="youtube">
       <div class="head">
         <h2>YouTube</h2>
         <form>
@@ -311,8 +357,9 @@
 
   
   <section class="special-page hidden">
-    <div class="desc-back">
-      <h1>Image Search</h1>
+    <div class="header">
+      <div class="stars"></div>
+      <h1>WELCOME TO<br/><span>THE SPACE</span></h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque congue volutpat.</p>
     </div>
     <div class="first">
@@ -399,6 +446,26 @@
           <div></div>
         </div>
       </div>
+      
+    </div>
+    <div class="encrypt-text">
+      <div class="head">
+        <h2>Encrypted Text</h2>
+      </div>
+      <div class="body">
+        <div class="inputs">
+          <textarea rows="5">Yeet the hood</textarea>
+          <a href="#">Clear</a>
+        </div>
+        <div class="outputs">
+          <div class="text">
+            <span>Yatta</span>
+            <div class="offset">Offset: 0</div>
+          </div>
+          <input type="range" value="" min="-32" max="32" steps="1"/>
+        </div>
+      </div>
+    
       
     </div>
     
