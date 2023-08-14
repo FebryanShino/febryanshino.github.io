@@ -14,7 +14,7 @@
 }
 
 body {
-  min-height: 100vh;
+  height: 100dvh;
   overflow-x: hidden;
   font-family: Arial, sans-serif;
 }
@@ -34,6 +34,7 @@ section {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 
@@ -63,7 +64,6 @@ section {
   color: var(--second);
   font-weight: 700;
   font-size: .7rem;
-  cursor: pointer;
   background: var(--first);
   border: none;
   border-radius: .5rem;
@@ -99,21 +99,52 @@ svg path {
 
 
 .navigation-bar > .nav-center {
-  /* transform: translateY(); */
-  padding: .5rem;
+  --orbit-color: white;
+  --planet-color: white;
+  --moon-color: white;
+  height: 90%;
+  aspect-ratio: 1/1;
   border-radius: 50%;
   background: var(--second);
-  aspect-ratio: 1/1;
   border: none;
+  position: relative;
 }
 
-.nav-center > svg {
-  width: 2.5rem;
+.nav-center > div {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+.nav-center > .orbit-out {
+  width: 80%;
+  border: .05rem solid var(--orbit-color);
+  animation: rotateInfinite 5s linear forwards infinite;
+}
+.nav-center > .orbit-in {
+  width: 55%;
+  border: .05rem solid var(--orbit-color);
+  animation: rotateInfinite 5s linear forwards infinite reverse;
 }
 
-.nav-center > svg path {
-  fill: var(--first);
+.nav-center > .orbit-out > div,
+.nav-center > .orbit-in > div {
+  position: absolute;
+  inset: -6%;
+  margin: auto 0;
+  width: 10%;
+  aspect-ratio: 1/1;
+  border-radius: inherit;
+  background: var(--moon-color);
 }
+
+.nav-center > .planet {
+  width: 25%;
+  background: var(--planet-color);
+}
+
+
 
 
 @media (min-width: 40rem) {
@@ -147,6 +178,8 @@ svg path {
   }
   
   .navigation-bar > .nav-center {
+    height: auto;
+    width: 95%;
     margin-top: auto;
     order: 1;
     transform: translateY(0);

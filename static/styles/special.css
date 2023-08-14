@@ -1,43 +1,31 @@
-
-
-
-.desc-back {
-  background-image: url("https://pbs.twimg.com/media/F2PGra1aEAAgXax?format=jpg&name=large");
+.special-page > .header {
+  background: black;
   width: 100%;
-  height: 20rem;
-  background-size: cover;
-  background-position: center 0%;
+  height: auto;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
-  padding: 6.5rem 1rem 3rem;
   transition:
     background-image 1000ms ease;
   position: relative;
 }
 
-.desc-back::before {
+.special-page > .header > .stars {
   position: absolute;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  content: "";
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    0deg,
-    rgba(0,0,0,1) 8%,
-    rgba(0,0,0,.4)
-  );
-  
-  backdrop-filter: blur(3px);
+  overflow: hidden;
 }
 
-
-.desc-back > h1 {
+.special-page > .header > h1 {
+  margin-top: 6rem;
+  padding: 0 var(--main-side-padding);
+  letter-spacing: 0;
+  font-size: .78rem;
+  color: white;
   z-index: 1;
+  line-height: .8;
 /*  background: linear-gradient(
     90deg,
     hsl(260, 100%, 60%),
@@ -46,6 +34,13 @@
     hsl(270, 100%, 70%),
     hsl(260, 100%, 60%)
   );*/
+  
+}
+
+.special-page > .header > h1 > span {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -.15rem;
   background: var(--title);
   background-size: 200%;
   background-position: -25% center;
@@ -54,21 +49,19 @@
   transition: background-position 300ms ease;
 }
 
-.desc-back:hover > h1 {
+.special-page > .header:hover > h1 > span {
   background-position: -100% center;
 }
 
-.desc-back > p {
+.special-page > .header > p {
+  padding: 0 var(--main-side-padding);
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   z-index: 1;
   font-weight: 500;
-  opacity: 0;
+  opacity: .6;
   transition: opacity 300ms ease;
-}
-
-
-
-.desc-back:hover > p {
-  opacity: 1;
 }
 
 
@@ -488,7 +481,78 @@
   
 }
 
+.encrypt-text {
+  width: 100%;
+  height: auto;
+  background: black;
+  color: white;
+}
 
+.encrypt-text > .body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  padding: .5rem;
+  gap: 2rem;
+}
+
+
+.encrypt-text > .body > .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+
+.encrypt-text > .body > .inputs > textarea {
+  height: 7rem;
+  border: none;
+  border-radius: none;
+  padding: .5rem;
+}
+
+.encrypt-text > .body > .inputs > a {
+  text-decoration: none;
+  width: 6rem;
+  aspect-ratio: 3/1;
+  background: var(--grad-2);
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
+
+.encrypt-text > .body > .outputs {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+
+.encrypt-text > .body > .outputs > .text {
+  height: 7rem;
+  background: white;
+  position: relative;
+  color: black;
+}
+.encrypt-text > .body > .outputs > .text > span {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: .5rem;
+}
+
+.encrypt-text > .body > .outputs > .text > .offset {
+  position: absolute;
+  height: 20%;
+  width: 30%;
+  right: 0;
+  bottom: 0;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 

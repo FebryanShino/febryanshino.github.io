@@ -27,9 +27,6 @@
 
 
 .first-page {
-  /* padding-bottom: var(--nav-height); */
-  overflow-y: auto;
-  
   background: white;
   display: grid;
 }
@@ -64,6 +61,7 @@
 }
 
 .header > .first-burger-container {
+  right: .5rem;
   height: 100%;
   width: auto;
   aspect-ratio: 1/1;
@@ -135,12 +133,13 @@
   background-image: url("/static/profile.png");
   background-size: cover;
   background-position: 100% 0;
+  opacity: 0;
   width: 100%;
   height: 60%;
   position: relative;
   border-bottom-left-radius: 100% 3rem;
   overflow: hidden;
-  transition: filter 300ms ease;
+  transition: opacity 300ms ease;
 }
 
 
@@ -254,10 +253,335 @@
 }
 
 
-
-
 .contact > a:nth-child(2)::before {
   animation-delay: 1500ms;
+}
+
+
+
+
+
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.special-part {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3/1;
+  background: black;
+  position: relative;
+}
+
+.special-part > .stars {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
+.special-part > .orbits {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.special-part > .orbits > .orbit {
+  aspect-ratio: 1/1;
+  border: .1rem dashed hsl(250,100%,35%);
+  position: absolute;
+  inset: 0;
+  margin: auto -50%;
+  border-radius: 50%;
+  opacity: 1;
+  animation: rotateInfinite 150s linear forwards infinite;
+}
+
+.special-part > .planet-container {
+  --planet-scale: scale(1);
+  position: absolute;
+  height: 100%;
+  aspect-ratio: 1/1;
+  inset: 0;
+  margin: auto;
+  z-index: 1;
+  transform: rotate(-15deg);
+  transition: transform 300ms ease;
+}
+
+
+.special-part > .planet-container > .planet {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 35%;
+  aspect-ratio: 1/1;
+  background: var(--grad-3);
+  border-radius: 50%;
+  overflow: hidden;
+  transform: var(--planet-scale);
+  transition: transform 300ms ease;
+}
+
+
+
+.special-part > .planet-container > .planet-top {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 35%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 2;
+  transform: var(--planet-scale);
+  transition: transform 300ms ease;
+}
+
+.special-part > .planet-container > .planet-top::before {
+  content: "";
+  background: var(--grad-3);
+  height: 50%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+
+.special-part > .planet-container > .ring {
+  --orbit-width: 75%;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--orbit-width);
+  height: calc(var(--orbit-width)/10);
+  border: .1rem solid var(--grad-2);
+  border-radius: 50%;
+  z-index: 0;
+  transition:
+    height 300ms ease,
+    transform 300ms ease;
+}
+
+
+.special-part > .planet-container > .ring > div {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  aspect-ratio: 1/1;
+  border-radius: inherit;
+  border: .05rem solid var(--grad-2);
+  width: 60%;
+  
+}
+
+.special-part > .planet-container > .ring > .in {
+  width: 60%;
+  animation: rotateInfinite 7s linear forwards infinite;
+  
+}
+
+.special-part > .planet-container > .ring > .out {
+  width: 80%;
+  animation: rotateInfinite 10s linear reverse forwards infinite;
+}
+
+.special-part > .planet-container > .ring > div > .moon {
+  width: 6%;
+  aspect-ratio: 1/1;
+  background: var(--grad-3);
+  border: none;
+  border-radius: inherit;
+  position: absolute;
+  inset: -3.5%;
+  margin: auto 0;
+}
+
+
+.animations {
+  width: 100%;
+  height: auto;
+  background: black;
+}
+
+.animations > .head {
+  width: 100%;
+  aspect-ratio: 2/1;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--main-side-padding);
+}
+
+.animations > .head > h2 {
+  color: white;
+  line-height: .8;
+}
+
+.animations > .head > h2 > span {
+  color: var(--grad-2);
+  font-size: 2.5rem;
+}
+
+
+.animations > .body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: .1rem;
+}
+
+/* General grid item layout */
+.animations > .body > div {
+  width: 100%;
+  aspect-ratio: 2/1;
+  display: flex;
+  flex-direction: column;
+}
+
+.animations > .body > div > .main {
+  background: black;
+  width: 100%;
+  height: 80%;
+  position: relative;
+}
+
+.animations > .body > div > .info {
+  height: 20%;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+
+.animations > .body > div > .info > h4 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  padding-left: .5rem;
+}
+
+.animations > .body > div > .info > a {
+  height: 100%;
+  aspect-ratio: 1/1;
+  text-decoration: none;
+  color: black;
+  background: var(--grad-2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+}
+
+
+/* Object focused */
+#pacman > .main > .obj {
+  --body-color: yellow;
+  height: 100%;
+  aspect-ratio: 1/1;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+#pacman > .main > .obj > div {
+  width: 65%;
+  aspect-ratio: 1/1;
+  inset: 0;
+  margin: auto;
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+@keyframes moveMouth {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(var(--rotate));
+  }
+}
+
+#pacman > .main > .obj > .top {
+  --rotate: 45deg;
+  animation: moveMouth 200ms linear infinite alternate;
+}
+#pacman > .main > .obj > .bottom {
+  --rotate: -45deg;
+  animation: moveMouth 200ms linear infinite alternate;
+}
+
+#pacman > .main > .obj > .top::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background: var(--body-color);
+}
+
+#pacman > .main > .obj > .bottom::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  bottom: 0;
+  background: var(--body-color);
+}
+
+#pacman > .main > .obj > .back::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  right: 0;
+  background: var(--body-color);
+}
+
+#pacman > .main > .obj > .eye::before {
+  content: "";
+  inset: 0;
+  margin: 25% auto auto;
+  position: absolute;
+  width: 8.35%;
+  aspect-ratio: 1/1;
+  background: black;
+  border-radius: 50%;
+}
+
+
+@keyframes moveFood {
+  0% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+#pacman > .main > .food {
+  height: 100%;
+  width: 90%;
+  position: absolute;
+  animation: moveFood 400ms linear infinite;
+}
+
+
+#pacman > .main > .food::before {
+  content: "";
+  position: absolute;
+  height: 10.35%;
+  aspect-ratio: 1/1;
+  background: var(--grad-2);
+  border-radius: 50%;
+  inset: 0;
+  margin: auto 0;
 }
 
 
@@ -283,11 +607,12 @@
 .philosophies > div {
   width: 100%;
   aspect-ratio: 1/2;
+  overflow: hidden;
   /*border: .1rem solid var(--grad-2);*/
   background: linear-gradient(
     165deg,
     black 50%,
-    var(--grad-2)
+    hsl(235,100%,10%)
   );
   background-position: 0 0;
   background-size: 200%;
@@ -311,7 +636,7 @@
 .philosophies > div > .head::before {
   content: "";
   position: absolute;
-  height: .15rem;
+  height: .135rem;
   width: 0;
   background: var(--grad-2);
   margin: 0 auto;
@@ -320,7 +645,7 @@
 }
 
 .philosophies > div:hover > .head::before {
-  width: 80%;
+  width: 90%;
 }
 
 
