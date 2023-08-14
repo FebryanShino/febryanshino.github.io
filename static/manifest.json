@@ -1,8 +1,8 @@
 {
-  "name": "Shinomiya",
-  "short_name": "Shinomiya",
+  "name": "Frenella",
+  "short_name": "Frenella",
   "description": "",
-  "start_url": "https://portfolio.febryanshino.repl.co",
+  "start_url": "/",
   "display": "standalone",
   "icons": [
     {
