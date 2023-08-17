@@ -61,9 +61,9 @@ const loadPhilosophies = (philosophies) => {
 
 const homepage = document.querySelector('.first-page');
 
-homepage.addEventListener('scroll', () => {
+homepage.addEventListener('scroll', (e) => {
   const nav = document.querySelector('.first-page > .header');
-  let value = homepage.scrollTop;
+  let value = e.target.scrollTop;
 
   if(value !== 0) {
     nav.style.background = 'rgba(0,0,0,.9)';
@@ -86,9 +86,9 @@ const periodicSine = (radians) => {
 
 const homepageBurger = document.querySelector('.first-burger-container');
 
-homepageBurger.addEventListener('click', () => {
+homepageBurger.addEventListener('click', (e) => {
   const active = homepageBurger.dataset.active === 'false';
-  let burgerPart = homepageBurger.children;
+  const burgerPart = homepageBurger.children;
   let burgerMenu = document.querySelector('.first-page > .burger-menu');
 
   if(active) {
@@ -238,7 +238,6 @@ const imageOrientation = (element, preview, imageUrl, width, height) => {
 
   image.addEventListener('load', () => {
   element.style.backgroundImage = `url(${imageUrl})`;
-    counter++
   });
   element.className = '';
   if(ratio > 1) {

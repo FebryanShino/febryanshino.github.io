@@ -1,3 +1,5 @@
+// Load elements on DOM loaded
+
 const loadWebsites = (websites) => {
   const container = document.querySelector('.websites');
   for(let i = 0; i < websites.length; i++) {
@@ -40,6 +42,7 @@ const loadRenders = (renders) => {
 
 let generatedImageArray;
 
+// Used to get 3 random items from an array
 const getThreeRandomItems = (array) => {
   let newArray = [];
   for(let i = 0; i < 6; i++) {
@@ -78,6 +81,7 @@ const loadGenerated = (generated) => {
 }
 
 
+
 fetch('https://api.github.com/users/FebryanShino/repos').then(res => res.json())
   .then(data => {
     const container = document.querySelector('.repositories > .body');
@@ -95,12 +99,9 @@ fetch('https://api.github.com/users/FebryanShino/repos').then(res => res.json())
     }
   });
 
-const displayImage = (array, amount) => {
-  
-}
 
 
-
+// Some function used for dates and time
 const leadZero = (number) => {
   return (number < 10 ? '0' : '') + number;
 }
@@ -121,13 +122,14 @@ const ordinalNumber = (number) => {
 }
 
 
-let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const timeContainer = document.querySelector('.date > h1');
 
-let dateContainer = document.querySelector('.date > h6');
-let timeContainer = document.querySelector('.date > h1');
 
 const datetime = () => {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  const dateContainer = document.querySelector('.date > h6');
   let currentTime = new Date();
 
   let date = ordinalNumber(currentTime.getDate());
@@ -146,6 +148,7 @@ const analogClock = () => {
   let second = date.getSeconds();
   let minute = date.getMinutes();
   let hour = date.getHours();
+
   
   const secContainer = document.querySelector('.clock > .seconds');
   const minContainer = document.querySelector('.clock > .minutes');
@@ -168,7 +171,7 @@ setInterval(analogClock, 1000);
 
 
 const textPopUp = (audio, text) => {
-  let textContainer = document.querySelector('.datetime-container > h5');
+  const textContainer = document.querySelector('.datetime-container > h5');
 
   textContainer.textContent = text;
   textContainer.style.transform = 'translateY(0)';
@@ -182,10 +185,10 @@ const textPopUp = (audio, text) => {
 }
 
 
-timeContainer.addEventListener('click', () => {
+timeContainer.addEventListener('click', (e) => {
   let audio = new Audio();
 
-  timeContainer.style.animation = 'fade 2000ms ease infinite';
+  e.target.style.animation = 'fade 2000ms ease infinite';
   
   fetch(FebryanShino + '/api/time', {
     method: 'POST',
@@ -193,12 +196,12 @@ timeContainer.addEventListener('click', () => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      time: timeContainer.getAttribute('data-time')
+      time: timeContainer.dataset.time
     })
   })
     .then(response => response.json())
     .then(data => {
-      timeContainer.style.animation = 'none';
+      e.target.style.animation = 'none';
       audio.src = data.voice;
       audio.load();
       audio.play();
@@ -209,17 +212,6 @@ timeContainer.addEventListener('click', () => {
 
 
 
-let cityInput = document.querySelector('.datetime > input');
-let inputButton = document.querySelector('.datetime-container > button');
-
-cityInput.addEventListener('focus', () => {
-  inputButton.style.transform = 'translateY(0)';
-});
-
-
-cityInput.addEventListener('blur', () => {
-  inputButton.style.transform = 'translateY(-100%)';
-});
 
 
 
@@ -252,7 +244,6 @@ const toggleWeather = (weather) => {
 }
 
 
-let weatherIconContainer = document.querySelector('.weather');
 
 
 
@@ -274,24 +265,42 @@ const weatherAPI = (city=null, callback) => {
     .then(response => response.json())
     .then(data => {
       temp.textContent = data.temp + '°C';
-      temp.setAttribute('data-temp', data.temp + '°C');
+      temp.dataset.temp = data.temp + '°C';
       
-      temp.setAttribute('data-status', data.status);
+      temp.dataset.status = data.status;
       
-      temp.setAttribute('data-location', data.location);
+      temp.dataset.location = data.location;
       toggleWeather(data.status);
       callback();
     })
 }
 
+const weatherIconContainer = document.querySelector('.weather');
 
-inputButton.addEventListener('click', () => {
-  weatherIconContainer.style.opacity = 0;
-  weatherAPI(cityInput.value, function() {
-    weatherIconContainer.style.opacity = 1;
+const cityTextInput = () => {
+  const cityInput = document.querySelector('.datetime > input');
+  const inputButton = document.querySelector('.datetime-container > button');
+  
+  
+  cityInput.addEventListener('focus', () => {
+    inputButton.style.transform = 'translateY(0)';
   });
-});
+  
+  
+  cityInput.addEventListener('blur', () => {
+    inputButton.style.transform = 'translateY(-100%)';
+  });
+  
+  inputButton.addEventListener('click', () => {
+    weatherIconContainer.style.opacity = 0;
+    weatherAPI(cityInput.value, function() {
+      weatherIconContainer.style.opacity = 1;
+    });
+  });
+}
 
+
+cityTextInput();
 weatherAPI(null, function() {});
 
 
@@ -301,15 +310,15 @@ weatherAPI(null, function() {});
 
 
 
-weatherIconContainer.addEventListener('click', () => {
-  let data = document.querySelector('.weather > h6');
-  let temp = data.getAttribute('data-temp');
-  let status = data.getAttribute('data-status');
+weatherIconContainer.addEventListener('click', (e) => {
+  const data = document.querySelector('.weather > h6');
+  let temp = data.dataset.temp;
+  let status = data.dataset.status;
   let audio = new Audio();
-  let location = data.getAttribute('data-location');
+  let location = data.dataset.location;
   
 
-  weatherIconContainer.style.animation = 'fade 2000ms ease infinite';
+  e.target.style.animation = 'fade 2000ms ease infinite';
   
   fetch(FebryanShino + '/api/voice', {
     method: 'POST',
@@ -324,7 +333,7 @@ weatherIconContainer.addEventListener('click', () => {
   })
     .then(response => response.json())
     .then(data => {
-      weatherIconContainer.style.animation = 'none';
+      e.target.style.animation = 'none';
       audio.src = data.voice;
       audio.load();
 
@@ -334,7 +343,6 @@ weatherIconContainer.addEventListener('click', () => {
 
 
 const generateButton = document.querySelector('.generated > .head > .nn-button');
-let rotateValue = 0;
 
 generateButton.addEventListener('click', (e) => {
   loadGenerated(generatedImageArray);

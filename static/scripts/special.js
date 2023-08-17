@@ -1,17 +1,4 @@
-
-
-
-
-
-
-let tagInput = document.querySelector('.inputs > .search-bar > input');
-let options = document.querySelector('.inputs > .pop');
-
-let orientations = document.querySelectorAll('.orientation > h6');
-
-let searchButton = document.querySelector('.inputs > .search-bar > .icon');
-
-let imgContainer = document.querySelector('.img-container');
+const imgContainer = document.querySelector('.img-container');
 
 
 createRandomDots(document.querySelector('.special-page > .header > .stars'), 35, 3.5);
@@ -20,22 +7,20 @@ createRandomDots(document.querySelector('.special-page > .header > .stars'), 35,
 
 for(let i = 0; i < 20; i++) {
   let image = document.createElement('div');
-  image.setAttribute('data-file', 'https://youtu.be/dQw4w9WgXcQ');
-  image.setAttribute('data-tags', 'Undefined');
-  image.setAttribute('data-artist', 'Undefined');
-  image.setAttribute('data-sample', 'https://cdn.donmai.us/sample/cd/6f/__shiina_mahiru_otonari_no_tenshi_sama_ni_itsu_no_mani_ka_dame_ningen_ni_sarete_ita_ken_drawn_by_hanekoto__sample-cd6f4f2f188060731e2e4e4bf6aebd6d.jpg');
-  image.style.background = 'url(https://cdn.donmai.us/sample/cd/6f/__shiina_mahiru_otonari_no_tenshi_sama_ni_itsu_no_mani_ka_dame_ningen_ni_sarete_ita_ken_drawn_by_hanekoto__sample-cd6f4f2f188060731e2e4e4bf6aebd6d.jpg)';
-  image.style.backgroundSize = 'cover';
-  image.style.backgroundPosition = 'center';
+  image.dataset.file = 'https://youtu.be/dQw4w9WgXcQ';
+  image.dataset.tags = '-';
+  image.dataset.artist =  '-';
+  image.dataset.sample = 'https://cdn.donmai.us/sample/cd/6f/__shiina_mahiru_otonari_no_tenshi_sama_ni_itsu_no_mani_ka_dame_ningen_ni_sarete_ita_ken_drawn_by_hanekoto__sample-cd6f4f2f188060731e2e4e4bf6aebd6d.jpg';
 
+  setBgFull(image, 'https://cdn.donmai.us/sample/cd/6f/__shiina_mahiru_otonari_no_tenshi_sama_ni_itsu_no_mani_ka_dame_ningen_ni_sarete_ita_ken_drawn_by_hanekoto__sample-cd6f4f2f188060731e2e4e4bf6aebd6d.jpg');
   imgContainer.appendChild(image);
-  
 }
+
 
 
 let imgChildren = imgContainer.children;
 
-
+/*
 const toggleOrientation = (element) => {
   element.style.background = 'hsl(0,0%,60%)';
 
@@ -47,7 +32,9 @@ const toggleOrientation = (element) => {
 
   }
 }
+*/
 
+/*
 for(let i = 0; i < orientations.length; i++) {
   let option = orientations[i];
 
@@ -56,17 +43,19 @@ for(let i = 0; i < orientations.length; i++) {
     toggleOrientation(option);
   });
 }
+*/
 
 
-
+const tagInput = document.querySelector('.inputs > .search-bar > input');
+const orientations = document.querySelectorAll('.orientation > h6');
+const searchButton = document.querySelector('.inputs > .search-bar > .icon');
 const searchIcons = document.querySelectorAll('.search-bar > .icon > svg');
 
 const searchImage = () => {
-  let myIcon = document.querySelectorAll('.search-bar > .icon > svg');
   let input = tagInput.value;
   let attr = tagInput.dataset.orientation;
   
-  myIcon[1].style.animation = 'rotateInfinite 1000ms linear infinite';
+  searchIcons[1].style.animation = 'rotateInfinite 1000ms linear infinite';
 
 
   
@@ -114,7 +103,7 @@ const searchImage = () => {
           post.image_height
         );
       }
-     myIcon[1].style.animation = 'none';
+     searchIcons[1].style.animation = 'none';
     });
 }
 
@@ -151,9 +140,7 @@ tagInput.addEventListener('input', () => {
 
 
 
-let redirectButtons = document.querySelector('.img-info > .link-string').children;
-let artistDesc = document.querySelector('.artist-string > h6');
-let tagDesc = document.querySelector('.tag-string > h6');
+
 
 
 
@@ -168,14 +155,20 @@ const toggleDesaturate = (element, value) => {
 
 for(let i = 0; i < imgChildren.length; i++) {
 
+  
   let image = imgChildren[i];
   
   image.addEventListener('click', () => {
     const imgInfo = document.querySelector('.img-info');
+    const redirectButtons = document.querySelector('.img-info > .link-string').children;
+    const artistDesc = document.querySelector('.artist-string > h6');
+    const tagDesc = document.querySelector('.tag-string > h6');
+    
     let sourceBtn = redirectButtons[0];
-    let dlBtn = redirectButtons[1];
+    let downloadBtn = redirectButtons[1];
 
-    let source = image.getAttribute('data-source');
+    let source = image.dataset.source;
+    
     if(source.includes('pixiv')) {
       sourceBtn.children[0].src = '/static/pixiv.png';
     } else {
@@ -183,11 +176,11 @@ for(let i = 0; i < imgChildren.length; i++) {
     }
 
     sourceBtn.href = source;
-    dlBtn.href = image.getAttribute('data-file');
-    artistDesc.textContent = image.getAttribute('data-artist');
-    tagDesc.textContent = image.getAttribute('data-tags');
+    downloadBtn.href = image.dataset.file;
+    artistDesc.textContent = image.dataset.artist;
+    tagDesc.textContent = image.dataset.tags;
 
-    imgInfo.style.background = `url(${image.getAttribute('data-sample')})`;
+    imgInfo.style.background = `url(${image.dataset.sample})`;
 
     imgInfo.style.backgroundSize = 'cover';
     imgInfo.style.backgroundPosition = 'center 0';
@@ -208,6 +201,30 @@ for(let i = 0; i < imgChildren.length; i++) {
 
 
 
+const changeFileInput = (element, container) => {
+  element.addEventListener('change', (e) => {
+    e.target.disabled = true;
+    
+    container.classList.remove('hidden');
+    
+    let reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+      setBgFull(container, event.target.result);
+    });
+    reader.readAsDataURL(e.target.files[0]);
+  });
+
+  
+  container.addEventListener('click', (e) => {
+    e.target.classList.add('hidden');
+    element.value = '';
+    element.disabled = false;
+  });
+}
+
+
+
+
 const getColorPage = document.querySelector('.second');
 const getColorBtn = document.querySelector('.second > a');
 const fileInput = document.querySelector('.second > .container > .image > input');
@@ -215,28 +232,8 @@ const fileInput = document.querySelector('.second > .container > .image > input'
 
 const imgInput = document.querySelector('.second > .container > .image > div');
 
-fileInput.addEventListener('change', (e) => {
-  e.target.disabled = true;
-  
-  imgInput.classList.remove('hidden');
-  
-  let reader = new FileReader();
-  reader.addEventListener('load', (event) => {
-    imgInput.style.background = `url(${event.target.result})`;
-    imgInput.style.backgroundSize = 'cover';
-    imgInput.style.backgroundPosition = 'center';
-  });
-  reader.readAsDataURL(e.target.files[0]);
-});
+changeFileInput(fileInput, imgInput);
 
-imgInput.addEventListener('click', (e) => {
-  e.target.classList.add('hidden');
-  fileInput.value = '';
-  fileInput.disabled = false;
-
-  getColorPage.style.setProperty('--dom-color-1', 'var(--grad-3)');
-  getColorPage.style.setProperty('--dom-color-2', 'var(--grad-2)');
-});
 
 
 const runningNum = (elements, numbers) => {
@@ -333,6 +330,64 @@ getColorBtn.addEventListener('click', (e) => {
   });
   reader.readAsDataURL(fileInput.files[0]);
 });
+
+
+
+
+
+
+
+
+
+
+const QRCodeForm = document.querySelector('.qrcode > .body > form');
+
+QRCodeForm.addEventListener('submit',(e) => {
+  e.preventDefault();
+  let url = e.target.children[0].value;
+  let colors = e.target.querySelectorAll('input[type=color]');
+  let stroke = colors[0].value;
+  let background = colors[1].value;
+  let file = e.target.querySelector('input[type=file]');
+  
+  const qrImg = document.querySelector('.qr-img');
+  const button = e.target.lastElementChild;
+
+  
+
+  let reader = new FileReader();
+
+  reader.addEventListener('load', (event) => {
+    button.textContent = 'Loading';
+    fetch('https://febryans-qr.hf.space/run/predict', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        data: [
+          url,
+          stroke,
+          background,
+          event.target.result
+        ]
+      })
+    }).then(res => res.json()).then(data => {
+      setBgFull(qrImg, data.data);
+      qrImg.href = data.data;
+    });
+  });
+  button.textContent = 'Get!';
+  reader.readAsDataURL(file.files[0]);
+});
+
+
+
+changeFileInput(
+  document.querySelector('.qrcode > .body > form > div > .logo > input'),
+  document.querySelector('.qrcode > .body > form > div > .logo > div')
+);
+
+
+
 
 
 

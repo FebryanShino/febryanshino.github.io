@@ -1,14 +1,11 @@
 let audioFileUrl = 'static/audio.mp3'
 let videoFileUrl = '';
-let downloadAudio = document.querySelector('.music-player > .footer > .download');
-let playButton = document.querySelector('.player > .play');
-let backwardButton = document.querySelector('.player > .backward');
-let forwardButton = document.querySelector('.player > .forward');
+const downloadAudio = document.querySelector('.music-player > .footer > .download');
+const playButton = document.querySelector('.player > .play');
 /*
 let rewindButton = document.querySelector('.player-btn > .rewind');*/
-let icons = playButton.children;
-let audio = new Audio();
-let video = document.querySelector('.music-player > .head > .image > video');
+const audio = new Audio();
+const video = document.querySelector('.music-player > .head > .image > video');
 
 
 
@@ -17,6 +14,7 @@ let video = document.querySelector('.music-player > .head > .image > video');
 
 const toggleIcon = (index) => {
   // Used to toggle play, pause, and replay icons
+  const icons = playButton.children;
   
   icons[index].classList.remove('hidden');
 
@@ -139,13 +137,17 @@ const convertToMinute = (seconds) => {
 
 const timeUpdate = (type) => {
   // A function to update some elements according to video/audio current duration
+
+  
   
   type.addEventListener('timeupdate', () => {
     let duration = type.duration;
     let current = type.currentTime;
-    let timeline = document.querySelector('.timeline');
-    let timeCounter = document.querySelector('.music-player > .head > .info > .time').children;
     let ratio = current/duration;
+    
+    const timeline = document.querySelector('.timeline');
+    const timeCounter = document.querySelector('.music-player > .head > .info > .time').children;
+    
     
       timeline.style.transform = `scaleX(${ratio})`;
     timeCounter[0].textContent = convertToMinute(current);
@@ -159,6 +161,8 @@ const timeUpdate = (type) => {
     }
   });
 
+  const backwardButton = document.querySelector('.player > .backward');
+  const forwardButton = document.querySelector('.player > .forward');
 
   
   backwardButton.addEventListener('click', () => {
@@ -182,7 +186,7 @@ rewindButton.addEventListener('click', () => {
 */
 
 
-let musicForm = document.querySelector('.music-player > form');
+const musicForm = document.querySelector('.music-player > form');
 
 musicForm.children[0].addEventListener('input', (e) => {
   
@@ -206,8 +210,8 @@ musicForm.addEventListener('submit', (e) => {
   const button = e.target.children[1];
   const musicTitle = document.querySelector('.music-player > .head > .info > h2');
   const musicArtist = document.querySelector('.music-player > .head > .info > h4');
-  let player = document.querySelector('.music-player');
-  let trackArt = document.querySelector('.music-player > .head > .image');
+  const player = document.querySelector('.music-player');
+  const trackArt = document.querySelector('.music-player > .head > .image');
 
   button.textContent = '∆';
 
@@ -243,13 +247,9 @@ musicForm.addEventListener('submit', (e) => {
       downloadAudio.href = audioFileUrl;
       musicTitle.textContent = data.title;
       musicArtist.textContent = data.author;
-      player.style.background = `url(${thumbnail})`;
-      player.style.backgroundSize = '100%';
-      player.style.backgroundPosition = 'center';
+      setBgFull(player, thumbnail);
       button.style.background = data.dominant_color;
-      trackArt.style.background = `url(${thumbnail})`;
-      trackArt.style.backgroundSize = '100%';
-      trackArt.style.backgroundPosition = 'center;'
+      setBgFull(trackArt, thumbnail);
         
       if('mediaSession' in navigator) {
         // Update the notification bar according to the video information
@@ -398,22 +398,18 @@ itunesForm.addEventListener('submit', (e) => {
         albumName.textContent = track.collectionName;
         buttons[0].href = trackArt.replace('100x100','1440x1440');
         buttons[1].dataset.source = track.previewUrl;
+
+        const preview = new Audio();
+        buttons[1].addEventListener('click', (e) => {
+          e.preventDefault();
+          if(e.target.dataset.source !== e.target.dataset.current) {
+            preview.src = e.target.dataset.source;
+            preview.load();
+            e.target.dataset.current = e.target.dataset.source;
+          }
+          preview.play();
+        })
       });
     }
   });
-});
-
-
-
-const previewAudioButton = document.querySelector('.itunes > .head > .track-info > .info > div').children[1];
-
-let preview = new Audio();
-previewAudioButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  if(e.target.dataset.source !== e.target.dataset.current) {
-    preview.src = e.target.dataset.source;
-    preview.load();
-    e.target.dataset.current = e.target.dataset.source;
-  }
-  preview.play();
 });

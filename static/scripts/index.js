@@ -100,7 +100,9 @@ const toggleNavCenter = (status) => {
       btn.style.background = 'none';
     }
     togglePage(pages, specialPage);
+    
   } else {
+    
     themeColor.setAttribute('content', 'white');
     navBar.style.background = 'white';
     navBar.style.border = '1px solid hsl(0,0%,80%)';
@@ -110,7 +112,6 @@ const toggleNavCenter = (status) => {
     navCenter.style.setProperty('--moon-color', 'white');
   }
 }
-
 
 navCenter.addEventListener('click', () => {
   toggleNavCenter(true);
