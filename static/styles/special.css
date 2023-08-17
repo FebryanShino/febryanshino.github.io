@@ -426,7 +426,7 @@
 }
 
 
-.second >  a {
+.second > a {
   background: var(--dom-color-2);
   align-self: center;
   width: 9rem;
@@ -480,6 +480,116 @@
   --color: blue;
   
 }
+
+
+
+.qrcode {
+  width: 100%;
+  padding: 5rem 0;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: black;
+}
+
+.qrcode > .body {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--main-side-padding);
+  background: black;
+}
+
+.qrcode > .body > div,
+.qrcode > .body > form {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+.qrcode > .body > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qrcode > .body > div > .qr-img {
+  width: 90%;
+  aspect-ratio: 1/1;
+  background: var(--grad-2);
+}
+
+
+.qrcode > .body > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.qrcode > .body > form > input {
+  width: 100%;
+  height: 15%;
+  background: none;
+  border: .1rem solid var(--grad-2);
+  padding: .5rem;
+  color: white;
+}
+
+.qrcode > .body > form > div {
+  display: flex;
+  width: 100%;
+  height: 35%;
+  gap: 1rem;
+}
+
+.qrcode > .body > form > div > .logo {
+  height: 100%;
+  aspect-ratio: 1/1;
+  background: none;
+  position: relative;
+}
+
+.qrcode > .body > form > div > .logo > div {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  background: url("https://pbs.twimg.com/media/FxI4n-9aYAcnN6S?format=jpg&name=medium");
+  background-size: cover;
+  background-position: center;
+}
+
+.qrcode > .body > form > div > div {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.qrcode > .body > form > div > div > label {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.qrcode > .body > form > button {
+  align-self: center;
+  width: 60%;
+  height: 15%;
+  background: var(--grad-2);
+  border: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+
+
+
+
 
 .encrypt-text {
   width: 100%;

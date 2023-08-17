@@ -645,7 +645,7 @@
 }
 
 .philosophies > div:hover > .head::before {
-  width: 90%;
+  width: 100%;
 }
 
 
