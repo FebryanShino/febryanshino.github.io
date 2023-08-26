@@ -81,30 +81,27 @@ const loadGenerated = (generated) => {
 }
 
 
+const loadRepositories = async () => {
+  const container = document.querySelector('.repositories > .body');
+  
+  let res = await fetch('https://api.github.com/users/FebryanShino/repos');
+  let data = await res.json();
+  for(let i = 0; i < data.length; i++) {
+    let repo = data[i];
 
-fetch('https://api.github.com/users/FebryanShino/repos').then(res => res.json())
-  .then(data => {
-    const container = document.querySelector('.repositories > .body');
+    let item = document.createElement('a');
+    item.textContent = repo.name;
+    item.style.background = `hsl(${200 + 45*i}, 100%, 70%)`;
+    item.href = repo.html_url;
+    item.setAttribute('target', '_blank');
 
-    for(let i = 0; i < data.length; i++) {
-      let repo = data[i];
-
-      let item = document.createElement('a');
-      item.textContent = repo.name;
-      item.style.background = `hsl(${200 + 45*i}, 100%, 70%)`;
-      item.href = repo.html_url;
-      item.setAttribute('target', '_blank');
-
-      container.appendChild(item);
-    }
-  });
-
-
-
-// Some function used for dates and time
-const leadZero = (number) => {
-  return (number < 10 ? '0' : '') + number;
+    container.appendChild(item);
+  }
 }
+
+
+// function used for dates and time
+
 
 const ordinalNumber = (number) => {
   let string = number.toString();
@@ -185,7 +182,8 @@ const textPopUp = (audio, text) => {
 }
 
 
-timeContainer.addEventListener('click', (e) => {
+
+const timeTTS = async (e) => {
   let audio = new Audio();
 
   e.target.style.animation = 'fade 2000ms ease infinite';
@@ -207,8 +205,9 @@ timeContainer.addEventListener('click', (e) => {
       audio.play();
       textPopUp(audio, data.text);
     });
-  
-});
+}
+
+timeContainer.addEventListener('click', timeTTS);
 
 
 
@@ -224,10 +223,11 @@ let weatherList = [
   'Snow',
   'Atmosphere'
 ]
-let atmosphericWeather = ['Mist', 'Smoke', 'Haze', 'Dust', 'Fog', 'Sand', 'Dust', 'Ash', 'Squall', 'Tornado']
 
 
 const toggleWeather = (weather) => {
+  const atmosphericWeather = ['Mist', 'Smoke', 'Haze', 'Dust', 'Fog', 'Sand', 'Dust', 'Ash', 'Squall', 'Tornado']
+  
   if(atmosphericWeather.some(substr => weather.includes(substr))) {
     weather = 'Atmosphere';
   }
@@ -249,30 +249,26 @@ const toggleWeather = (weather) => {
 
 
 
-const weatherAPI = (city=null, callback) => {
+const weatherAPI = async (city, callback) => {
   let temp = document.querySelector('.weather > h6');
   
-  if(city === null) {
-    city = 'Tokyo, Japan';
-  }
-  fetch(FebryanShino + '/api/weather', {
+  
+  let res = await fetch(FebryanShino + '/api/weather', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({city: city})
-  })
-    .then(response => response.json())
-    .then(data => {
-      temp.textContent = data.temp + '°C';
-      temp.dataset.temp = data.temp + '°C';
-      
-      temp.dataset.status = data.status;
-      
-      temp.dataset.location = data.location;
-      toggleWeather(data.status);
-      callback();
-    })
+  });
+  let data = await res.json();
+  temp.textContent = data.temp + '°C';
+  temp.dataset.temp = data.temp + '°C';
+  
+  temp.dataset.status = data.status;
+  
+  temp.dataset.location = data.location;
+  toggleWeather(data.status);
+  callback();
 }
 
 const weatherIconContainer = document.querySelector('.weather');
@@ -293,7 +289,7 @@ const cityTextInput = () => {
   
   inputButton.addEventListener('click', () => {
     weatherIconContainer.style.opacity = 0;
-    weatherAPI(cityInput.value, function() {
+    weatherAPI(cityInput.value, () => {
       weatherIconContainer.style.opacity = 1;
     });
   });
@@ -301,11 +297,7 @@ const cityTextInput = () => {
 
 
 cityTextInput();
-weatherAPI(null, function() {});
-
-
-
-
+weatherAPI('Tokyo, Japan', () => {});
 
 
 
@@ -340,6 +332,10 @@ weatherIconContainer.addEventListener('click', (e) => {
       textPopUp(audio, data.text);
     });
 });
+
+
+
+
 
 
 const generateButton = document.querySelector('.generated > .head > .nn-button');

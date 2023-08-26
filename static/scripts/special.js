@@ -1,15 +1,12 @@
-const imgContainer = document.querySelector('.img-container');
-
-
 createRandomDots(document.querySelector('.special-page > .header > .stars'), 35, 3.5);
 
 
-
+const imgContainer = document.querySelector('.img-container');
 for(let i = 0; i < 20; i++) {
   let image = document.createElement('div');
   image.dataset.file = 'https://youtu.be/dQw4w9WgXcQ';
   image.dataset.tags = '-';
-  image.dataset.artist =  '-';
+  image.dataset.artist = '-';
   image.dataset.sample = 'https://cdn.donmai.us/sample/cd/6f/__shiina_mahiru_otonari_no_tenshi_sama_ni_itsu_no_mani_ka_dame_ningen_ni_sarete_ita_ken_drawn_by_hanekoto__sample-cd6f4f2f188060731e2e4e4bf6aebd6d.jpg';
 
   setBgFull(image, 'https://cdn.donmai.us/sample/cd/6f/__shiina_mahiru_otonari_no_tenshi_sama_ni_itsu_no_mani_ka_dame_ningen_ni_sarete_ita_ken_drawn_by_hanekoto__sample-cd6f4f2f188060731e2e4e4bf6aebd6d.jpg');
@@ -18,9 +15,6 @@ for(let i = 0; i < 20; i++) {
 
 
 
-let imgChildren = imgContainer.children;
-
-/*
 const toggleOrientation = (element) => {
   element.style.background = 'hsl(0,0%,60%)';
 
@@ -32,7 +26,7 @@ const toggleOrientation = (element) => {
 
   }
 }
-*/
+
 
 /*
 for(let i = 0; i < orientations.length; i++) {
@@ -51,14 +45,15 @@ const orientations = document.querySelectorAll('.orientation > h6');
 const searchButton = document.querySelector('.inputs > .search-bar > .icon');
 const searchIcons = document.querySelectorAll('.search-bar > .icon > svg');
 
-const searchImage = () => {
+const searchImage = async () => {
+  const imgContainer = document.querySelector('.img-container');
+  document.querySelector('.suggestions').style.display = 'none';
   let input = tagInput.value;
   let attr = tagInput.dataset.orientation;
   
   searchIcons[1].style.animation = 'rotateInfinite 1000ms linear infinite';
 
 
-  
   tagInput.dataset.input = input;
   searchIcons[0].classList.add('hidden');
     searchIcons[1].classList.remove('hidden');
@@ -70,47 +65,51 @@ const searchImage = () => {
     input += ' ratio:<1:1';
   }
 
-  fetch(FebryanShino + '/api/danbooru', {
+  let res = await fetch('https://febryans-danbooru.hf.space/run/predict', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      tags: input
+      data: [
+        input + ' -filetype:mp4,webm',
+        20
+      ]
     })
-  })
-    .then(response => response.json())
-    .then(data => {
-      imgContainer.scrollTo({
-        left: 0,
-        behavior: 'smooth'
-      });
-      for(let i = 0; i < imgChildren.length; i++) {
-        let image = imgChildren[i];     
-        let post = data.posts[i];
-        image.src = post.large_file_url;
-        image.dataset.file = post.file_url;
-        image.dataset.source = post.source;
-        image.dataset.artist = post.tag_string_artist;
-        image.dataset.tags = post.tag_update;
-        image.dataset.sample = post.large_file_url;
-
-        imageOrientation(
-          image,
-          post.preview_file_url,
-          post.large_file_url,
-          post.image_width,
-          post.image_height
-        );
-      }
-     searchIcons[1].style.animation = 'none';
-    });
+  });
+  let posts = (await res.json()).data[0];
+  imgContainer.innerHTML = '';
+  
+  imgContainer.scrollTo({
+    left: 0,
+    behavior: 'smooth'
+  });
+  
+  for(let i = 0; i < posts.data.length; i++) {
+    let image = document.createElement('div');
+    let post = posts.data[i];
+    
+    image.dataset.file = post.file_url;
+    image.dataset.source = post.source;
+    image.dataset.artist = post.tag_string_artist;
+    image.dataset.tags = post.tag_update;
+    image.dataset.sample = post.large_file_url;
+    imgContainer.appendChild(image);
+    imageOrientation(
+      image,
+      post.preview_file_url,
+      post.large_file_url,
+      post.image_width,
+      post.image_height
+    );
+    setBgFull(image, post.large_file_url);
+    imgClick(image);
+  }
+ searchIcons[1].style.animation = 'none';
 }
 
 
-searchButton.addEventListener('click', () => {
-  searchImage();
-});
+searchButton.addEventListener('click', searchImage);
 
 tagInput.addEventListener('keypress', (event) => {
   if (event.key === 'Enter') {
@@ -123,10 +122,67 @@ tagInput.addEventListener('keypress', (event) => {
 let searchIconPath = document.querySelector('.inputs > .icon > svg path');
 
 
-tagInput.addEventListener('input', () => {
-  let inputValue = tagInput.getAttribute('data-input');
+const modifyTags = (tag) => {
+  let tagArray = tagInput.value.split(' ');
+  tagArray[tagArray.length - 1] = tag;
 
-  if(tagInput.value === inputValue) {
+  tagInput.value = tagArray.join(' ');
+}
+
+
+const suggestTag = async (parent, key) => {
+  let params = new URLSearchParams({
+    'search[name_or_alias_matches]': key + '*',
+    'search[hide_empty]': 'yes',
+    'search[order]': 'count',
+    limit: 6
+  });
+  const url = new URL('https://danbooru.donmai.us/tags.json');
+  url.search = params.toString();
+
+  let tags = await (await fetch(url)).json();
+  parent.innerHTML = '';
+
+  if(tags.length > 0) {
+    for(let i = 0; i < tags.length; i++) {
+      let tag = tags[i];
+      let item = document.createElement('a');
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        modifyTags(tag.name);
+        const container = document.querySelector('.suggestions');
+        container.style.display = 'none';
+      });
+      let name = document.createElement('span');
+      let count = document.createElement('span');
+      item.href = '#';
+      
+      name.textContent = '• ' + tag.name;
+      count.textContent = tag.post_count;
+      
+      item.appendChild(name);
+      item.appendChild(count);
+      parent.appendChild(item);
+    }
+  }
+}
+
+tagInput.addEventListener('mouseenter', () => {
+  const container = document.querySelector('.suggestions');
+  container.style.display = 'flex';
+});
+
+
+tagInput.addEventListener('input', (e) => {
+  let inputValue = tagInput.dataset.input;
+  const container = document.querySelector('.suggestions > .container');
+
+  let tags = e.target.value;
+  let lastTag = tags.split(' ')[tags.split(' ').length - 1];
+  suggestTag(container, lastTag.trim());
+
+
+  if(tags === inputValue) {
     searchIcons[1].classList.remove('hidden');
     searchIcons[0].classList.add('hidden');
   } else {
@@ -136,6 +192,10 @@ tagInput.addEventListener('input', () => {
 
 });
 
+document.querySelector('.suggestions > button').addEventListener('click', () => {
+  const container = document.querySelector('.suggestions');
+  container.style.display = 'none';
+});
 
 
 
@@ -143,21 +203,16 @@ tagInput.addEventListener('input', () => {
 
 
 
-
-const toggleDesaturate = (element, value) => {
-  for(let i = 0; i < imgChildren.length; i++) {
-    if (imgChildren[i] !== element) {
-      imgChildren[i].style.filter = `saturate(${value}%)`;
+const imgClick = (image) => {
+  const toggleDesaturate = (element, value) => {
+    const imgChildren = imgContainer.children;
+    for(let i = 0; i < imgChildren.length; i++) {
+      if (imgChildren[i] !== element) {
+        imgChildren[i].style.filter = `saturate(${value}%)`;
+      }
     }
   }
-}
 
-
-for(let i = 0; i < imgChildren.length; i++) {
-
-  
-  let image = imgChildren[i];
-  
   image.addEventListener('click', () => {
     const imgInfo = document.querySelector('.img-info');
     const redirectButtons = document.querySelector('.img-info > .link-string').children;
@@ -201,6 +256,42 @@ for(let i = 0; i < imgChildren.length; i++) {
 
 
 
+const popularToday = document.querySelector('.popular-today');
+
+const loadPopularPosts = async () => {
+  const container = document.querySelector('.popular-today > .body');
+
+  let params = new URLSearchParams({
+    tags: 'order:rank rating:g -filetype:mp4,gif,zip,webm',
+    limit: 20
+  });
+  const url = new URL('https://danbooru.donmai.us/posts.json?');
+  url.search = params.toString();
+  let res = await fetch(url);
+  let posts = await res.json();
+
+  for(let i = 0; i < posts.length; i++) {
+    let post = posts[i];
+    let image = document.createElement('div');
+    image.textContent = i + 1;
+    imageOrientation(
+      image,
+      post.preview_file_url,
+      post.large_file_url,
+      post.image_width,
+      post.image_height
+    );
+    setBgFull(image, post.preview_file_url);
+    container.appendChild(image);
+  }
+}
+
+loadPopularPosts();
+
+
+
+
+
 const changeFileInput = (element, container) => {
   element.addEventListener('change', (e) => {
     e.target.disabled = true;
@@ -222,15 +313,12 @@ const changeFileInput = (element, container) => {
   });
 }
 
+const getColorPage = document.querySelector('.dominant-color');
+const getColorBtn = document.querySelector('.dominant-color > a');
+const fileInput = document.querySelector('.dominant-color > .container > .image > input');
 
 
-
-const getColorPage = document.querySelector('.second');
-const getColorBtn = document.querySelector('.second > a');
-const fileInput = document.querySelector('.second > .container > .image > input');
-
-
-const imgInput = document.querySelector('.second > .container > .image > div');
+const imgInput = document.querySelector('.dominant-color > .container > .image > div');
 
 changeFileInput(fileInput, imgInput);
 
@@ -257,7 +345,7 @@ const runningNum = (elements, numbers) => {
 const rgbToHex = (r, g, b) => {
   const componentToHex = (char) => {
     var hex = char.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    return hex.length == 1 ? '0' + hex : hex;
   }
 
   let hexString = "" + componentToHex(parseInt(r)) + componentToHex(parseInt(g)) + componentToHex(parseInt(b));
@@ -272,62 +360,56 @@ getColorBtn.addEventListener('click', (e) => {
     };
   e.target.textContent = 'Processing';
   e.preventDefault();
-  const color = document.querySelector('.second > .container > .color-palette');
+  const color = document.querySelector('.dominant-color > .container > .color-palette');
   const colorTexts = color.children[0].children;
 
   color.style.animation = 'var(--cycle-hue)';
 
-  let redLine = document.querySelector('.second > .color > .red > div');
-  let greenLine = document.querySelector('.second > .color > .green > div');
-  let blueLine = document.querySelector('.second > .color > .blue > div');
+  let redLine = document.querySelector('.dominant-color > .color > .red > div');
+  let greenLine = document.querySelector('.dominant-color > .color > .green > div');
+  let blueLine = document.querySelector('.dominant-color > .color > .blue > div');
 
   let numbers = document.querySelectorAll('.percentage > h2');
 
   let reader = new FileReader();
-  reader.addEventListener('load', (event) => {
-
-    fetch("https://febryans-image.hf.space/run/predict", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+  
+  reader.addEventListener('load', (async (event) => {
+    let res = await fetch('https://febryans-image.hf.space/run/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         data: [event.target.result]
       })
-    })
-      .then(response => response.json())
-      .then(data => {
-        color.style.animation = 'none';
-        e.target.textContent = 'Get!';
-        let rgb = data.data;
+    });
+    let rgb = (await res.json()).data;
+    color.style.animation = 'none';
+    e.target.textContent = 'Get!';
 
-        let redRatio = rgb[0]/255*100;
-        let greenRatio = rgb[1]/255*100;
-        let blueRatio = rgb[2]/255*100;
-        
-        redLine.style.width = redRatio + '%';
-        greenLine.style.width = greenRatio + '%';
-        blueLine.style.width = blueRatio + '%';
-        runningNum(numbers, [redRatio, greenRatio, blueRatio]);
+    let redRatio = rgb[0]/255*100;
+    let greenRatio = rgb[1]/255*100;
+    let blueRatio = rgb[2]/255*100;
+    
+    redLine.style.width = redRatio + '%';
+    greenLine.style.width = greenRatio + '%';
+    blueLine.style.width = blueRatio + '%';
+    runningNum(numbers, [redRatio, greenRatio, blueRatio]);
 
-        
-        let rgbColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-        let hexValue = rgbToHex(rgb[0], rgb[1], rgb[2]);
-        color.style.background = rgbColor;
+    
+    let rgbColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+    let hexValue = rgbToHex(rgb[0], rgb[1], rgb[2]);
+    color.style.background = rgbColor;
 
-        color.style.color = rgbColor;
+    color.style.color = rgbColor;
 
-        getColorPage.style.setProperty('--dom-color-1', rgbColor);
-        getColorPage.style.setProperty('--dom-color-2', rgbColor);
-
-        fetch(`https://www.thecolorapi.com/id?hex=${hexValue}`)
-          .then(response => response.json())
-          .then(data => {
-            let colorName = data.name.value;
-
-            colorTexts[0].textContent = colorName;
-            colorTexts[1].textContent = '#' + hexValue;
-          })
-      });
-  });
+    getColorPage.style.setProperty('--dom-color-1', rgbColor);
+    getColorPage.style.setProperty('--dom-color-2', rgbColor);
+    
+    let colorAPI = await fetch(`https://www.thecolorapi.com/id?hex=${hexValue}`);
+    let colorName = (await colorAPI.json()).name.value;
+    
+    colorTexts[0].textContent = colorName;
+    colorTexts[1].textContent = '#' + hexValue;
+  }));
   reader.readAsDataURL(fileInput.files[0]);
 });
 
@@ -360,8 +442,8 @@ QRCodeForm.addEventListener('submit',(e) => {
   reader.addEventListener('load', (event) => {
     button.textContent = 'Loading';
     fetch('https://febryans-qr.hf.space/run/predict', {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         data: [
           url,
@@ -373,9 +455,9 @@ QRCodeForm.addEventListener('submit',(e) => {
     }).then(res => res.json()).then(data => {
       setBgFull(qrImg, data.data);
       qrImg.href = data.data;
+      button.textContent = 'Get!';
     });
   });
-  button.textContent = 'Get!';
   reader.readAsDataURL(file.files[0]);
 });
 

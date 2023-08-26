@@ -1,6 +1,6 @@
-const FebryanShino = 'https://portfolio.febryanshino.repl.co';
+const FebryanShino = 'https://frenella.febryanshino.repl.co';
 
-
+/*
 fetch(FebryanShino + '/api/database')
   .then(response => response.json())
   .then(data => {
@@ -14,6 +14,22 @@ fetch(FebryanShino + '/api/database')
     // loadTracks(tracks);
     loadAboutPage(data.about);
   });
+*/
+const loadDatabase = async () => {
+  let res = await fetch(FebryanShino + '/api/database');
+  let data = await res.json();
+  loadProjects(data.project);
+  loadPhilosophies(data.philosophies);
+  loadWebsites(data.websites);
+  loadRenders(data.renders);
+  loadGenerated(data.generated);
+  // loadTracks(tracks);
+  loadAboutPage(data.about);
+}
+loadDatabase();
+
+
+
 
 
 let home = document.querySelector('#home');

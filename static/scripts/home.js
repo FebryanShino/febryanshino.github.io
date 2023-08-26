@@ -181,23 +181,8 @@ const orbits = () => {
   }
 }
 
-const createRandomDots = (container, amount, height) => {
-  for(let i = 0; i < amount; i++) {
-    let dot = document.createElement('div');
 
-    let colorFromLeft = Math.random();
-    dot.style.top = `${Math.random()*100}%`;
-    dot.style.left = `${colorFromLeft*100}%`;
-    dot.style.position = 'absolute';
-    dot.style.height = `${Math.random()*height}%`;
-    dot.style.aspectRatio = '1/1';
-    dot.style.background = `hsl(${colorFromLeft*360}, 100%, 50%)`;
-    dot.style.borderRadius = '50%';
-    dot.style.animation = `blink ${Math.random()*9+1}s linear forwards infinite`;
-    dot.style.zIndex = 0;
-    container.appendChild(dot);
-  }
-}
+// function on functions.js
 
 createRandomDots(document.querySelector('.special-part > .stars'), 35, 3.5);
 orbits();
@@ -221,73 +206,51 @@ const loadCards = () => {
 }
 
 
-
-
 let refreshButton = document.querySelector('.hover-head > a');
 
 
-
-
-const imageOrientation = (element, preview, imageUrl, width, height) => {
-  let ratio = width/height;
-
-  let image = new Image();
-  image.src = imageUrl;
-  
-  element.style.backgroundImage = `url(${preview})`;
-
-  image.addEventListener('load', () => {
-  element.style.backgroundImage = `url(${imageUrl})`;
-  });
-  element.className = '';
-  if(ratio > 1) {
-    element.classList.add('landscape');
-  } else if (ratio < 1) {
-    element.classList.add('portrait');
-  } else {
-    element.classList.add('square');
-  }
-}
-
-
-refreshButton.addEventListener('click', (event) => {
+refreshButton.addEventListener('click', (async (event) => {
   event.preventDefault();
-  refreshButton.textContent = 'Loading!';
+  event.target.textContent = 'Loading!';
 
   for(let i = 0; i < cards.length; i++) {
     cards[i].style.opacity = 0;
     cards[i].classList.remove('hidden');
   }
 
-  fetch(FebryanShino + '/api/danbooru', {
+  let res = await fetch('https://febryans-danbooru.hf.space/run/predict', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      tags: 'genshin_impact -1boy'
+      data: [
+        'genshin_impact -1boy',
+        20
+      ]
     })
-  })
-    .then(response => response.json())
-    .then(data => {
-      refreshButton.textContent = 'Refresh';
+  });
 
-      let cardNotLoaded = cardContainer.getAttribute('data-exist') == 'false';
+  let posts = (await res.json()).data[0];
+  refreshButton.textContent = 'Refresh';
 
-      if(cardNotLoaded) {
-        loadCards();
-        cardContainer.setAttribute('data-exist', cardNotLoaded);
-      }
-      
-      
-      for(let i = 0; i < cards.length; i++) {
-        let card = cards[i];
-        let post = data.posts[i];
-        let fileUrl = post.large_file_url;
-        let preview = post.preview_file_url;
-        card.style.opacity = 1;
+  let cardNotLoaded = cardContainer.dataset.exist === 'false';
 
-        imageOrientation(card, preview, fileUrl, post.image_width, post.image_height);
-      }
-    });
-});
+  if(cardNotLoaded) {
+    loadCards();
+    cardContainer.dataset.exist = cardNotLoaded;
+  }
+  
+  
+  for(let i = 0; i < cards.length; i++) {
+    let card = cards[i];
+    let post = posts.data[i];
+    if(!('large_file_url' in post)) {
+      continue;
+    }
+    let fileUrl = post.large_file_url;
+    let preview = post.preview_file_url;
+    card.style.opacity = 1;
+    imageOrientation(card, preview, fileUrl, post.image_width, post.image_height);
+  }
+}));

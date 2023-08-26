@@ -2,8 +2,6 @@ let audioFileUrl = 'static/audio.mp3'
 let videoFileUrl = '';
 const downloadAudio = document.querySelector('.music-player > .footer > .download');
 const playButton = document.querySelector('.player > .play');
-/*
-let rewindButton = document.querySelector('.player-btn > .rewind');*/
 const audio = new Audio();
 const video = document.querySelector('.music-player > .head > .image > video');
 
@@ -199,7 +197,7 @@ musicForm.children[0].addEventListener('input', (e) => {
 
 
 
-musicForm.addEventListener('submit', (e) => {
+musicForm.addEventListener('submit', (async (e) => {
   // Used to submit a form to update music player
   // Input: YouTube video URL (Type: String)
   // Outputs: Video information (Type: Object), video source (Type: String), audio source (Typr: String)
@@ -215,7 +213,7 @@ musicForm.addEventListener('submit', (e) => {
 
   button.textContent = '∆';
 
-  fetch(FebryanShino + '/api/youtube', {
+  let res = await fetch(FebryanShino + '/api/youtube', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -223,62 +221,56 @@ musicForm.addEventListener('submit', (e) => {
     body: JSON.stringify({
       url: videoUrl
     })
-  })
-    .then(res => {
-      if(res.status === 500) {
-        alert('Yo pytube WTF');
-        return;
-      }
-      return res.json();
-    })
-    .then(output => {
-      audio.pause();
-      video.pause();
-      audio.currentTime = 0;
-      video.currentTime = 0;
-      toggleIcon(0);
-      
-      button.textContent = '→';
-      let data = output.data;
-      let thumbnail = data.thumbnail;
-      audioFileUrl = data.audio_url;
-      videoFileUrl = data.video_url;
+  });
+  let output = await res.json();
+  
+  audio.pause();
+  video.pause();
+  audio.currentTime = 0;
+  video.currentTime = 0;
+  toggleIcon(0);
+  
+  button.textContent = '→';
+  let data = output.data;
+  let thumbnail = data.thumbnail;
+  audioFileUrl = data.audio_url;
+  videoFileUrl = data.video_url;
 
-      downloadAudio.href = audioFileUrl;
-      musicTitle.textContent = data.title;
-      musicArtist.textContent = data.author;
-      setBgFull(player, thumbnail);
-      button.style.background = data.dominant_color;
-      setBgFull(trackArt, thumbnail);
-        
-      if('mediaSession' in navigator) {
-        // Update the notification bar according to the video information
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: data.title,
-          artist: data.author,
-          artwork: [
-            {
-              src: thumbnail,
-              type: 'image/png',
-            }
-          ]
-        });
-      }
+  downloadAudio.href = audioFileUrl;
+  musicTitle.textContent = data.title;
+  musicArtist.textContent = data.author;
+  setBgFull(player, thumbnail);
+  button.style.background = data.dominant_color;
+  setBgFull(trackArt, thumbnail);
+  
+  if('mediaSession' in navigator) {
+    // Update the notification bar according to the video information
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: data.title,
+      artist: data.author,
+      artwork: [
+        {
+          src: thumbnail,
+          type: 'image/png',
+        }
+      ]
     });
-});
+  }
+}));
 
 
 
 
 const youtubeForm = document.querySelector('.youtube > .head > form');
 
-youtubeForm.addEventListener('submit', (e) => {
+youtubeForm.addEventListener('submit', (async (e) => {
   // Submit a form that using YouTube Search API
   //Input: Keywords (Type: String)
   e.preventDefault();
 
   let keyword = e.target.children[0].value;
-  fetch(FebryanShino + '/api/ytsearch', {
+  
+  let res = await fetch(FebryanShino + '/api/ytsearch', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -286,130 +278,121 @@ youtubeForm.addEventListener('submit', (e) => {
     body: JSON.stringify({
       keyword: keyword
     })
-  }).then(res => res.json())
-    .then(data => {
-      let posts = data.posts;
+  });
+  
+  let posts = (await res.json()).posts;
 
-      const container = document.querySelector('.youtube > .body');
-      container.innerHTML = '';
-      container.style.height = 'auto';
-      container.scrollTo({
-        left: 0,
+  const container = document.querySelector('.youtube > .body');
+  container.innerHTML = '';
+  container.style.height = 'auto';
+  container.scrollTo({
+    left: 0,
+    behavior: 'smooth'
+  });
+
+  for(let i = 0; i < posts.length; i++) {
+    let post = posts[i];
+    let thumbnail = post.snippet.thumbnails.high.url;
+
+    let item = document.createElement('div');
+    let title = document.createElement('h6');
+
+    setBgFull(item, thumbnail);
+    item.style.color = 'white';
+
+    title.textContent = post.snippet.title;
+    
+    item.appendChild(title);
+    container.appendChild(item);
+
+    item.addEventListener('click', () => {
+      const containerGod = document.querySelector('.third-page');
+      let videoID = post.id.videoId;
+      musicForm.children[0].value = 'https://youtu.be/' + videoID;
+      containerGod.scrollTo({
+        top: 0,
         behavior: 'smooth'
       });
-
-      for(let i = 0; i < posts.length; i++) {
-        let post = posts[i];
-        let thumbnail = post.snippet.thumbnails.high.url;
-
-        let item = document.createElement('div');
-        let title = document.createElement('h6');
-
-        item.style.background = `url(${thumbnail})`;
-        item.style.backgroundSize = '100%';
-        item.style.backgroundPosition = 'center';
-        item.style.color = 'white';
-
-        title.textContent = post.snippet.title;
-        
-        item.appendChild(title);
-        container.appendChild(item);
-
-        item.addEventListener('click', () => {
-          let containerGod = document.querySelector('.third-page');
-          let videoID = post.id.videoId;
-          musicForm.children[0].value = 'https://youtu.be/' + videoID;
-          containerGod.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-          musicForm.children[1].style.transform = 'rotate(0deg)';
-        })
-      }
+      musicForm.children[1].style.transform = 'rotate(0deg)';
     });
-});
+  }
+}));
 
-
-const setBgFull = (element, url) => {
-  element.style.background = `url(${url})`;
-  element.style.backgroundSize = 'cover';
-  element.style.backgroundPosition = 'center';
-}
 
 
 const itunesForm = document.querySelector('.itunes > .head > form');
 
 
-itunesForm.addEventListener('submit', (e) => {
+itunesForm.addEventListener('submit', (async (e) => {
   e.preventDefault();
+  const container = document.querySelector('.itunes > .body');
 
-  let queryParams = new URLSearchParams({
+  let params = new URLSearchParams({
     term: e.target.children[0].value
   });
   const url = new URL('https://itunes.apple.com/search');
-  url.search = queryParams.toString();
-  const container = document.querySelector('.itunes > .body');
+  url.search = params.toString();
   
-  fetch(url).then(res => res.json()).then(data => {
-    container.innerHTML = '';
-    let tracks = data.results;
+  let res = await fetch(url);
+  let tracks = (await res.json()).results;
+  
+  container.innerHTML = '';
 
-    for(let i = 0; i < tracks.length; i++) {
-      let track = tracks[i];
-      let trackArt = track.artworkUrl100;
-      let item = document.createElement('div');
+  for(let i = 0; i < tracks.length; i++) {
+    let track = tracks[i];
+    let trackArt = track.artworkUrl100;
+    let item = document.createElement('div');
 
-      item.style.opacity = 0;
-      item.style.background = `url(${trackArt.replace('100x100', '400x400')})`;
-      let image = new Image();
-      image.src = trackArt.replace('100x100', '400x400');
-      item.style.backgroundSize = 'cover';
-      item.style.backgroundPosition = 'center';
+    item.style.opacity = 0;
+    item.style.background = `url(${trackArt.replace('100x100', '400x400')})`;
+    let image = new Image();
+    image.src = trackArt.replace('100x100', '400x400');
+    item.style.backgroundSize = 'cover';
+    item.style.backgroundPosition = 'center';
 
-      image.addEventListener('load', () => {
-        item.style.opacity = 1;
-      });
-      container.appendChild(item);
+    image.addEventListener('load', () => {
+      item.style.opacity = 1;
+    });
+    container.appendChild(item);
 
 
-      item.addEventListener('click', () => {
-        const head = document.querySelector('.itunes > .head');
-        const title = document.querySelector('.itunes > .head > h3');
-        const trackBack = document.querySelector('.itunes > .head > .track-info > .track-art')
-        const artist = document.querySelector('.itunes > .head > .track-info > .info > #artist');
-        const duration = document.querySelector('.itunes > .head > .track-info > .info > #duration');
-        const genre = document.querySelector('.itunes > .head > .track-info > .info > #genre');
-        const buttons = document.querySelector('.itunes > .head > .track-info > .info > div').children;
+    item.addEventListener('click', () => {
+      const head = document.querySelector('.itunes > .head');
+      const title = document.querySelector('.itunes > .head > h3');
+      const trackBack = document.querySelector('.itunes > .head > .track-info > .track-art')
+      const artist = document.querySelector('.itunes > .head > .track-info > .info > #artist');
+      const duration = document.querySelector('.itunes > .head > .track-info > .info > #duration');
+      const genre = document.querySelector('.itunes > .head > .track-info > .info > #genre');
+      const buttons = document.querySelector('.itunes > .head > .track-info > .info > div').children;
 
-        const albumArt = document.querySelector('.itunes > .head > .album > .album-art');
-        const albumName = document.querySelector('.itunes > .head > .album > h6');
+      const albumArt = document.querySelector('.itunes > .head > .album > .album-art');
+      const albumName = document.querySelector('.itunes > .head > .album > h6');
 
-        title.textContent = track.trackName;
+      title.textContent = track.trackName;
 
-        setBgFull(trackBack, trackArt.replace('100x100','1440x1440'));
-        setBgFull(head, trackArt.replace('100x100','1440x1440'));
-        setBgFull(albumArt, trackArt.replace('100x100','1440x1440'));
+      setBgFull(trackBack, trackArt.replace('100x100','1440x1440'));
+      setBgFull(head, trackArt.replace('100x100','1440x1440'));
+      setBgFull(albumArt, trackArt.replace('100x100','1440x1440'));
         
         
         
-        artist.textContent = track.artistName;
-        duration.textContent = convertToMinute(track.trackTimeMillis/1000);
-        genre.textContent = track.primaryGenreName;
-        albumName.textContent = track.collectionName;
-        buttons[0].href = trackArt.replace('100x100','1440x1440');
-        buttons[1].dataset.source = track.previewUrl;
+      artist.textContent = track.artistName;
+      duration.textContent = convertToMinute(track.trackTimeMillis/1000);
+      genre.textContent = track.primaryGenreName;
+      albumName.textContent = track.collectionName;
+      buttons[0].href = trackArt.replace('100x100','1440x1440');
+      buttons[1].dataset.source = track.previewUrl;
 
-        const preview = new Audio();
-        buttons[1].addEventListener('click', (e) => {
-          e.preventDefault();
-          if(e.target.dataset.source !== e.target.dataset.current) {
-            preview.src = e.target.dataset.source;
-            preview.load();
-            e.target.dataset.current = e.target.dataset.source;
-          }
-          preview.play();
-        })
-      });
-    }
-  });
-});
+      const preview = new Audio();
+      buttons[1].addEventListener('click', (e) => {
+        e.preventDefault();
+        if(e.target.dataset.source !== e.target.dataset.current) {
+          preview.src = e.target.dataset.source;
+          preview.load();
+          e.target.dataset.current = e.target.dataset.source;
+        }
+        preview.play();
+      })
+    });
+  }
+}));
