@@ -98,6 +98,7 @@ const loadRepositories = async () => {
     container.appendChild(item);
   }
 }
+loadRepositories();
 
 
 // function used for dates and time
