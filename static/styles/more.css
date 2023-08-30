@@ -487,7 +487,7 @@ repositories > .head {
 
 .generated > .body {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   width: 100%;
   height: auto;
   /* grid-auto-flow: dense; */
