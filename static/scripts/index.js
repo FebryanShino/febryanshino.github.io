@@ -15,16 +15,42 @@ fetch(FebryanShino + '/api/database')
     loadAboutPage(data.about);
   });
 */
+
+const auth = (permitted) => {
+  loadPopularPosts(permitted);
+  if (!permitted) {
+    let items = document.querySelectorAll('.auth-needed');
+    for(let i = 0; i < items.length; i++) {
+      items[i].classList.add('hidden')
+    }
+    return;
+  }
+ 
+  document.body.dataset.status = 'dev';
+}
+
+
 const loadDatabase = async () => {
-  let res = await fetch(FebryanShino + '/api/database');
+  let res = await fetch(FebryanShino + '/api/database', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      key: document.cookie.split('name=')[1]
+    })
+  });
   let data = await res.json();
+  
+  auth(data.permitted);
+  generatedImageArray = data.generated;
   loadProjects(data.project);
   loadPhilosophies(data.philosophies);
   loadWebsites(data.websites);
   loadRenders(data.renders);
   loadGenerated(data.generated);
   // loadTracks(tracks);
-  loadAboutPage(data.about);
+  // loadAboutPage(data.about);
 }
 loadDatabase();
 

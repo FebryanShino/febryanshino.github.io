@@ -1,25 +1,4 @@
-let burgerButton = document.querySelector('.burger-btn');
-let burgerContainer = document.querySelector('.burger-container');
-let burgerList = document.querySelector('.burger-list');
-
-burgerButton.addEventListener('click', () => {
-  burgerContainer.classList.remove('hidden');
-});
-
-
-
-burgerContainer.addEventListener('click', (event) => {
-  let isClicked = burgerList.contains(event.target);
-  if(!isClicked) {
-    burgerContainer.classList.add('hidden');
-  }
-});
-
-
-
-
-
-
+/*
 const loadAboutPage = (items) => {
   let ownerGameID = document.querySelector('.profile > h6');
   let bio = document.querySelector('.bio > h6');
@@ -42,6 +21,24 @@ const loadAboutPage = (items) => {
     gridContainer.appendChild(item);
   }
 }
+*/
+
+
+const cookieForm = document.querySelector('.fourth-page form');
+
+
+cookieForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let cook = `name=${e.target.children[0].value}; expires=` + new Date(9999,1,1).toUTCString();
+  console.log(cook);
+  document.cookie = cook;
+  alert('yatta');
+});
+
+
+document.querySelector('.fourth-page > button').addEventListener('click', (async () => {
+  
+}))
 
 
 

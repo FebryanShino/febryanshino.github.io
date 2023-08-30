@@ -45,81 +45,7 @@ const orientations = document.querySelectorAll('.orientation > h6');
 const searchButton = document.querySelector('.inputs > .search-bar > .icon');
 const searchIcons = document.querySelectorAll('.search-bar > .icon > svg');
 
-const searchImage = async () => {
-  const imgContainer = document.querySelector('.img-container');
-  document.querySelector('.suggestions').style.display = 'none';
-  let input = tagInput.value;
-  let attr = tagInput.dataset.orientation;
-  
-  searchIcons[1].style.animation = 'rotateInfinite 1000ms linear infinite';
 
-
-  tagInput.dataset.input = input;
-  searchIcons[0].classList.add('hidden');
-    searchIcons[1].classList.remove('hidden');
-
-  
-  if(attr === 'Landscape') {
-    input += ' ratio:>1:1';
-  } else if(attr === 'Portrait') {
-    input += ' ratio:<1:1';
-  }
-
-  let res = await fetch('https://febryans-danbooru.hf.space/run/predict', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      data: [
-        input + ' -filetype:mp4,webm',
-        20
-      ]
-    })
-  });
-  let posts = (await res.json()).data[0];
-  imgContainer.innerHTML = '';
-  
-  imgContainer.scrollTo({
-    left: 0,
-    behavior: 'smooth'
-  });
-  
-  for(let i = 0; i < posts.data.length; i++) {
-    let image = document.createElement('div');
-    let post = posts.data[i];
-    
-    image.dataset.file = post.file_url;
-    image.dataset.source = post.source;
-    image.dataset.artist = post.tag_string_artist;
-    image.dataset.tags = post.tag_update;
-    image.dataset.sample = post.large_file_url;
-    imgContainer.appendChild(image);
-    imageOrientation(
-      image,
-      post.preview_file_url,
-      post.large_file_url,
-      post.image_width,
-      post.image_height
-    );
-    setBgFull(image, post.large_file_url);
-    imgClick(image);
-  }
- searchIcons[1].style.animation = 'none';
-}
-
-
-searchButton.addEventListener('click', searchImage);
-
-tagInput.addEventListener('keypress', (event) => {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    searchImage();
-  }
-});
-
-
-let searchIconPath = document.querySelector('.inputs > .icon > svg path');
 
 
 const modifyTags = (tag) => {
@@ -167,6 +93,7 @@ const suggestTag = async (parent, key) => {
   }
 }
 
+
 tagInput.addEventListener('mouseenter', () => {
   const container = document.querySelector('.suggestions');
   container.style.display = 'flex';
@@ -200,10 +127,84 @@ document.querySelector('.suggestions > button').addEventListener('click', () => 
 
 
 
+let searchIconPath = document.querySelector('.inputs > .icon > svg path');
+
+
+const searchImage = async () => {
+  const imgContainer = document.querySelector('.img-container');
+  document.querySelector('.suggestions').style.display = 'none';
+  let input = tagInput.value;
+  let attr = tagInput.dataset.orientation;
+  
+  searchIcons[1].style.animation = 'rotateInfinite 1000ms linear infinite';
+
+
+  tagInput.dataset.input = input;
+  searchIcons[0].classList.add('hidden');
+    searchIcons[1].classList.remove('hidden');
+
+  
+  if(attr === 'Landscape') {
+    input += ' ratio:>1:1';
+  } else if(attr === 'Portrait') {
+    input += ' ratio:<1:1';
+  }
+
+  let res = await fetch('https://febryans-danbooru.hf.space/run/predict', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      data: [
+        input + ' -filetype:mp4,webm',
+        20
+      ]
+    })
+  });
+  let posts = (await res.json()).data[0];
+  imgContainer.innerHTML = '';
+  
+  imgContainer.scrollTo({
+    left: 0,
+    behavior: 'smooth'
+  });
+  
+  for(let i = 0; i < posts.data.length; i++) {
+    let image = document.createElement('div');
+    let post = posts.data[i];
+    
+    imgContainer.appendChild(image);
+    imageOrientation(
+      image,
+      post.preview_file_url,
+      post.large_file_url,
+      post.image_width,
+      post.image_height
+    );
+    setBgFull(image, post.large_file_url);
+    imgClick(image, post);
+  }
+ searchIcons[1].style.animation = 'none';
+}
+
+
+searchButton.addEventListener('click', searchImage);
+
+tagInput.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    searchImage();
+  }
+});
 
 
 
-const imgClick = (image) => {
+
+
+
+
+const imgClick = (image, post) => {
   const toggleDesaturate = (element, value) => {
     const imgChildren = imgContainer.children;
     for(let i = 0; i < imgChildren.length; i++) {
@@ -222,7 +223,7 @@ const imgClick = (image) => {
     let sourceBtn = redirectButtons[0];
     let downloadBtn = redirectButtons[1];
 
-    let source = image.dataset.source;
+    let source = post.source;
     
     if(source.includes('pixiv')) {
       sourceBtn.children[0].src = '/static/pixiv.png';
@@ -231,14 +232,15 @@ const imgClick = (image) => {
     }
 
     sourceBtn.href = source;
-    downloadBtn.href = image.dataset.file;
-    artistDesc.textContent = image.dataset.artist;
-    tagDesc.textContent = image.dataset.tags;
+    
+    artistDesc.textContent = post.tag_string_artist;
+    tagDesc.textContent = post.tag_update;
 
-    imgInfo.style.background = `url(${image.dataset.sample})`;
+    setBgFull(imgInfo, post.large_file_url);
 
-    imgInfo.style.backgroundSize = 'cover';
-    imgInfo.style.backgroundPosition = 'center 0';
+    imgInfo.dataset.file = post.large_file_url;
+    imgInfo.dataset.artist = post.tag_string_artist;
+    imgInfo.dataset.chara = post.tag_string_character;
   });
 
   image.addEventListener("mouseenter", () => {
@@ -251,19 +253,39 @@ const imgClick = (image) => {
 
 
 
+document.querySelector('.img-info > .link-string').lastElementChild.addEventListener('click', (async (e) => {
+  e.preventDefault();
 
+  const imgInfo = document.querySelector('.img-info');
+  let res = await fetch(imgInfo.dataset.file);
+  let blob = await res.blob();
+  const reader = new FileReader();
+  
+  
+  reader.readAsDataURL(blob);
+  reader.addEventListener('load', (event) => {
+    let dl = document.createElement('a');
+    dl.href = event.target.result;
+    dl.download = imgInfo.dataset.chara + ' by ' + imgInfo.dataset.artist;
+    dl.click();
+    dl.remove();
+  });
+}));
 
 
 
 
 const popularToday = document.querySelector('.popular-today');
 
-const loadPopularPosts = async () => {
+const loadPopularPosts = async (permitted) => {
   const container = document.querySelector('.popular-today > .body');
-
+  let tags = 'order:rank rating:g -filetype:mp4,zip,webm';
+  if(permitted) {
+    tags = 'order:rank -filetype:mp4,zip,webm';
+  }
   let params = new URLSearchParams({
-    tags: 'order:rank rating:g -filetype:mp4,gif,zip,webm',
-    limit: 20
+    tags: tags,
+    limit: 50
   });
   const url = new URL('https://danbooru.donmai.us/posts.json?');
   url.search = params.toString();
@@ -274,19 +296,13 @@ const loadPopularPosts = async () => {
     let post = posts[i];
     let image = document.createElement('div');
     image.textContent = i + 1;
-    imageOrientation(
-      image,
-      post.preview_file_url,
-      post.large_file_url,
-      post.image_width,
-      post.image_height
-    );
-    setBgFull(image, post.preview_file_url);
+
+    let ratio = `${post.image_width}/${post.image_height}`
+    image.style.aspectRatio = ratio;
+    setBgFull(image, post.large_file_url);
     container.appendChild(image);
   }
 }
-
-loadPopularPosts();
 
 
 

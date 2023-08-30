@@ -58,6 +58,7 @@ toggleViewType.addEventListener('click', (e) => {
 
 
 
+
 const audioAction = () => {
   // To control the player if the type is Video
   

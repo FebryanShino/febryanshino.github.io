@@ -98,6 +98,7 @@ const loadRepositories = async () => {
     container.appendChild(item);
   }
 }
+
 loadRepositories();
 
 
@@ -153,7 +154,8 @@ const analogClock = () => {
   const hourContainer = document.querySelector('.clock > .hours');
   
   secContainer.style.transform = `rotate(${second/60*360}deg)`;
-  minContainer.style.transform = `rotate(${minute/60*360}deg)`;
+  
+  minContainer.style.transform = `rotate(${(minute+second/60)/60*360}deg)`;
   hourContainer.style.transform = `rotate(${hour/12*360}deg)`;
 
   let hours = leadZero(hour);
