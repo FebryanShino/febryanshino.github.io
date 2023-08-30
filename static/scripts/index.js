@@ -21,7 +21,7 @@ const auth = (permitted) => {
   if (!permitted) {
     let items = document.querySelectorAll('.auth-needed');
     for(let i = 0; i < items.length; i++) {
-      items[i].classList.add('hidden')
+      items[i].classList.add('hidden');
     }
     return;
   }

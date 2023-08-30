@@ -24,21 +24,15 @@ const loadAboutPage = (items) => {
 */
 
 
-const cookieForm = document.querySelector('.fourth-page form');
+const cookieForm = document.querySelector('.fourth-page > .footer > form');
 
 
 cookieForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  let cook = `name=${e.target.children[0].value}; expires=` + new Date(9999,1,1).toUTCString();
-  console.log(cook);
-  document.cookie = cook;
-  alert('yatta');
+  document.cookie = `name=${e.target.children[0].value}; expires=` + new Date(9999,1,1).toUTCString();
+  e.target.reset();
+  alert('Cookie Saved!');
 });
-
-
-document.querySelector('.fourth-page > button').addEventListener('click', (async () => {
-  
-}))
 
 
 
