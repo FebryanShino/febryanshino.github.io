@@ -7,6 +7,135 @@
   }
 }
 
+.fourth-page {
+  display: grid;
+  font-family: 'Playfair';
+}
+
+.fourth-page > .header {
+  background: url("/static/profile.png");
+  background-size: cover;
+  background-position: 100% 20%;
+  width: 100%;
+  height: auto;
+  color: var(--grad-2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3.5rem var(--main-side-padding) .5rem;
+  position: relative;
+  isolation: isolate;
+}
+
+.fourth-page > .header > .profile {
+  width: 100%;
+  height: 10rem;
+  color: var(--grad-3);
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+}
+
+.fourth-page > .header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.8),
+    rgba(0,0,0,.95)
+  );
+  z-index: -1;
+}
+
+
+.fourth-page > .header > .profile > .profile-img {
+  background: url("https://pbs.twimg.com/media/Fyp7jndaEAEwLMF?format=jpg&name=large");
+  background-size: cover;
+  height: 100%;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+}
+
+.fourth-page > .header > .profile > .profile-txt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fourth-page > .header > .profile > .profile-txt > p {
+  font-weight: 600;
+  color: hsl(0,0%,80%);
+}
+
+.fourth-page > .social-media {
+  background: black;
+}
+
+
+.fourth-page > .social-media > .head {
+  padding: 1rem var(--main-side-padding);
+  width: 100%;
+  color: white;
+}
+  
+.fourth-page > .social-media > .body {
+  padding: 1rem var(--main-side-padding);
+  background: black;
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  grid-gap: .35rem;
+}
+
+.fourth-page > .social-media .body > a {
+  background: var(--grad-2);
+  aspect-ratio: 1/1;
+  color: black;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+
+.fourth-page > .footer {
+  background: black;
+  width: 100%;
+  height: 35rem;
+  padding: 1rem var(--main-side-padding);
+}
+
+.fourth-page > .footer > form {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  gap: .3rem;
+}
+
+.fourth-page > .footer > form > input {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border: none;
+  font-weight: 500;
+  padding: .5rem;
+}
+
+.fourth-page > .footer > form > button {
+  background: var(--grad-2);
+  font-weight: 1000;
+  border: none;
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+
+
 .hidden {
   display: none;
 }
