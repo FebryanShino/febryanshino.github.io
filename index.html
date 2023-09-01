@@ -249,7 +249,11 @@
         <div class="info">
           <h2>Illustrious</h2>
           <h4>Shinomiya</h4>
-          <div class="timeline"></div>
+          <div class="timeline">
+            <div class="circle"></div>
+            <div class="line"></div>
+            <input id="timeline" type="range" step="1" min="0" value="0"/>
+          </div>
           <div class="time">
             <span>0:00</span>
             <span>0:00</span>
@@ -272,7 +276,7 @@
       </div>
     </div>
     
-    <div class="youtube auth-needed">
+    <div class="youtube">
       <div class="head">
         <h2>YouTube</h2>
         <form>
@@ -297,8 +301,8 @@
             <h4 id="duration">Duration</h4>
             <h4 id="genre">genre</h4>
             <div>
-              <a href="https://images.prodia.xyz/953a74de-6409-4aaf-8e72-216f53b21afd.png" target="_blank" download>↓ Artwork</a>
-              <a href="">Preview</a>
+              <a href="#" target="_blank" download>↓ Artwork</a>
+              <a href="#">Preview</a>
             </div>
           </div>
         </div>
@@ -378,11 +382,7 @@
           <a href="#">Portrait</a>
           <a href="#">Landscape</a>
         </div>
-        <div class="suggestions">
-          <div class="container"></div>
-          <button>Close</button>
-          
-        </div>
+        <div class="suggestions"></div>
       </div>
       <div class="img-layout">
         <div class="img-container">
@@ -480,12 +480,12 @@
               <div></div>
             </label>
             <div>
-              <label>
-                Stroke
+              <label id="stroke-clr">
+                <span>Stroke</span>
                 <input type="color"/>
               </label>
-              <label>
-                Background
+              <label id="back-clr">
+                <span>Background</span>
                 <input type="color"/>
               </label>
             </div>
