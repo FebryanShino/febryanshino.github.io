@@ -136,27 +136,40 @@ const convertToMinute = (seconds) => {
 
 const timeUpdate = (type) => {
   // A function to update some elements according to video/audio current duration
-
+  const range = document.querySelector('#timeline');
+  const timeline = document.querySelector('.timeline');
+  
+  range.addEventListener('input', () => {
+    type.currentTime = range.value;
+    let ratio = range.value/range.max;
+    let isEnded = timeline.dataset.end === 'true';
+    timeline.style.setProperty('--ratio', ratio);
+    if (isEnded) {
+      toggleIcon(0);
+      timeline.dataset.end = !isEnded;
+    }
+  });
   
   
   type.addEventListener('timeupdate', () => {
     let duration = type.duration;
     let current = type.currentTime;
     let ratio = current/duration;
-    
-    const timeline = document.querySelector('.timeline');
+
     const timeCounter = document.querySelector('.music-player > .head > .info > .time').children;
     
-    
-      timeline.style.transform = `scaleX(${ratio})`;
+
+    range.max = duration;
+    range.value = current;
+    timeline.style.setProperty('--ratio', ratio);
     timeCounter[0].textContent = convertToMinute(current);
     timeCounter[1].textContent = convertToMinute(duration);
   
   
     if(current === duration) {
       toggleIcon(2);
+      timeline.dataset.end = 'true';
       type.pause();
-      counter = 0;
     }
   });
 

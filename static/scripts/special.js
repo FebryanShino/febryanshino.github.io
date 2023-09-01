@@ -76,8 +76,6 @@ const suggestTag = async (parent, key) => {
       item.addEventListener('click', (e) => {
         e.preventDefault();
         modifyTags(tag.name);
-        const container = document.querySelector('.suggestions');
-        container.style.display = 'none';
       });
       let name = document.createElement('span');
       let count = document.createElement('span');
@@ -94,15 +92,20 @@ const suggestTag = async (parent, key) => {
 }
 
 
-tagInput.addEventListener('mouseenter', () => {
+tagInput.addEventListener('focus', () => {
   const container = document.querySelector('.suggestions');
-  container.style.display = 'flex';
+  
+});
+tagInput.addEventListener('blur', () => {
+  const container = document.querySelector('.suggestions');
+  container.style.transform = 'scaleY(0)';
 });
 
 
 tagInput.addEventListener('input', (e) => {
   let inputValue = tagInput.dataset.input;
-  const container = document.querySelector('.suggestions > .container');
+  const container = document.querySelector('.suggestions');
+  container.style.transform = 'scaleY(1)';
 
   let tags = e.target.value;
   let lastTag = tags.split(' ')[tags.split(' ').length - 1];
@@ -118,12 +121,12 @@ tagInput.addEventListener('input', (e) => {
   }
 
 });
-
+/*
 document.querySelector('.suggestions > button').addEventListener('click', () => {
   const container = document.querySelector('.suggestions');
   container.style.display = 'none';
 });
-
+*/
 
 
 
@@ -131,8 +134,6 @@ let searchIconPath = document.querySelector('.inputs > .icon > svg path');
 
 
 const searchImage = async () => {
-  const imgContainer = document.querySelector('.img-container');
-  document.querySelector('.suggestions').style.display = 'none';
   let input = tagInput.value;
   let attr = tagInput.dataset.orientation;
   
@@ -475,6 +476,15 @@ QRCodeForm.addEventListener('submit',(e) => {
     });
   });
   reader.readAsDataURL(file.files[0]);
+});
+
+
+const qrColorInputs = document.querySelectorAll('.qrcode > .body > form > div > div > label');
+
+qrColorInputs.forEach(input => {
+  input.addEventListener('input', () => {
+    input.style.background = `linear-gradient(90deg, black, ${input.children[1].value})`;
+  });
 });
 
 

@@ -145,8 +145,8 @@ setInterval(datetime, 60000);
 const analogClock = () => {
   let date = new Date();
   let second = date.getSeconds();
-  let minute = date.getMinutes();
-  let hour = date.getHours();
+  let minute = date.getMinutes() + second/60;
+  let hour = date.getHours() + minute/60;
 
   
   const secContainer = document.querySelector('.clock > .seconds');
@@ -155,11 +155,11 @@ const analogClock = () => {
   
   secContainer.style.transform = `rotate(${second/60*360}deg)`;
   
-  minContainer.style.transform = `rotate(${(minute+second/60)/60*360}deg)`;
+  minContainer.style.transform = `rotate(${minute/60*360}deg)`;
   hourContainer.style.transform = `rotate(${hour/12*360}deg)`;
 
-  let hours = leadZero(hour);
-  let minutes = leadZero(minute);
+  let hours = leadZero(date.getHours());
+  let minutes = leadZero(date.getMinutes());
 
   timeContainer.textContent = `${hours}:${minutes}`;
   timeContainer.dataset.time = `${hours}:${minutes}`;
