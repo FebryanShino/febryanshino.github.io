@@ -30,6 +30,7 @@
   background: rgba(255,255,255,.1);
   display: flex;
   padding: .3rem;
+  position: relative;
 }
 
 .music-player > form > input {
@@ -54,6 +55,43 @@
   font-size: 1.35rem;
   font-weight: 800;
   transition: transform 300ms ease;
+}
+
+.music-player > form > .video-preview {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + .5rem);
+  left: 0;
+  width: 100%;
+  height: 5rem;
+  background: rgba(0,0,0,.75);
+  border-radius: .5rem;
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+  transform-origin: top;
+  transition: transform 300ms ease;
+}
+
+.music-player > form > .video-preview > div {
+  background: url("https://i3.ytimg.com/vi/kRd1cW0_VMA/maxresdefault.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  aspect-ratio: 16/9;
+}
+
+.music-player > form > .video-preview > p {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: white;
+  opacity: .8;
+  font-weight: 500;
+  font-size: .8rem;
+  padding-right: 1rem;
+  overflow-y: auto;
 }
 
 .music-player > .head {
@@ -227,7 +265,7 @@
 
 .youtube > .head {
   width: 100%;
-  aspect-ratio: 2/1;
+  height: 10rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

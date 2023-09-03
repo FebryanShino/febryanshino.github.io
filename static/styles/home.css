@@ -273,8 +273,7 @@
 
 .special-part {
   width: 100%;
-  height: auto;
-  aspect-ratio: 3/1;
+  height: 10rem;
   background: black;
   position: relative;
 }
@@ -585,6 +584,9 @@
 }
 
 
+
+
+
 .philosophy-container {
   width: 100%;
   background: none;
@@ -673,8 +675,12 @@
 
 
 
+
+
+
 .project-container {
   width: 100%;
+  height: auto;
   background: none;
   display: flex;
   flex-direction: column;
@@ -692,21 +698,32 @@
   color: var(--grad-2);
   font-size: 3rem;
 }
-
 .project-container > .projects {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-gap: 1rem;
+}
+
+.project-container > .projects > div {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+}
+
+.project-container > .projects > .project-main {
   display: grid;
   grid-template-areas:
     "💎 💎 💖"
     "🌟 ✨ 💖"
     "🌟 ❇️ ❇️";
-  width: 100%;
-  aspect-ratio: 1/1;
   grid-auto-columns: 1fr;
   grid-auto-rows: 1fr;
   gap: .3rem;
 }
 
-.projects > .project {
+.projects > .project-main > .item {
   position: relative;
   background-size: cover;
   background-position: center 70%;
@@ -721,7 +738,7 @@
   z-index: 0;
 }
 
-.project::before {
+.project-main > .item::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -731,42 +748,42 @@
   transition: background 300ms ease;
 }
 
-.project:hover::before {
+.project-main > .item:hover::before {
   background: rgba(0,0,0,.3);
 }
 
-.project:nth-child(1) {
+.project-main > .item:nth-child(1) {
   background: url("https://pbs.twimg.com/media/F14RMaFagAArhOr?format=png&name=small");
   background-size: cover;
   grid-area: ✨;
 }
 
-.project:nth-child(2) {
+.project-main > .item:nth-child(2) {
   background-position: center 0;
   grid-area: 💎;
 }
 
-.project:nth-child(3) {
+.project-main > .item:nth-child(3) {
   grid-area: 💖;
   flex-direction: column;
 }
 
-.project:nth-child(4) {
+.project-main > .item:nth-child(4) {
   grid-area: ❇️;
   background-position: center 0;
   flex-direction: row-reverse;
 }
 
-.project:nth-child(5) {
+.project-main > .item:nth-child(5) {
   grid-area: 🌟;
   flex-direction: column-reverse;
 }
 
-.project > h4 {
+.project-main > .item > h4 {
   z-index: 1;
 }
 
-.project > a {
+.project-main > .item > a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -782,14 +799,28 @@
     transform 500ms ease;
 }
 
-.project:hover > a {
+.project-main > .item:hover > a {
   transform: scale(1.3) rotate(315deg);
 }
 
 
-.project:hover {
+.project-main > .item:hover {
   transform: scale(1.05);
   z-index: 2;
+}
+
+
+.project-2 {
+  display: grid;
+  grid-template-areas:
+    "🌟 🌟 💖 ❇️"
+    "🌟 🌟 💖 ❇️"
+    "💎 💎 🚨 ❇️"
+    "🔥 🔥 🔥 ✨"
+  ;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  gap: .3rem;
 }
 
 
