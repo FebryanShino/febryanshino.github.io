@@ -65,7 +65,7 @@
       <div class="text">
         <h1>
           Welcome To<br/>
-          Frenella's Courtyard
+          Frenella's Dormitory
         </h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque congue volutpat.
@@ -130,7 +130,11 @@
     <div class="project-container">
       <h2>Project<br/><span>GRID</span></h2>
       <div class="projects">
-        <div class="project"></div>
+        <div class="project-main">
+          <div class="item"></div>
+        </div>
+        <div class="project-2">
+        </div>
       </div>
     </div>
     
@@ -238,6 +242,11 @@
       <form>
         <input value="https://youtu.be/kRd1cW0_VMA" required/>
         <button>→</button>
+        <div class="video-preview">
+          <div></div>
+          <p>【原神】フォンテーヌ LIVE MUSIC VIDEO（オーケストラ編成）</p>
+        </div>
+        
       </form>
       
       <div class="head">
@@ -504,13 +513,16 @@
       <div class="body">
         <div class="inputs">
           <textarea rows="5">Yeet the hood</textarea>
-          <a href="#">Clear</a>
+          <div>
+            <a href="#">Clear</a>
+            <div class="offset">Offset: 0
+            </div>
+          </div>
         </div>
         <div class="outputs">
-          <div class="text">
+          <textarea class="text" rows="5" readonly>
             <span>Yatta</span>
-            <div class="offset">Offset: 0</div>
-          </div>
+          </textarea>
           <input type="range" value="" min="-32" max="32" steps="1"/>
         </div>
       </div>
