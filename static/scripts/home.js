@@ -1,10 +1,10 @@
 const loadProjects = (projects) => {
-  let projectContainer = document.querySelector('.projects');
+  let projectContainer = document.querySelector('.projects > .project-main');
   
   for(let i = 0; i < 4; i++) {
     let project = projects[i];
     let item = document.createElement('div');
-    item.classList.add('project');
+    item.classList.add('item');
 
     let image = document.createElement('div');
     image.classList.add('thumbnail');
@@ -25,6 +25,20 @@ const loadProjects = (projects) => {
     item.appendChild(title);
     item.appendChild(link);
     projectContainer.appendChild(item);
+  }
+
+
+  const project2 = document.querySelector('.project-container > .projects > .project-2');
+
+  let symbols = ['🌟', '💖','💎','🚨','✨','❇️','🔥'];
+  
+  for (let i = 0; i < symbols.length; i++) {
+    let item = document.createElement('div');
+    
+    item.style.gridArea = symbols[i];
+    item.style.borderRadius = '.2rem';
+    item.style.background = `hsl(${i/symbols.length*360},100%,70%)`;
+    project2.appendChild(item);
   }
 }
 
@@ -218,6 +232,7 @@ refreshButton.addEventListener('click', (async (event) => {
     cards[i].classList.remove('hidden');
   }
 
+  /*
   let res = await fetch('https://febryans-danbooru.hf.space/run/predict', {
     method: 'POST',
     headers: {
@@ -232,7 +247,7 @@ refreshButton.addEventListener('click', (async (event) => {
   });
 
   let posts = (await res.json()).data[0];
-  refreshButton.textContent = 'Refresh';
+  */
 
   let cardNotLoaded = cardContainer.dataset.exist === 'false';
 
@@ -243,8 +258,9 @@ refreshButton.addEventListener('click', (async (event) => {
   
   
   for(let i = 0; i < cards.length; i++) {
+    let res = await fetch('https://danbooru.donmai.us/posts/random.json?tags=genshin_impact%20-1boy%20rating:g');
+    let post = await res.json();
     let card = cards[i];
-    let post = posts.data[i];
     if(!('large_file_url' in post)) {
       continue;
     }
@@ -253,4 +269,5 @@ refreshButton.addEventListener('click', (async (event) => {
     card.style.opacity = 1;
     imageOrientation(card, preview, fileUrl, post.image_width, post.image_height);
   }
+  refreshButton.textContent = 'Refresh';
 }));

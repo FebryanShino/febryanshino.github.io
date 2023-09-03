@@ -164,12 +164,18 @@ const timeUpdate = (type) => {
     timeline.style.setProperty('--ratio', ratio);
     timeCounter[0].textContent = convertToMinute(current);
     timeCounter[1].textContent = convertToMinute(duration);
+
+    
   
   
     if(current === duration) {
       toggleIcon(2);
       timeline.dataset.end = 'true';
       type.pause();
+    } else if(type.paused) {
+      toggleIcon(0);
+    } else {
+      toggleIcon(1);
     }
   });
 
@@ -201,6 +207,13 @@ rewindButton.addEventListener('click', () => {
 const musicForm = document.querySelector('.music-player > form');
 
 musicForm.children[0].addEventListener('input', (e) => {
+  const previewBox = document.querySelector('.music-player > form > .video-preview');
+  
+  if(e.target.value !== musicForm.dataset.url) {
+    previewBox.style.transform = 'scaleY(0)';
+  } else {
+    previewBox.style.transform = 'scaleY(1)';
+  }
   
   if(e.target.value !== '') {
     musicForm.children[1].style.transform = 'rotate(0deg)';
@@ -217,6 +230,8 @@ musicForm.addEventListener('submit', (async (e) => {
   // Outputs: Video information (Type: Object), video source (Type: String), audio source (Typr: String)
   
   e.preventDefault();
+  const previewBox = document.querySelector('.music-player > form > .video-preview');
+  previewBox.style.transform = 'scaleY(0)';
 
   let videoUrl = e.target.children[0].value;
   const button = e.target.children[1];
@@ -237,6 +252,7 @@ musicForm.addEventListener('submit', (async (e) => {
     })
   });
   let output = await res.json();
+  
   
   audio.pause();
   video.pause();
@@ -304,6 +320,7 @@ youtubeForm.addEventListener('submit', (async (e) => {
     behavior: 'smooth'
   });
 
+  
   for(let i = 0; i < posts.length; i++) {
     let post = posts[i];
     let thumbnail = post.snippet.thumbnails.high.url;
@@ -321,8 +338,16 @@ youtubeForm.addEventListener('submit', (async (e) => {
 
     item.addEventListener('click', () => {
       const containerGod = document.querySelector('.third-page');
+      const previewBox = document.querySelector('.music-player > form > .video-preview');
       let videoID = post.id.videoId;
-      musicForm.children[0].value = 'https://youtu.be/' + videoID;
+
+      previewBox.style.transform = 'scaleY(1)';
+      setBgFull (previewBox.children[0], thumbnail);
+      previewBox.children[1].textContent = post.snippet.title;
+
+      let ytURL = 'https://youtu.be/' + videoID
+      musicForm.dataset.url = ytURL;
+      musicForm.children[0].value = ytURL;
       containerGod.scrollTo({
         top: 0,
         behavior: 'smooth'

@@ -129,12 +129,29 @@ document.querySelector('.suggestions > button').addEventListener('click', () => 
 */
 
 
+const formatTags = (string) => {
+  arr = string.split(' ')
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1).replace(/_/g, ' ');
+  }
+  return arr.join(', ')
+}
+
 
 let searchIconPath = document.querySelector('.inputs > .icon > svg path');
 
 
+
 const searchImage = async () => {
+  imgContainer.innerHTML = '';
+  imgContainer.scrollTo({
+    left: 0,
+    behavior: 'smooth'
+  });
+
+  
   let input = tagInput.value;
+
   let attr = tagInput.dataset.orientation;
   
   searchIcons[1].style.animation = 'rotateInfinite 1000ms linear infinite';
@@ -151,30 +168,31 @@ const searchImage = async () => {
     input += ' ratio:<1:1';
   }
 
-  let res = await fetch('https://febryans-danbooru.hf.space/run/predict', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      data: [
-        input + ' -filetype:mp4,webm',
-        20
-      ]
-    })
-  });
-  let posts = (await res.json()).data[0];
-  imgContainer.innerHTML = '';
+  input = document.body.dataset.status === 'dev' ? input : input + ' rating:g';
   
-  imgContainer.scrollTo({
-    left: 0,
-    behavior: 'smooth'
+  let params = new URLSearchParams({
+    tags: input + ' -filetype:mp4,webm'
   });
+  const url = new URL('https://danbooru.donmai.us/posts/random.json');
+  url.search = params.toString();
+
+  let arrayOfIDs = [];
   
-  for(let i = 0; i < posts.data.length; i++) {
-    let image = document.createElement('div');
-    let post = posts.data[i];
+  for(let i = 0; i < 20; i++) {
+    let res = await fetch(url);
+    console.log(res.ok);
+    if(!res.ok) {
+      alert('not found')
+      break;
+    }
+
     
+    let post = await res.json();
+    if(arrayOfIDs.includes(post.id)) {
+      continue;
+    }
+    arrayOfIDs.push(post.id);
+    let image = document.createElement('div');
     imgContainer.appendChild(image);
     imageOrientation(
       image,
@@ -186,9 +204,9 @@ const searchImage = async () => {
     setBgFull(image, post.large_file_url);
     imgClick(image, post);
   }
+
  searchIcons[1].style.animation = 'none';
 }
-
 
 searchButton.addEventListener('click', searchImage);
 
@@ -225,17 +243,22 @@ const imgClick = (image, post) => {
     let downloadBtn = redirectButtons[1];
 
     let source = post.source;
-    
-    if(source.includes('pixiv')) {
-      sourceBtn.children[0].src = '/static/pixiv.png';
-    } else {
-      sourceBtn.children[0].src = '/static/twitter.png';
-    }
-
     sourceBtn.href = source;
     
-    artistDesc.textContent = post.tag_string_artist;
-    tagDesc.textContent = post.tag_update;
+    if(source.includes('pximg') || source.includes('pixiv')) {
+      let pixiv = source.split('/');
+      sourceBtn.href = 'https://pixiv.net/artworks/' + pixiv[pixiv.length - 1].split('_')[0];
+      sourceBtn.children[0].src = '/static/pixiv.png';
+      sourceBtn.classList.remove('hidden');
+    } else if(source.includes('twitter')) {
+      sourceBtn.children[0].src = '/static/twitter.png';
+      sourceBtn.classList.remove('hidden');
+    } else {
+      sourceBtn.classList.add('hidden');
+    }
+    
+    artistDesc.textContent = formatTags(post.tag_string_artist);
+    tagDesc.textContent = formatTags(post.tag_string_general);
 
     setBgFull(imgInfo, post.large_file_url);
 
@@ -244,10 +267,10 @@ const imgClick = (image, post) => {
     imgInfo.dataset.chara = post.tag_string_character;
   });
 
-  image.addEventListener("mouseenter", () => {
+  image.addEventListener('mouseenter', () => {
     toggleDesaturate(image, 0);
   });
-  image.addEventListener("mouseleave", ()=> {
+  image.addEventListener('mouseleave', ()=> {
     toggleDesaturate(image, 100);
   });
 }
@@ -516,29 +539,30 @@ const encryptText = (text, offset) => {
 const offsetSlider = document.querySelector('.encrypt-text > .body > .outputs > input');
 
 offsetSlider.addEventListener('input', (e) => {
-  let offsetText = document.querySelector('.encrypt-text > .body > .outputs > .text > .offset');
+  let offsetText = document.querySelector('.encrypt-text > .body > .inputs > div > .offset');
   let input = document.querySelector('.encrypt-text > .body > .inputs > textarea').value;
-  let output = document.querySelector('.encrypt-text > .body > .outputs > .text > span');
+  let output = document.querySelector('.encrypt-text > .body > .outputs > .text');
+
 
   offsetText.textContent = `Offset: ${e.target.value}`;
 
-  output.textContent = encryptText(input, e.target.value);
+  output.value = encryptText(input, e.target.value);
 });
 
 const textArea = document.querySelector('.encrypt-text > .body > .inputs > textarea');
 
 textArea.addEventListener('input', (e) => {
   let input = e.target.value;
-  let output = document.querySelector('.encrypt-text > .body > .outputs > .text > span');
+  let output = document.querySelector('.encrypt-text > .body > .outputs > .text');
 
-  output.textContent = encryptText(input, offsetSlider.value);
+  output.value = encryptText(input, offsetSlider.value);
 });
 
 
-document.querySelector('.encrypt-text > .body > .inputs > a').addEventListener('click', (e) => {
+document.querySelector('.encrypt-text > .body > .inputs > div > a').addEventListener('click', (e) => {
   e.preventDefault();
-  let output = document.querySelector('.encrypt-text > .body > .outputs > .text > span');
+  let output = document.querySelector('.encrypt-text > .body > .outputs > .text');
 
-  output.textContent = '';
+  output.value = '';
   textArea.value = '';
 });

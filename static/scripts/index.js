@@ -25,7 +25,8 @@ const auth = (permitted) => {
     }
     return;
   }
- 
+
+  document.querySelector('.first-page > .header > h5').textContent = 'Hello, Shino!';
   document.body.dataset.status = 'dev';
 }
 
@@ -37,7 +38,7 @@ const loadDatabase = async () => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      key: document.cookie.split('name=')[1]
+      key: document.cookie.split('user=')[1]
     })
   });
   let data = await res.json();

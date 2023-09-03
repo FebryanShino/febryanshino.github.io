@@ -19,15 +19,16 @@ const createRandomDots = (container, amount, height) => {
 }
 
 const imageOrientation = (element, preview, imageUrl, width, height) => {
+  element.style.opacity = 0;
   let ratio = width/height;
 
   let image = new Image();
   image.src = imageUrl;
   
-  element.style.backgroundImage = `url(${preview})`;
+  element.style.backgroundImage = `url(${imageUrl})`;
 
   image.addEventListener('load', () => {
-  element.style.backgroundImage = `url(${imageUrl})`;
+    element.style.opacity = 1;
   });
   element.className = '';
   if(ratio > 1) {

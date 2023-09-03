@@ -29,7 +29,7 @@ const cookieForm = document.querySelector('.fourth-page > .footer > form');
 
 cookieForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  document.cookie = `name=${e.target.children[0].value}; expires=` + new Date(9999,1,1).toUTCString();
+  document.cookie = `user=${e.target.children[0].value}; expires=` + new Date(9999,1,1).toUTCString();
   e.target.reset();
   alert('Cookie Saved!');
 });
